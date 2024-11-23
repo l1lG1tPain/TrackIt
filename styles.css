@@ -1,0 +1,174 @@
+/* Общие стили */
+body {
+    font-family: 'JetBrains Mono', monospace;
+    margin: 0;
+    padding: 0;
+    background: #2A2B34;
+    color: #FFFFFF;
+    user-select: none;
+  }
+  
+  #install-pwa {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  #install-pwa .modal-content {
+    background: #2A2B34;
+    color: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 90%;
+    max-width: 300px;
+  }
+  
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #7228F5;
+    color: #FFFFFF;
+    padding: 10px 20px;
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 1.5em;
+  }
+  
+  header div {
+    display: flex;
+    gap: 10px;
+  }
+  
+  button {
+    background-color: #A0FF00;
+    color: #2A2B34;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #88CC00;
+  }
+  
+  button.negative {
+    background-color: #FF0000;
+  }
+  
+  button.positive {
+    background-color: #A0FF00;
+  }
+  
+  button:hover.negative {
+    background-color: #CC0000;
+  }
+  
+  button:hover.positive {
+    background-color: #008000;
+  }
+  
+  .material-icons {
+    font-size: 1.5em;
+    vertical-align: middle;
+  }
+  
+  main {
+    padding: 80px 20px 20px;
+  }
+  
+  /* Карточка игрока */
+  .card {
+    background: #7228F5;
+    color: #FFFFFF;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .card h3 {
+    margin: 0;
+    font-size: 1.2em;
+  }
+  
+  .card .controls {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .card .controls button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  /* Стили модального окна */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: #2A2B34;
+    color: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 90%; /* Уменьшаем ширину модальных окон */
+    max-width: 300px; /* Максимальная ширина модального окна */
+  }
+  
+  .modal-content input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 15px 0;
+    font-size: 1em;
+    border: 2px solid #7228F5;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .modal-buttons button {
+    flex: 1;
+  }
+  

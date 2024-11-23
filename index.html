@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#4caf50">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <title>TrackIt</title>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>TrackIt</h1>
+      <div>
+        <button id="reset-scores-btn" title="Очистить очки">
+          <span class="material-icons">refresh</span>
+        </button>
+        <button id="add-player-btn">
+          <span class="material-icons">person_add</span>
+        </button>
+      </div>
+    </header>
+    <main>
+      <div id="players-list"></div>
+    </main>
+
+    <!-- Модальное окно для добавления игрока -->
+    <div id="modal-add-player" class="modal">
+      <div class="modal-content">
+        <h2>Добавить игрока</h2>
+        <input type="text" id="player-name" placeholder="Введите имя" />
+        <div class="modal-buttons">
+          <button id="add-player-confirm">Добавить</button>
+          <button id="modal-cancel">Отмена</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Модальное окно для добавления очков -->
+    <div id="modal-add-points" class="modal">
+      <div class="modal-content">
+        <h2>Добавить очки</h2>
+        <input type="tel" id="player-points" placeholder="Введите очки" />
+        <div class="modal-buttons">
+          <button id="add-points-confirm">Добавить</button>
+          <button id="modal-cancel">Отмена</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Модальное окно для удаления игрока -->
+    <div id="modal-delete-player" class="modal">
+      <div class="modal-content">
+        <h2>Удалить игрока?</h2>
+        <div class="modal-buttons">
+          <button id="delete-player-confirm" class="negative">Да</button>
+          <button id="modal-cancel" class="positive">Нет</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Модальное окно для сброса очков -->
+    <div id="modal-reset-scores" class="modal">
+      <div class="modal-content">
+        <h2>Очистить очки у всех игроков?</h2>
+        <div class="modal-buttons">
+          <button id="reset-scores-confirm" class="negative">Да</button>
+          <button id="modal-cancel" class="positive">Нет</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- всплывшака для pwa -->
+  <div id="install-pwa" class="modal">
+    <div class="modal-content">
+      <h2>Установить приложение?</h2>
+      <p>Вы можете установить это приложение на ваше устройство для удобного доступа.</p>
+      <div class="modal-buttons">
+        <button id="install-confirm" class="positive">Установить</button>
+        <button id="install-cancel" class="negative">Позже</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
