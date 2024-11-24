@@ -3,7 +3,7 @@
     "short_name": "TrackIt",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#2A2B34",
+    "background_color": "#eae3ff",
     "theme_color": "#7228F5",
     "icons": [
       {
