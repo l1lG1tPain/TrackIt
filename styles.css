@@ -1,4 +1,5 @@
 /* Общие стили */
+
 body {
     font-family: 'JetBrains Mono', monospace;
     margin: 0;
@@ -172,3 +173,277 @@ body {
     flex: 1;
   }
   
+  /* Основной контент */
+main {
+  padding-bottom: 60px; /* Отступ для футера */
+}
+
+.page {
+  display: none;
+  /* padding: 20px; */
+}
+
+.page.active {
+  display: block;
+}
+
+/* Фиксированный футер */
+.navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #7228F5;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  z-index: 1000;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1.5em;
+  flex: 1;
+  transition: color 0.3s ease;
+}
+
+.nav-btn:hover {
+  color: #A0FF00;
+  background: none;
+}
+
+
+/* Стили для формы создания комнаты */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+form input {
+  padding: 10px;
+  font-size: 1em;
+  border: 2px solid #7228F5;
+  border-radius: 5px;
+  outline: none;
+}
+
+form button {
+  padding: 10px;
+  background-color: #A0FF00;
+  color: #2A2B34;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #88CC00;
+}
+
+
+/* Список комнат */
+#rooms {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+#rooms li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #7228F5;
+  color: #FFFFFF;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#rooms li h3 {
+  margin: 0;
+  flex: 1;
+  font-size: 1.5em;
+}
+
+#rooms li p {
+  margin: 0 10px;
+  font-size: 0.9em;
+}
+
+#rooms li button {
+  background: #FF0000;
+  color: white;
+  border-radius: 50%;
+}
+
+#rooms li button:hover {
+  color: #CC0000;
+}
+
+
+/* Стили для карточек игроков */
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #7228F5;
+  color: white;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.card-info h3 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.card-info p {
+  margin: 5px 0 0;
+  font-size: 1em;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+.controls button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: #FF0000;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #CC0000;
+}
+
+.add-btn {
+  background: #A0FF00;
+  color: black;
+}
+
+.add-btn:hover {
+  background: #00CC00;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #2A2B34;
+  color: #FFFFFF;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 90%;
+  max-width: 300px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  flex: 1;
+}
+
+/* карусель */
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 10px;
+  padding: 10px 7px;
+}
+
+.carousel-item {
+  flex: 0 0 95%; /* Баннер занимает 80% ширины контейнера */
+  max-width: 600px; /* Максимальная ширина баннера */
+  border-radius: 10px;
+  overflow: hidden; /* Скрываем части, которые выходят за границы */
+  padding: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-item img {
+  width: 100%; /* Изображение растягивается на весь блок */
+  height: auto; /* Пропорциональная высота */
+  margin: 0px 0 -7px;
+  object-fit: cover; /* Контент обрезается, чтобы полностью заполнить блок */
+}
+
+
+
+.divider {
+  margin: 20px 0;
+  border: 0;
+  height: 1px;
+  background: #ccc;
+}
+
+.settings-section {
+  margin-bottom: 20px;
+}
+
+.settings-section label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.settings-section select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: white;
+  font-size: 1em;
+}
+
+.info-section p {
+  margin: 10px 0;
+  font-size: 1em;
+}
+
+.info-section a {
+  color: #A0FF00;
+  text-decoration: none;
+}
+
+.info-section a:hover {
+  text-decoration: underline;
+}

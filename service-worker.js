@@ -1,4 +1,4 @@
-const CACHE_NAME = "trackit-v1";
+const CACHE_NAME = "trackit-v1.7";
 const assets = [
   "/",
   "/index.html",
