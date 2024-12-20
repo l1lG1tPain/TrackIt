@@ -148,8 +148,6 @@ fetch("/manifest.json")
     versionElement.textContent = `Версия приложения: ${manifest.version}`;
   });
 
-
-
 // Отображение списка комнат
 function renderRooms() {
   roomsList.innerHTML = rooms
