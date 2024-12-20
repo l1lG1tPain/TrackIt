@@ -140,6 +140,13 @@ document.querySelectorAll('.room-item').forEach((item) => {
   });
 });
 
+// Для манифеста
+fetch("/manifest.json")
+  .then((response) => response.json())
+  .then((manifest) => {
+    const versionElement = document.getElementById("app-version");
+    versionElement.textContent = `Версия приложения: ${manifest.version}`;
+  });
 
 
 
