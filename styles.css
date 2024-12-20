@@ -567,3 +567,7 @@ form button:hover {
 .info-section a:hover {
   text-decoration: underline;
 }
+
+#app-version {
+  color: #A0FF00;
+}
