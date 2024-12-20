@@ -142,11 +142,20 @@ document.querySelectorAll('.room-item').forEach((item) => {
 
 // Для манифеста
 fetch("/manifest.json")
-  .then((response) => response.json())
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Не удалось загрузить manifest.json");
+    }
+    return response.json();
+  })
   .then((manifest) => {
     const versionElement = document.getElementById("app-version");
     versionElement.textContent = `Версия приложения: ${manifest.version}`;
+  })
+  .catch((error) => {
+    console.error("Ошибка загрузки манифеста:", error);
   });
+
 
 
 
