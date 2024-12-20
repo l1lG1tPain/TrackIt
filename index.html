@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#4caf50">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, orientation-lock=portrait">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport" />
+  <meta content="#4caf50" name="theme-color" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
+  <link href="manifest.json" rel="manifest" />
+  <link href="styles.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="manifest" href="manifest.json?v=1.9">
   <title>TrackIt</title>
 </head>
+
 <body>
   <div id="app">
     <header>
@@ -25,49 +29,71 @@
         </button>
       </div>
     </header>
-    
+
     <main id="main-content">
       <!-- Страница создания комнаты -->
-      <section id="create-room" class="page active">
+      <section class="page active" id="create-room">
         <h1>Создать комнату</h1>
         <form id="create-room-form">
-          <input type="text" id="room-name" placeholder="Название комнаты" required />
-          <input type="number" id="max-points" placeholder="Максимальное количество очков" required />
+          <input id="room-name" placeholder="Название комнаты" required="" type="text" />
+          <input id="max-points" placeholder="Максимальное количество очков" required="" type="number" />
           <button type="submit">Создать комнату</button>
         </form>
+        <div class="carousel">
+          <div class="carousel-item">
+            <a href="uno.html">
+              <img alt="УНО" src="assets/banner-uno.jpg" />
+            </a>
+          </div>
+          <div class="carousel-item">
+            <a href="108.html">
+              <img alt="108" src="assets/banner-108.jpg" />
+            </a>
+          </div>
+          <div class="carousel-item">
+            <a href="bura.html">
+              <img alt="bura" src="assets/banner-bura.jpg" />
+            </a>
+          </div>
+          <div class="carousel-item">
+            <a href="chests.html">
+              <img alt="chests" src="assets/banner-chests.jpg" />
+            </a>
+          </div>
+        </div>
       </section>
-      
-      <section id="room-details" class="page">
+
+      <section class="page" id="room-details">
         <h1 id="room-title"></h1>
-        <p>Максимальное количество очков: <span id="room-max-points"></span></p>
-        <!-- <button id="add-player-to-room-btn">Добавить игрока</button> -->
+        <p>
+          Максимальное количество очков: <span id="room-max-points"></span>
+        </p>
         <div id="room-players-list"></div>
       </section>
-      
 
       <!-- Страница списка комнат -->
-      <section id="room-list" class="page">
+      <section class="page" id="room-list">
         <h1>Список комнат</h1>
         <ul id="rooms"></ul>
       </section>
 
       <!-- Страница настроек -->
-      <section id="settings" class="page">
+      <section class="page" id="settings">
         <div class="carousel">
+            <div class="carousel-item">
+                <img alt="Баннер 1" src="assets/banner4.jpg" />
+            </div>
           <div class="carousel-item">
-            <img src="assets/banner1.jpg" alt="Баннер 1">
+            <img alt="Баннер 2" src="assets/banner1.jpg" />
           </div>
           <div class="carousel-item">
-            <img src="assets/banner2.jpg" alt="Баннер 2">
+            <img alt="Баннер 3" src="assets/banner2.jpg" />
           </div>
           <div class="carousel-item">
-            <img src="assets/banner3.jpg" alt="Баннер 3">
+            <img alt="Баннер 4" src="assets/banner3.jpg" />
           </div>
         </div>
-        
-      
         <hr class="divider" />
-      
         <div class="settings-section">
           <label for="theme-selector">Сменить тему:</label>
           <select id="theme-selector">
@@ -77,35 +103,50 @@
             <option value="forest-mystic">Forest Mystic</option>
           </select>
         </div>
-      
         <div class="info-section">
-          <p>Версия приложения: <strong id="app-version">v.1.7</strong></p>
-          <p>Автор: <strong>l1lG1tPain</strong></p>
-          <p>Telegram: <a href="https://t.me/Cybersnitch" target="_blank">@Cybersnitch</a></p>
+          <p>
+            Версия приложения:
+            <strong id="app-version">v.1.7</strong>
+          </p>
+          <p>
+            Автор:
+            <strong>l1lG1tPain</strong>
+          </p>
+          <p>
+            Telegram:
+            <a href="https://t.me/Cybersnitch" target="_blank">@Cybersnitch</a>
+          </p>
         </div>
       </section>
-      
     </main>
 
     <!-- Фиксированный футер -->
     <footer class="navbar">
       <button class="nav-btn" data-target="create-room">
-        <i class="fas fa-plus-circle"></i>
+        <svg data-name="Layer 1" id="Layer_1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="m17.51,8.2h.001c-.385-.345-.995-.257-1.258.187-1.481,2.505-1.141,5.879-2.468,5.879-.628,0-.53-1.086-.826-1.756-.21-.475-.848-.548-1.175-.144-1.251,1.549-2.456,4.276-1.348,6.939,1.187,2.851,3.867,4.864,6.949,4.683,3.688-.215,6.614-3.275,6.614-7.018,0-3.696-4.098-6.637-6.49-8.77Zm1.387,12.748c-1.016,1.185-2.839,1.185-3.855,0-.878-1.024-.708-2.591.246-3.545l1.117-1.117c.311-.311.816-.311,1.127,0l1.117,1.117c.954.954,1.125,2.52.246,3.545h.001Zm-7.346,3.056h-6.552c-2.757,0-5-2.243-5-5v-9.276c0-1.665.824-3.214,2.203-4.145L9.203.859c1.699-1.146,3.895-1.146,5.594,0l7.203,4.88c1.252.942,2,2.41,2,3.989v1.973c-1.231-1.617-2.822-2.984-4.161-4.13-.352-.301-.688-.588-.994-.862h0c-.634-.568-1.48-.818-2.32-.688-.837.129-1.563.621-1.993,1.348-.576.975-.917,2-1.163,2.939-.215-.089-.444-.151-.683-.183-.947-.128-1.86.243-2.458.983-1.713,2.121-3.043,5.589-1.639,8.965.665,1.598,1.708,2.925,2.962,3.93Z"></path>
+        </svg>
       </button>
       <button class="nav-btn" data-target="room-list">
-        <i class="fas fa-list-ul"></i>
+        <svg data-name="Layer 1" id="Layer_1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.466,1.967L14.78,.221c-2.614-.797-5.406,.664-6.225,3.24l-.188,.539h-3.368C2.243,4,0,6.243,0,9v10c0,2.757,2.243,5,5,5h6c1.596,0,3.004-.766,3.92-1.934,.231,.032,.461,.052,.688,.052,2.167,0,4.144-1.414,4.775-3.564l3.413-10.397c.767-2.613-.727-5.39-3.331-6.189ZM11,22H5c-1.654,0-3-1.346-3-3V9c0-1.654,1.346-3,3-3h6c1.654,0,3,1.346,3,3v10c0,1.654-1.346,3-3,3ZM21.887,7.562l-3.412,10.397c-.358,1.214-1.413,2.022-2.603,2.132,.079-.353,.128-.716,.128-1.092V9c0-2.757-2.243-5-5-5h-.507c.534-1.501,2.163-2.341,3.7-1.867l5.686,1.746c1.562,.479,2.459,2.146,2.008,3.684Z"></path>
+        </svg>
       </button>
       <button class="nav-btn" data-target="settings">
-        <i class="fas fa-cog"></i>
+        <svg id="Outline" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7,0H4A4,4,0,0,0,0,4V7a4,4,0,0,0,4,4H7a4,4,0,0,0,4-4V4A4,4,0,0,0,7,0ZM9,7A2,2,0,0,1,7,9H4A2,2,0,0,1,2,7V4A2,2,0,0,1,4,2H7A2,2,0,0,1,9,4Z"></path>
+          <path d="M20,0H17a4,4,0,0,0-4,4V7a4,4,0,0,0,4,4h3a4,4,0,0,0,4-4V4A4,4,0,0,0,20,0Zm2,7a2,2,0,0,1-2,2H17a2,2,0,0,1-2-2V4a2,2,0,0,1,2-2h3a2,2,0,0,1,2,2Z"></path>
+          <path d="M7,13H4a4,4,0,0,0-4,4v3a4,4,0,0,0,4,4H7a4,4,0,0,0,4-4V17A4,4,0,0,0,7,13Zm2,7a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V17a2,2,0,0,1,2-2H7a2,2,0,0,1,2,2Z"></path>
+          <path d="M20,13H17a4,4,0,0,0-4,4v3a4,4,0,0,0,4,4h3a4,4,0,0,0,4-4V17A4,4,0,0,0,20,13Zm2,7a2,2,0,0,1-2,2H17a2,2,0,0,1-2-2V17a2,2,0,0,1,2-2h3a2,2,0,0,1,2,2Z"></path>
+        </svg>
       </button>
     </footer>
-    
 
     <!-- Модальные окна остаются без изменений -->
-    <div id="modal-add-player" class="modal">
+    <div class="modal" id="modal-add-player">
       <div class="modal-content">
         <h2>Добавить игрока</h2>
-        <input type="text" id="player-name" placeholder="Введите имя" />
+        <input id="player-name" placeholder="Введите имя" type="text" />
         <div class="modal-buttons">
           <button id="add-player-confirm">Добавить</button>
           <button id="modal-cancel">Отмена</button>
@@ -113,69 +154,78 @@
       </div>
     </div>
 
-    <div id="install-pwa" class="modal">
+    <div class="modal" id="install-pwa">
       <div class="modal-content">
         <h2>Установить приложение?</h2>
         <p>Вы можете установить это приложение на ваше устройство для удобного доступа.</p>
         <div class="modal-buttons">
-          <button id="install-confirm" class="positive">Установить</button>
-          <button id="install-cancel" class="negative">Позже</button>
-        </div>
-      </div>
-    </div>
-    <div id="modal-add-points" class="modal">
-      <div class="modal-content">
-        <h2>Добавить очки</h2>
-        <input type="number" id="player-points" placeholder="Введите очки" />
-        <div class="modal-buttons">
-          <button id="add-points-confirm" class="positive">Добавить</button>
-          <button id="modal-cancel" class="negative">Отмена</button>
-        </div>
-      </div>
-    </div>
-        <!-- Модальное окно подтверждения сброса очков -->
-    <div id="modal-reset-scores" class="modal">
-      <div class="modal-content">
-        <h2>Очистить очки у всех игроков?</h2>
-        <div class="modal-buttons">
-          <button id="reset-scores-confirm" class="positive">Да</button>
-          <button id="reset-scores-cancel" class="negative">Нет</button>
+          <button class="positive" id="install-confirm">Установить</button>
+          <button class="negative" id="install-cancel">Позже</button>
         </div>
       </div>
     </div>
 
-    <!-- Модальное окно подтверждения удаления игрока -->
-    <div id="modal-delete-player" class="modal">
+    <div class="modal" id="modal-add-points">
       <div class="modal-content">
-        <h2>Удалить игрока?</h2>
+        <h2>Добавить очки</h2>
+        <input id="player-points" placeholder="Введите очки" type="number" />
         <div class="modal-buttons">
-          <button id="delete-player-confirm" class="positive">Да</button>
-          <button id="delete-player-cancel" class="negative">Нет</button>
+          <button class="positive" id="add-points-confirm">Добавить</button>
+          <button class="negative" id="modal-cancel">Отмена</button>
         </div>
       </div>
     </div>
-    <!-- Модальное окно "Конец игры" -->
-    <div id="modal-end-game" class="modal">
+
+    <div class="modal" id="modal-reset-scores">
+      <div class="modal-content">
+        <h2>Очистить очки у всех игроков?</h2>
+        <div class="modal-buttons">
+          <button class="positive" id="reset-scores-confirm">Да</button>
+          <button class="negative" id="reset-scores-cancel">Нет</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-delete-player">
+      <div class="modal-content">
+        <h2>Удалить игрока?</h2>
+        <div class="modal-buttons">
+          <button class="positive" id="delete-player-confirm">Да</button>
+          <button class="negative" id="delete-player-cancel">Нет</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-end-game">
       <div class="modal-content">
         <h2>Игра закончена</h2>
         <p id="end-game-message"></p>
-        <button id="restart-game-btn" class="positive">Начать заново</button>
+        <button class="positive" id="restart-game-btn">Начать заново</button>
       </div>
     </div>
-    <!-- Модальное окно подтверждения удаления комнаты -->
-    <div id="modal-delete-room" class="modal">
+
+    <div class="modal" id="modal-delete-room">
       <div class="modal-content">
         <h2>Удалить комнату?</h2>
         <p>Вы уверены, что хотите удалить эту комнату? Все данные будут потеряны.</p>
         <div class="modal-buttons">
-          <button id="delete-room-confirm" class="positive">Да</button>
-          <button id="delete-room-cancel" class="negative">Нет</button>
+          <button class="positive" id="delete-room-confirm">Да</button>
+          <button class="negative" id="delete-room-cancel">Нет</button>
         </div>
       </div>
     </div>
-
-
   </div>
+
+  <div class="modal" id="modal-player-name">
+    <div class="modal-content">
+      <h2>Как вас зовут?</h2>
+      <input id="player-name-input" type="text" placeholder="Введите ваше имя" />
+      <button id="confirm-name">Подтвердить</button>
+    </div>
+  </div>
+  
+
   <script src="script.js"></script>
 </body>
+
 </html>

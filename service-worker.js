@@ -1,13 +1,18 @@
-const CACHE_NAME = "trackit-v1.7";
+const CACHE_NAME = "trackit-v1.9";
 const assets = [
-  "/",
-  "/index.html",
-  "/styles.css",
-  "/script.js",
-  "/manifest.json",
-  "/icons/icon-192x192.png",
-  "/icons/icon-512x512.png",
+  "/", // Корневая страница
+  "/index.html", // Главная страница
+  "/styles.css", // Стили
+  "/script.js", // Скрипты
+  "/manifest.json", // Манифест PWA
+  "/uno.html", // Страница UNO
+  "/bura.html", // Страница Бура
+  "/chests.html", // Страница Шахматы
+  "/108.html", // Страница 108
+  "/icons/icon-v1.9-192x192.png", // Иконка PWA
+  "/icons/icon-v1.9-512x512.png", // Иконка PWA
 ];
+
 
 // Установка и кэширование ресурсов
 self.addEventListener("install", (event) => {

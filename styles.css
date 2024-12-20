@@ -1,4 +1,53 @@
+
+:root {
+  --primary-color: #7228F5;
+  --secondary-color: #A0FF00;
+  --text-color: #FFFFFF;
+}
+
+:root.sunset-vibes {
+  --primary-color: #FF4500;
+  --secondary-color: #FFD700;
+  --text-color: #FFFFFF;
+}
+
+:root.forest-dreams {
+  --primary-color: #2E8B57;
+  --secondary-color: #8FBC8F;
+  --text-color: #FFFFFF;
+}
+
+:root {
+  --primary-color: #7228F5;
+  --secondary-color: #A0FF00;
+  --text-color: #FFFFFF;
+}
+
+:root.sunset-vibes {
+  --primary-color: #FF4500;
+  --secondary-color: #FFD700;
+  --text-color: #FFFFFF;
+}
+
+:root.forest-dreams {
+  --primary-color: #2E8B57;
+  --secondary-color: #8FBC8F;
+  --text-color: #FFFFFF;
+}
 /* Общие стили */
+
+img {
+  user-select: none; /* Запрет на выделение */
+  -webkit-user-drag: none; /* Отключение перетаскивания в WebKit-браузерах */
+  pointer-events: none; /* Отключение любых взаимодействий с мышью (опционально) */
+}
+
+img, a {
+  -webkit-user-drag: none; /* Отключает перетаскивание */
+  -webkit-touch-callout: none; /* Отключает контекстное меню на iOS */
+}
+
+
 
 body {
     font-family: 'JetBrains Mono', monospace;
@@ -6,8 +55,16 @@ body {
     padding: 0;
     background: #2A2B34;
     color: #FFFFFF;
-    user-select: none;
+    -webkit-user-select: none; /* Отключает выделение текста на iOS */
+    user-select: none; /* Отключает выделение текста на других устройствах */
+    
   }
+
+  input, textarea {
+    -webkit-user-select: text; /* Разрешает выделение текста в формах */
+    user-select: text;
+  }
+  
   
   #install-pwa {
     position: fixed;
@@ -95,8 +152,10 @@ body {
   
   main {
     padding: 80px 20px 20px;
+    margin-bottom: 40px;
   }
   
+
   /* Карточка игрока */
   .card {
     background: #7228F5;
@@ -153,6 +212,11 @@ body {
     max-width: 300px; /* Максимальная ширина модального окна */
   }
   
+  
+  .modal-buttons button {
+    flex: 1;
+  }
+  
   .modal-content input {
     width: calc(100% - 20px);
     padding: 10px;
@@ -168,15 +232,20 @@ body {
     justify-content: space-between;
     gap: 10px;
   }
-  
-  .modal-buttons button {
-    flex: 1;
-  }
-  
   /* Основной контент */
 main {
   padding-bottom: 60px; /* Отступ для футера */
 }
+
+button, a {
+  user-select: none; /* Запрещает выделение текста */
+  outline: none; /* Убирает рамку */
+  -webkit-tap-highlight-color: transparent; /* Отключает эффект нажатия на мобильных устройствах */
+  -webkit-user-drag: none; /* Отключает перетаскивание изображения в WebKit-браузерах */
+  pointer-events: auto; /* Отключает все действия мыши (если ссылка только для внешнего вида) */
+  cursor: pointer; /* Добавляет указатель мыши */
+}
+
 
 .page {
   display: none;
@@ -201,6 +270,25 @@ main {
   z-index: 1000;
 }
 
+.page {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.nav-btn {
+  transition: transform 0.2s ease;
+}
+
+.nav-btn:active {
+  transform: scale(0.9);
+}
+
 .nav-btn {
   background: none;
   border: none;
@@ -217,6 +305,23 @@ main {
   background: none;
 }
 
+.nav-btn svg {
+  fill: #FFFFFF; /* Устанавливаем цвет для SVG */
+  width: 35px;
+  transition: fill 0.3s ease;
+}
+
+.nav-btn:hover svg {
+  fill: #A0FF00; /* Меняем цвет иконки при hover */
+}
+
+.nav-btn:active svg {
+  fill: #FF4500; /* Устанавливаем цвет для SVG в состоянии active */
+}
+
+.nav-btn.active svg {
+  fill: #A0FF00; /* Активное состояние через класс */
+}
 
 /* Стили для формы создания комнаты */
 form {
@@ -242,6 +347,7 @@ form button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: bold;
   transition: background-color 0.3s ease;
 }
 
@@ -405,6 +511,20 @@ form button:hover {
   margin: 0px 0 -7px;
   object-fit: cover; /* Контент обрезается, чтобы полностью заполнить блок */
 }
+
+.carousel-item a {
+  display: block; /* Делает ссылку блочным элементом */
+  width: 100%; /* Устанавливает ширину ссылки */
+  height: 100%; /* Устанавливает высоту ссылки */
+  text-decoration: none; /* Убирает стандартное подчеркивание */
+}
+
+.carousel-item a img {
+  display: block; /* Убирает отступы картинки внутри ссылки */
+  width: 100%; /* Задает ширину картинки на всю ширину ссылки */
+  height: auto; /* Сохраняет пропорции изображения */
+}
+
 
 
 
