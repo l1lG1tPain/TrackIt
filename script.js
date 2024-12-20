@@ -42,13 +42,106 @@ function saveToLocalStorage() {
 }
 
 // Навигация между страницами
+document.addEventListener("DOMContentLoaded", () => {
+  // Найти активную секцию
+  const activeSection = document.querySelector(".page.active");
+
+  // Найти соответствующую кнопку
+  const activeButton = document.querySelector(`.nav-btn[data-target="${activeSection.id}"]`);
+
+  if (activeButton) {
+    activeButton.classList.add("active");
+  }
+});
+
+
 navButtons.forEach((button) => {
   button.addEventListener("click", () => {
+    // Удаляем класс active со всех кнопок
+    navButtons.forEach((btn) => btn.classList.remove("active"));
+
+    // Добавляем класс active на текущую кнопку
+    button.classList.add("active");
+
+    // Переключение секций
     const target = button.getAttribute("data-target");
     pages.forEach((page) => page.classList.remove("active"));
     document.getElementById(target).classList.add("active");
   });
 });
+
+
+// Проверка имени при загрузке
+document.addEventListener("DOMContentLoaded", () => {
+  const playerName = localStorage.getItem("playerName");
+
+  if (!playerName) {
+    showNameModal();
+  }
+});
+
+// Модальное окно "Как вас зовут?"
+function showNameModal() {
+  const modal = document.getElementById("modal-player-name");
+  modal.classList.add("show");
+
+  const confirmButton = document.getElementById("confirm-name");
+  confirmButton.addEventListener("click", () => {
+    const inputName = document.getElementById("player-name-input").value.trim();
+    if (inputName) {
+      localStorage.setItem("playerName", inputName);
+      modal.classList.remove("show");
+    }
+  });
+}
+
+// Логика аватарки
+function getRandomAvatar() {
+  return `assets/ava/${Math.floor(Math.random() * 5) + 1}.jpg`;
+}
+
+// Присвоение аватарки игроку
+function assignAvatar(player) {
+  player.avatar = getRandomAvatar();
+}
+
+// Обновление аватарок при очистке
+resetScoresConfirm.addEventListener("click", () => {
+  const room = rooms[currentRoomIndex];
+  room.players = room.players.map((player) => ({
+    ...player,
+    avatar: getRandomAvatar(),
+    score: 0,
+  }));
+  saveToLocalStorage();
+  renderRoomPlayers();
+});
+
+// Отключаем правый клик
+document.querySelectorAll('.banner a').forEach((link) => {
+  link.addEventListener('mousedown', (event) => {
+    if (event.button === 2) {
+      event.preventDefault(); // Отключает правый клик
+    }
+  });
+});
+
+document.addEventListener('contextmenu', (event) => {
+  event.preventDefault(); // Отключает контекстное меню
+});
+
+// На весь блок открывать room-info
+document.querySelectorAll('.room-item').forEach((item) => {
+  item.addEventListener('click', (event) => {
+    if (!event.target.classList.contains('delete-room-btn')) {
+      const roomIndex = item.getAttribute('data-room-index');
+      openRoom(roomIndex); // Открытие комнаты
+    }
+  });
+});
+
+
+
 
 // Отображение списка комнат
 function renderRooms() {
@@ -160,7 +253,7 @@ addPointsConfirm.addEventListener("click", () => {
     player.score += points;
 
     if (player.score > room.maxPoints) {
-      endGameMessage.textContent = `Проиграл ${player.name}`;
+      endGameMessage.textContent = `Проиграл ${player.name} с ${player.score} очками`;
       modalEndGame.style.display = "flex";
     } else if (player.score === room.maxPoints) {
       player.score = 0;
@@ -247,7 +340,25 @@ function closeModal(modal) {
   modal.style.display = "none";
 }
 
+
 // Смена темы
+function initializeTheme() {
+  const savedTheme = localStorage.getItem("theme") || "default";
+  applyTheme(savedTheme);
+}
+
+function applyTheme(theme) {
+  document.documentElement.className = theme;
+  localStorage.setItem("theme", theme);
+}
+
+// Обработка изменения темы через селектор
+document.getElementById("theme-selector").addEventListener("change", (event) => {
+  applyTheme(event.target.value);
+});
+
+initializeTheme();
+
 themeButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const selectedTheme = button.dataset.theme;
@@ -257,39 +368,8 @@ themeButtons.forEach((button) => {
 });
 
 function applyTheme(theme) {
-  const root = document.documentElement;
-  const themes = {
-    default: {
-      "--background-color": "#2A2B34",
-      "--primary-color": "#7228F5",
-      "--secondary-color": "#A0FF00",
-      "--text-color": "#FFFFFF",
-    },
-    "ocean-breeze": {
-      "--background-color": "#DFF6FF",
-      "--primary-color": "#0077B6",
-      "--secondary-color": "#00B4D8",
-      "--text-color": "#03045E",
-    },
-    "sunset-dreams": {
-      "--background-color": "#FFE5B4",
-      "--primary-color": "#FF5733",
-      "--secondary-color": "#FFC300",
-      "--text-color": "#900C3F",
-    },
-    "forest-mystic": {
-      "--background-color": "#E8F5E9",
-      "--primary-color": "#388E3C",
-      "--secondary-color": "#81C784",
-      "--text-color": "#1B5E20",
-    },
-  };
-  const themeStyles = themes[theme];
-  if (themeStyles) {
-    Object.keys(themeStyles).forEach((key) => {
-      root.style.setProperty(key, themeStyles[key]);
-    });
-  }
+  document.documentElement.className = theme;
+  localStorage.setItem("theme", theme);
 }
 
 // Закрытие модальных окон для всех кнопок "Отмена" или "Нет"
@@ -351,3 +431,20 @@ fetch('/manifest.json')
 
 // Инициализация приложения
 renderRooms();
+
+// Смена темы
+function initializeTheme() {
+  const savedTheme = localStorage.getItem("theme") || "default";
+  applyTheme(savedTheme);
+}
+
+function applyTheme(theme) {
+  document.documentElement.className = theme;
+  localStorage.setItem("theme", theme);
+}
+
+document.getElementById("theme-selector").addEventListener("change", (event) => {
+  applyTheme(event.target.value);
+});
+
+initializeTheme();
