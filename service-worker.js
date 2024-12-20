@@ -19,10 +19,13 @@ self.addEventListener("install", async (event) => {
   self.addEventListener("install", (event) => {
     event.waitUntil(
       caches.open(CACHE_NAME).then((cache) => {
-        return cache.addAll(assets);
+        return cache.addAll(assets).catch((error) => {
+          console.error("Ошибка при кэшировании ресурсов:", error);
+        });
       })
     );
   });
+  
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
@@ -59,3 +62,4 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+
