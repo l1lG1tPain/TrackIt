@@ -31,6 +31,19 @@ const navButtons = document.querySelectorAll(".nav-btn");
 const pages = document.querySelectorAll(".page");
 const themeButtons = document.querySelectorAll(".theme-btn"); // Для смены темы
 
+// Добавляем контейнер и функцию для вывода подсказок
+const hintContainer = document.getElementById("hint-container");
+function showHint(message) {
+  // Выводим текст внутри контейнера и показываем его
+  hintContainer.textContent = message;
+  hintContainer.style.display = "block";
+
+  // Скрываем через 3 секунды (можно настроить время)
+  setTimeout(() => {
+    hintContainer.style.display = "none";
+  }, 3000);
+}
+
 // Данные
 let rooms = JSON.parse(localStorage.getItem("rooms")) || [];
 let currentRoomIndex = null;
@@ -54,7 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
 navButtons.forEach((button) => {
   button.addEventListener("click", () => {
     // Удаляем класс active со всех кнопок
@@ -69,7 +81,6 @@ navButtons.forEach((button) => {
     document.getElementById(target).classList.add("active");
   });
 });
-
 
 // Проверка имени при загрузке
 document.addEventListener("DOMContentLoaded", () => {
@@ -140,22 +151,6 @@ document.querySelectorAll('.room-item').forEach((item) => {
   });
 });
 
-// Для манифеста
-fetch("/manifest.json")
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error("Не удалось загрузить manifest.json");
-    }
-    return response.json();
-  })
-  .then((manifest) => {
-    const versionElement = document.getElementById("app-version");
-    versionElement.textContent = `Версия приложения: ${manifest.version}`;
-  })
-  .catch((error) => {
-    console.error("Ошибка загрузки манифеста:", error);
-  });
-
 // Отображение списка комнат
 function renderRooms() {
   roomsList.innerHTML = rooms
@@ -191,7 +186,8 @@ createRoomForm.addEventListener("submit", (e) => {
     document.querySelector(".page.active").classList.remove("active");
     document.getElementById("room-list").classList.add("active");
   } else {
-    alert("Введите корректные данные.");
+    // Заменяем alert на showHint
+    showHint("Введите корректные данные.");
   }
 });
 
@@ -247,7 +243,8 @@ addPlayerConfirm.addEventListener("click", () => {
     playerNameInput.value = "";
     closeModal(modalAddPlayer);
   } else {
-    alert("Введите имя игрока.");
+    // Заменяем alert на showHint
+    showHint("Введите имя игрока.");
   }
 });
 
@@ -275,7 +272,8 @@ addPointsConfirm.addEventListener("click", () => {
     renderRoomPlayers();
     closeModal(modalAddPoints);
   } else {
-    alert("Введите корректное число.");
+    // Заменяем alert на showHint
+    showHint("Введите корректное число.");
   }
 });
 
@@ -353,7 +351,6 @@ function closeModal(modal) {
   modal.style.display = "none";
 }
 
-
 // Смена темы
 function initializeTheme() {
   const savedTheme = localStorage.getItem("theme") || "default";
@@ -380,10 +377,91 @@ themeButtons.forEach((button) => {
   });
 });
 
-function applyTheme(theme) {
-  document.documentElement.className = theme;
-  localStorage.setItem("theme", theme);
+const customSelect = document.querySelector(".custom-select");
+const customSelectTrigger = customSelect.querySelector(".custom-select-trigger");
+const customOptions = customSelect.querySelector(".custom-options");
+const hiddenSelect = document.getElementById("theme-selector");
+const options = customOptions.querySelectorAll(".custom-option");
+
+/**
+ * Функция ставит .active на опцию с нужным data-value
+ * и обновляет текст в триггере.
+ */
+function setActiveOption(value) {
+  // Убираем .active со всех опций
+  options.forEach((opt) => opt.classList.remove("active"));
+
+  // Ищем опцию, которая соответствует value
+  const matchedOption = [...options].find(
+    (opt) => opt.getAttribute("data-value") === value
+  );
+
+  if (matchedOption) {
+    // Ставим .active
+    matchedOption.classList.add("active");
+    // Обновляем текст триггера
+    customSelectTrigger.querySelector("span").textContent =
+      matchedOption.textContent;
+    // Синхронизируем скрытый <select>
+    hiddenSelect.value = value;
+  }
 }
+
+/**
+ * При клике на .custom-select-trigger — переключаем класс .open
+ * чтобы показать/скрыть список
+ */
+customSelectTrigger.addEventListener("click", () => {
+  customSelect.classList.toggle("open");
+
+  // Если открываем список, подсвечиваем актуальную опцию
+  if (customSelect.classList.contains("open")) {
+    setActiveOption(hiddenSelect.value);
+  }
+});
+
+/**
+ * При клике вне селектора — скрываем список
+ */
+document.addEventListener("click", (e) => {
+  if (!customSelect.contains(e.target)) {
+    customSelect.classList.remove("open");
+  }
+});
+
+/**
+ * При клике на конкретный вариант
+ */
+options.forEach((option) => {
+  option.addEventListener("click", () => {
+    // Считываем значение
+    const newValue = option.getAttribute("data-value");
+
+    // Устанавливаем .active и синхронизируем <select>
+    setActiveOption(newValue);
+
+    // Закрываем список
+    customSelect.classList.remove("open");
+
+    // Вызываем смену темы (внутри можно также сохранять в localStorage)
+    applyTheme(newValue);
+  });
+});
+
+/* 
+Если нужно, чтобы при загрузке страницы 
+сразу была активирована тема из localStorage:
+(предположим, она хранится как "theme" в localStorage)
+*/
+document.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("theme") || "default";
+  // Устанавливаем визуально и в <select>
+  setActiveOption(savedTheme);
+  // Вызываем логическую смену темы
+  applyTheme(savedTheme);
+});
+
+
 
 // Закрытие модальных окон для всех кнопок "Отмена" или "Нет"
 resetScoresCancel.addEventListener("click", () => {
@@ -405,14 +483,8 @@ document.querySelectorAll("#modal-cancel").forEach((button) => {
   });
 });
 
-// Функция для закрытия модального окна
-function closeModal(modal) {
-  modal.style.display = "none";
-}
-
 // Автопрокрутка карусели
 const carousel = document.querySelector('.carousel');
-
 let scrollAmount = 0;
 setInterval(() => {
   scrollAmount += carousel.offsetWidth;
@@ -425,27 +497,8 @@ setInterval(() => {
   });
 }, 30000);
 
-
-function initializeTheme() {
-  const savedTheme = localStorage.getItem("theme") || "default";
-  applyTheme(savedTheme);
-}
-
-initializeTheme();
-
 // Инициализация приложения
 renderRooms();
-
-// Смена темы
-function initializeTheme() {
-  const savedTheme = localStorage.getItem("theme") || "default";
-  applyTheme(savedTheme);
-}
-
-function applyTheme(theme) {
-  document.documentElement.className = theme;
-  localStorage.setItem("theme", theme);
-}
 
 document.getElementById("theme-selector").addEventListener("change", (event) => {
   applyTheme(event.target.value);
