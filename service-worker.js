@@ -16,15 +16,13 @@ self.addEventListener("install", async (event) => {
     "/icons/icon-v1.9-512x512.png",
   ];
 
-  self.addEventListener("install", (event) => {
-    event.waitUntil(
-      caches.open(CACHE_NAME).then((cache) => {
-        return cache.addAll(assets).catch((error) => {
-          console.error("Ошибка при кэшировании ресурсов:", error);
-        });
-      })
-    );
-  });
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(assets);
+    })
+  );
+});
   
 
 self.addEventListener("activate", (event) => {
