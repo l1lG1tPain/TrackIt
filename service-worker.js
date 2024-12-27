@@ -14,8 +14,8 @@ const ASSETS = [
   "/chests.html",
   "/108.html",
   "/offline.html", // Оффлайн-страница
-  "/icons/icon-v2.0-192x192.png",
-  "/icons/icon-v2.0-512x512.png"
+  "/icons/icon-v2.1-192x192.png",
+  "/icons/icon-v2.1-512x512.png"
 ];
 
 // === INSTALL ===
