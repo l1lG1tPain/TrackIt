@@ -156,9 +156,6 @@ fetch("/manifest.json")
     console.error("Ошибка загрузки манифеста:", error);
   });
 
-
-
-
 // Отображение списка комнат
 function renderRooms() {
   roomsList.innerHTML = rooms
