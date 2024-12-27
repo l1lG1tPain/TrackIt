@@ -1,7 +1,7 @@
 {
     "name": "TrackIt",
     "short_name": "TrackIt",
-    "start_url": ".",
+    "start_url": "/",
     "version": "1.9",
     "display": "standalone",
     "background_color": "#eae3ff",
