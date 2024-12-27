@@ -433,15 +433,6 @@ function initializeTheme() {
 
 initializeTheme();
 
-fetch('/manifest.json')
-  .then((response) => response.json())
-  .then((manifest) => {
-    const versionElement = document.getElementById('app-version');
-    if (versionElement) {
-      versionElement.textContent = `v.${manifest.version}`;
-    }
-  });
-
 // Инициализация приложения
 renderRooms();
 
