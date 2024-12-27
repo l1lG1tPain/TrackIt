@@ -12,7 +12,6 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <link rel="manifest" href="manifest.json?v=1.9">
   <title>TrackIt</title>
 </head>
 
@@ -29,6 +28,20 @@
         </button>
       </div>
     </header>
+
+    <div id="hint-container" style="
+      position: fixed;
+      top: 10px; 
+      right: 10px; 
+      z-index: 9999; 
+      background: #ffae00; 
+      color: #000; 
+      padding: 10px; 
+      border-radius: 4px; 
+      display: none;
+      font-family: sans-serif;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    "></div>
 
     <main id="main-content">
       <!-- Страница создания комнаты -->
@@ -80,9 +93,12 @@
       <!-- Страница настроек -->
       <section class="page" id="settings">
         <div class="carousel">
-            <div class="carousel-item">
-                <img alt="Баннер 1" src="assets/banner4.jpg" />
-            </div>
+          <div class="carousel-item">
+            <img alt="Баннер 1" src="assets/bannerv2.1.jpg" />
+           </div>
+          <div class="carousel-item">
+              <img alt="Баннер 1" src="assets/banner4.jpg" />
+          </div>
           <div class="carousel-item">
             <img alt="Баннер 2" src="assets/banner1.jpg" />
           </div>
@@ -91,22 +107,44 @@
           </div>
           <div class="carousel-item">
             <img alt="Баннер 4" src="assets/banner3.jpg" />
+          </div> 
+        </div>
+
+        <hr class="divider" />
+        <!-- Ваша обёртка -->
+        <div class="custom-select-wrapper">
+          <!-- Видимая часть -->
+          <div class="custom-select">
+            <!-- Триггер (заголовок), по которому кликают для открытия списка -->
+            <div class="custom-select-trigger">
+              <span>Выберите тему</span>
+              <div class="arrow"></div>
+            </div>
+            <!-- Выпадающий список с вариантами -->
+            <div class="custom-options">
+              <span class="custom-option" data-value="default">Default (Violet Pulse)</span>
+              <span class="custom-option" data-value="default-white">Default White (Bright Energy)</span>
+              <span class="custom-option" data-value="space-explorer">Space Explorer</span>
+              <span class="custom-option" data-value="ocean-depths">Ocean Depths</span>
+              <span class="custom-option" data-value="neon-experiment">Neon Experiment</span>
+            </div>
           </div>
         </div>
-        <hr class="divider" />
-        <div class="settings-section">
-          <label for="theme-selector">Сменить тему:</label>
-          <select id="theme-selector">
-            <option value="default">Default</option>
-            <option value="ocean-breeze">Да бля../option>
-            <option value="sunset-dreams">Я не могу..</option>
-            <option value="forest-mystic">Темы, скоро..</option>
-          </select>
-        </div>
+
+        <!-- Настоящий <select>, который будет скрыт -->
+        <select id="theme-selector" style="display:none;">
+          <option value="default">Default</option>
+          <option value="default-white">Default White</option>
+          <option value="space-explorer">Space Explorer</option>
+          <option value="ocean-depths">Ocean Depths</option>
+          <option value="test">Test</option>
+        </select>
+     
+
         <div class="info-section">
           <p>
             Версия приложения:
-            <strong id="app-version">Загрузка версии...</strong>
+            <strong id="app-version">v.2.1</strong>
           </p>
           <p>
             Автор:

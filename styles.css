@@ -1,39 +1,188 @@
-
 :root {
-  --primary-color: #7228F5;
-  --secondary-color: #A0FF00;
-  --text-color: #FFFFFF;
+  --primary-color: #7228F5; /* Основной цвет */
+  --secondary-color: #A0FF00; /* Акцентный цвет */
+  --text-color: #FFFFFF; /* Цвет текста */
+  --button-text-color: #FFFFFF; 
+  --background-color: #2A2B34; /* Общий фон */
+  --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
+  --button-color: var(--secondary-color); /* Цвет кнопок */
+  --card-color: var(--primary-color); /* Цвет карточек */
 }
 
-:root.sunset-vibes {
-  --primary-color: #FF4500;
-  --secondary-color: #FFD700;
-  --text-color: #FFFFFF;
+:root.default-white {
+  --primary-color: #7228F5; /* Основной цвет */
+  --secondary-color: #A0FF00; /* Акцентный цвет */
+  --text-color: #000000; /* Цвет текста */
+  --button-text-color: #FFFFFF; 
+  --background-color: #FFFFFF; /* Общий фон */
+  --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
+  --button-color: var(--secondary-color); /* Цвет кнопок */
+  --card-color: var(--primary-color); /* Цвет карточек */
 }
 
-:root.forest-dreams {
-  --primary-color: #2E8B57;
-  --secondary-color: #8FBC8F;
-  --text-color: #FFFFFF;
+:root.space-explorer {
+  --primary-color: #001F3F;
+  --secondary-color: #A6A6A6;
+  --text-color: #000000;
+  --background-color: #FFFFFF;
+  --header-footer-color: #001F3F;
+  --button-color: #A6A6A6; /* Серебристые кнопки */
+  --card-color: #001F3F; /* Цвет карточек */
 }
 
-:root {
-  --primary-color: #7228F5;
-  --secondary-color: #A0FF00;
+:root.ocean-depths {
+  --primary-color: #1B4D3E;
+  --secondary-color: #56C8D8;
   --text-color: #FFFFFF;
+  --background-color: #09080d;
+  --header-footer-color: #1B4D3E;
+  --button-color: #56C8D8; 
+  --card-color: #1B4D3E; /* Цвет карточек */
 }
 
-:root.sunset-vibes {
-  --primary-color: #FF4500;
-  --secondary-color: #FFD700;
+:root.neon-experiment {
+  --primary-color: #191bdf;
+  --secondary-color: #fe6807;
   --text-color: #FFFFFF;
+  --background-color: #09080d;
+  --header-footer-color: #191bdf;
+  --button-color: #fe6807; 
+  --card-color: #191bdf; /* Цвет карточек */
 }
 
-:root.forest-dreams {
-  --primary-color: #2E8B57;
-  --secondary-color: #8FBC8F;
-  --text-color: #FFFFFF;
+/* Общие стили для кнопок */
+button {
+  background-color: var(--button-color);
+  color: var(--text-color);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+button:hover {
+  background-color: var(--primary-color);
+}
+
+/* Стили списка комнат */
+#rooms li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card-color); /* Цвет карточек меняется в зависимости от темы */
+  /* color: var(--text-color); */
+  color: #FFFFFF;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#rooms li h3 {
+  margin: 0;
+  flex: 1;
+  font-size: 1.5em;
+}
+
+#rooms li p {
+  margin: 0 10px;
+  font-size: 0.9em;
+}
+
+#rooms li button {
+  background: var(--button-color); /* Акцентный цвет кнопок */
+  color: var(--button-text-color);
+  border-radius: 50%;
+}
+
+#rooms li button:hover {
+  background: var(--primary-color); /* Основной цвет при наведении */
+}
+
+/* Хедер и футер */
+header, .navbar {
+  background-color: var(--header-footer-color);
+  transition: background-color 0.5s ease;
+}
+
+/* Остальной интерфейс */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+
+/* Стили для карточек игроков */
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--card-color); /* Цвет карточки игрока зависит от темы */
+  color: var(--text-color);
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card-info h3 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.card-info p {
+  margin: 5px 0 0;
+  font-size: 1em;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+.controls button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  /* color: var(--text-color); */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.controls button:hover {
+  background-color: var(--primary-color); /* Основной цвет при наведении */
+}
+
+.delete-btn {
+  background-color: var(--button-text-color); /* Цвет кнопки удаления */
+}
+
+.delete-btn:hover {
+  background-color: var(--primary-color);
+}
+
+.add-btn {
+  background-color: var(--button-color); /* Цвет кнопки добавления */
+}
+
+.add-btn:hover {
+  background-color: var(--primary-color);
+}
+
+
+.modal-content {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
 /* Общие стили */
 
 img {
@@ -53,8 +202,6 @@ body {
     font-family: 'JetBrains Mono', monospace;
     margin: 0;
     padding: 0;
-    background: #2A2B34;
-    color: #FFFFFF;
     -webkit-user-select: none; /* Отключает выделение текста на iOS */
     user-select: none; /* Отключает выделение текста на других устройствах */
     
@@ -99,7 +246,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #7228F5;
     color: #FFFFFF;
     padding: 10px 20px;
   }
@@ -115,7 +261,7 @@ body {
   }
   
   button {
-    background-color: #A0FF00;
+    /* background-color: #A0FF00; */
     color: #2A2B34;
     border: none;
     padding: 10px;
@@ -126,7 +272,7 @@ body {
   }
   
   button:hover {
-    background-color: #88CC00;
+    background-color: var(--primary-color);
   }
   
   button.negative {
@@ -158,7 +304,7 @@ body {
 
   /* Карточка игрока */
   .card {
-    background: #7228F5;
+    /* background: #7228F5; */
     color: #FFFFFF;
     margin: 10px 0;
     padding: 15px;
@@ -262,7 +408,6 @@ button, a {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: #7228F5;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -320,7 +465,7 @@ button, a {
 }
 
 .nav-btn.active svg {
-  fill: #A0FF00; /* Активное состояние через класс */
+  fill: var(--button-color);
 }
 
 /* Стили для формы создания комнаты */
@@ -341,7 +486,7 @@ form input {
 
 form button {
   padding: 10px;
-  background-color: #A0FF00;
+  /* background-color: #A0FF00; */
   color: #2A2B34;
   font-size: 1em;
   border: none;
@@ -352,7 +497,7 @@ form button {
 }
 
 form button:hover {
-  background-color: #88CC00;
+  /* background-color: #88CC00; */
 }
 
 
@@ -361,29 +506,6 @@ form button:hover {
   list-style: none;
   padding: 0;
   margin: 20px 0;
-}
-
-#rooms li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #7228F5;
-  color: #FFFFFF;
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-#rooms li h3 {
-  margin: 0;
-  flex: 1;
-  font-size: 1.5em;
-}
-
-#rooms li p {
-  margin: 0 10px;
-  font-size: 0.9em;
 }
 
 #rooms li button {
@@ -402,7 +524,6 @@ form button:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #7228F5;
   color: white;
   margin: 10px 0;
   padding: 10px;
@@ -560,7 +681,7 @@ form button:hover {
 }
 
 .info-section a {
-  color: #A0FF00;
+  color: var(--secondary-color);
   text-decoration: none;
 }
 
@@ -569,5 +690,115 @@ form button:hover {
 }
 
 #app-version {
-  color: #A0FF00;
+  color: var(--secondary-color);
+}
+
+/* ============ ОБЁРТКА ============ */
+.custom-select-wrapper {
+  position: relative;
+  width: 100%; /* Растягиваем на всю ширину родителя */
+}
+
+/* ============ ОСНОВА СЕЛЕКТОРА ============ */
+.custom-select {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+}
+
+/* ============ «ШАПКА» (триггер) ============ */
+.custom-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  
+  padding: 10px 12px;
+  margin: 0;          /* Можно добавить отступы по вкусу */
+  font-size: 14px;
+  color: #333;
+
+  /* width: 95%; */
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* При наведении: меняем цвет фона, рамки */
+.custom-select-trigger:hover {
+  background-color: #f6f6f6;
+  border-color: #999;
+}
+
+/* При фокусе: outline или подсветка рамки */
+.custom-select-trigger:focus {
+  outline: none;         /* убираем стандартную обводку */
+  border-color: #777;    /* меняем цвет рамки */
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1); /* небольшой glow */
+}
+
+/* ============ СТРЕЛКА ▼ ============ */
+.custom-select-trigger .arrow {
+  width: 0;
+  height: 0;
+  margin-left: 10px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #333; /* Треугольник */
+  transition: transform 0.2s;
+}
+
+/* Если класс .open — поворачиваем стрелку вверх */
+.custom-select.open .arrow {
+  transform: rotate(-180deg);
+}
+
+/* ============ СПИСОК ОПЦИЙ ============ */
+.custom-options {
+  position: absolute;
+  top: 100%;        /* сразу под «шапкой» */
+  left: 0;
+  right: 0;
+
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  max-height: 200px;   /* ограничение по высоте */
+  overflow-y: auto;    /* скролл, если вариантов много */
+  z-index: 999;
+
+  /* По умолчанию скрыт */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+/* Когда .custom-select имеет класс .open — показываем список */
+.custom-select.open .custom-options {
+  opacity: 1;
+  pointer-events: all; /* клики включены */
+}
+
+/* ============ КАЖДАЯ ОПЦИЯ ============ */
+.custom-option {
+  display: block;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #333;
+  transition: background-color 0.1s;
+}
+
+/* Hover-эффект для опции */
+.custom-option:hover {
+  background-color: #f2f2f2;
+}
+
+/* Подсвечиваем выбранную опцию */
+.custom-option.active {
+  background-color: var(--secondary-color); /* пример */
+  font-weight: 600;          /* выделяем текст жирным */
 }
