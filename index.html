@@ -29,19 +29,11 @@
       </div>
     </header>
 
-    <div id="hint-container" style="
-      position: fixed;
-      top: 10px; 
-      right: 10px; 
-      z-index: 9999; 
-      background: #ffae00; 
-      color: #000; 
-      padding: 10px; 
-      border-radius: 4px; 
-      display: none;
-      font-family: sans-serif;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    "></div>
+    <div id="hint-container"></div>
+    <div id="loader" style="display: none;">
+      <div class="loader"></div>
+    </div>
+    
 
     <main id="main-content">
       <!-- Страница создания комнаты -->
@@ -114,6 +106,7 @@
         <!-- Ваша обёртка -->
         <div class="custom-select-wrapper">
           <!-- Видимая часть -->
+          <h1>Выберите тему</h1>
           <div class="custom-select">
             <!-- Триггер (заголовок), по которому кликают для открытия списка -->
             <div class="custom-select-trigger">
@@ -122,29 +115,53 @@
             </div>
             <!-- Выпадающий список с вариантами -->
             <div class="custom-options">
-              <span class="custom-option" data-value="default">Default (Violet Pulse)</span>
-              <span class="custom-option" data-value="default-white">Default White (Bright Energy)</span>
-              <span class="custom-option" data-value="space-explorer">Space Explorer</span>
-              <span class="custom-option" data-value="ocean-depths">Ocean Depths</span>
-              <span class="custom-option" data-value="neon-experiment">Neon Experiment</span>
+              <span class="custom-option" data-value="default">✨ Default (Violet Pulse)</span>
+              <span class="custom-option" data-value="default-white">🌟 Default White (Bright Energy)</span>
+              <span class="custom-option" data-value="space-explorer">🌌 Space Explorer</span>
+              <span class="custom-option" data-value="ocean-depths">🌊 Ocean Depths</span>
+              <span class="custom-option" data-value="neon-experiment">⚡ Neon Experiment</span>
+              <span class="custom-option new" data-value="midnight-meon">🌙 Midnight Neon <span class="indicator">NEW</span></span>
+              <span class="custom-option new" data-value="mystic-pastel">🦄 Mystic Pastel <span class="indicator">NEW</span></span>
+              <span class="custom-option new" data-value="urban-contrast">🏙️ Urban Contrast <span class="indicator">NEW</span></span>
+              <span class="custom-option new" data-value="forest-harmony">🌲 Forest Harmony <span class="indicator">NEW</span></span>
+              <span class="custom-option new" data-value="new-year">🎄 New year 2025 <span class="indicator">NEW</span></span>
+              <span class="custom-option new" data-value="golden-hour">🌅 Golden Hour <span class="indicator">NEW</span></span>
+              <span class="custom-option new" data-value="cyberpunk-neon">🌃 Cyberpunk Neon <span class="indicator">NEW</span></span>
+              <span class="custom-option new" data-value="spring-blossom">🌸 Spring Blossom <span class="indicator">NEW</span></span>
+              <span class="custom-option new" data-value="autumn-leaves">🍂 Autumn Leaves <span class="indicator">NEW</span></span>
+              <span class="custom-option new" data-value="galaxy-dreams">🌠 Galaxy Dreams <span class="indicator">NEW</span></span>
+              <span class="custom-option new" data-value="minimal-elegance">⚪ Minimal Elegance <span class="indicator">NEW</span></span>
+              <span class="custom-option new" data-value="tropical-sunset">🌴 Tropical Sunset <span class="indicator">NEW</span></span>
             </div>
           </div>
         </div>
 
         <!-- Настоящий <select>, который будет скрыт -->
         <select id="theme-selector" style="display:none;">
-          <option value="default">Default</option>
+          <option value="default">Default (Violet Pulse)</option>
           <option value="default-white">Default White</option>
           <option value="space-explorer">Space Explorer</option>
           <option value="ocean-depths">Ocean Depths</option>
-          <option value="test">Test</option>
+          <option value="neon-experiment">Neon Experiment</option>
+          <option value="midnight-meon">Midnight Neon <span class="indicator">NEW</span></option>
+          <option value="mystic-pastel">Mystic Pastel <span class="indicator">NEW</span></option>
+          <option value="urban-contrast">Urban Contras <span class="indicator">NEW</span></option>
+          <option value="forest-harmony">Forest Harmony <span class="indicator">NEW</span></option>
+          <option value="new-year">New year 2025 <span class="indicator">NEW</span></option>
+          <option value="golden-hour">Golden Hour <span class="indicator">NEW</span></option>
+          <option value="cyberpunk-neon">Cyberpunk Neon <span class="indicator">NEW</span></option>
+          <option value="spring-blossom">Spring Blossom <span class="indicator">NEW</span></option>
+          <option value="autumn-leaves">Autumn Leaves <span class="indicator">NEW</span></option>
+          <option value="galaxy-dreams">Galaxy Dreams <span class="indicator">NEW</span></option>
+          <option value="minimal-elegance">Minimal Elegance <span class="indicator">NEW</span></option>
+          <option value="tropical-sunset">Tropical Sunset <span class="indicator">NEW</span></option>
         </select>
      
-
+        <hr class="divider" />
         <div class="info-section">
           <p>
             Версия приложения:
-            <strong id="app-version">v.2.1</strong>
+            <strong id="app-version">v.2.3</strong>
           </p>
           <p>
             Автор:

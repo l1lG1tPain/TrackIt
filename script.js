@@ -183,13 +183,19 @@ createRoomForm.addEventListener("submit", (e) => {
     renderRooms();
     roomNameInput.value = "";
     maxPointsInput.value = "";
+
+    // Переход на страницу списка комнат
     document.querySelector(".page.active").classList.remove("active");
     document.getElementById("room-list").classList.add("active");
+
+    // Обновляем активную кнопку в навбаре
+    navButtons.forEach((btn) => btn.classList.remove("active"));
+    document.querySelector(`.nav-btn[data-target="room-list"]`).classList.add("active");
   } else {
-    // Заменяем alert на showHint
     showHint("Введите корректные данные.");
   }
 });
+
 
 // Открытие комнаты
 function openRoom(index) {
@@ -351,6 +357,59 @@ function closeModal(modal) {
   modal.style.display = "none";
 }
 
+// Функция для проверки введённых данных
+function validateInput(input) {
+  const maxLength = 15;
+  const regex = /^[\p{L}\p{N}\s\p{Emoji_Presentation}]*$/u; // Разрешены буквы, цифры, пробелы и эмодзи
+
+  // Ограничиваем длину
+  if (input.value.length > maxLength) {
+    input.value = input.value.substring(0, maxLength);
+    showHint(`Максимум ${maxLength} символов.`);
+    input.style.border = "2px solid red";
+    return;
+  }
+
+  // Проверяем на недопустимые символы
+  if (!regex.test(input.value)) {
+    input.value = input.value.replace(/[^\p{L}\p{N}\s\p{Emoji_Presentation}]/gu, "");
+    showHint("Спецсимволы запрещены, кроме эмодзи.");
+    input.style.border = "2px solid red";
+  } else {
+    // Убираем красный бордер, если всё корректно
+    input.style.border = "";
+  }
+}
+
+// Добавляем обработчики событий для всех инпутов
+document.addEventListener("DOMContentLoaded", () => {
+  const inputs = document.querySelectorAll("input[type='text'], input[type='number']");
+
+  inputs.forEach((input) => {
+    // Проверка при вводе
+    input.addEventListener("input", () => {
+      validateInput(input);
+    });
+
+    // Проверка при потере фокуса
+    input.addEventListener("blur", () => {
+      validateInput(input);
+    });
+  });
+});
+
+// Функция для показа всплывающего сообщения
+function showHint(message) {
+  const hintContainer = document.getElementById("hint-container");
+  hintContainer.textContent = message;
+  hintContainer.style.display = "block";
+
+  setTimeout(() => {
+    hintContainer.style.display = "none";
+  }, 3000);
+}
+
+
 // Смена темы
 function initializeTheme() {
   const savedTheme = localStorage.getItem("theme") || "default";
@@ -455,11 +514,51 @@ options.forEach((option) => {
 */
 document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme") || "default";
-  // Устанавливаем визуально и в <select>
-  setActiveOption(savedTheme);
-  // Вызываем логическую смену темы
-  applyTheme(savedTheme);
+  
+  // Применение темы только если функция applyTheme определена
+  if (typeof applyTheme === "function") {
+    applyTheme(savedTheme);
+  }
+  
+  
+  // Инициализация других элементов с проверками
+  const themeSelector = document.getElementById("theme-selector");
+  if (themeSelector) {
+    themeSelector.value = savedTheme;
+    themeSelector.addEventListener("change", (event) => {
+      applyTheme(event.target.value);
+    });
+  }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const themeSelector = document.getElementById("theme-selector");
+  const customOptions = document.querySelectorAll(".custom-option.new");
+
+  // При смене темы через стандартный селектор
+  if (themeSelector) {
+    themeSelector.addEventListener("change", (event) => {
+      const selectedOption = themeSelector.options[themeSelector.selectedIndex];
+      if (selectedOption.classList.contains("new")) {
+        selectedOption.classList.remove("new"); // Убираем класс new
+      }
+    });
+  }
+
+  // При выборе темы в кастомном меню
+  customOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+      if (option.classList.contains("new")) {
+        option.classList.remove("new"); // Убираем класс new
+        const indicator = option.querySelector(".indicator");
+        if (indicator) {
+          indicator.remove(); // Убираем индикатор
+        }
+      }
+    });
+  });
+});
+
 
 
 
@@ -495,10 +594,52 @@ setInterval(() => {
     left: scrollAmount,
     behavior: 'smooth',
   });
-}, 30000);
+}, 7000);
 
 // Инициализация приложения
 renderRooms();
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const loader = document.getElementById('loader');
+
+  // Показать лоадер
+  function showLoader() {
+    loader.style.display = 'flex';
+  }
+
+  // Скрыть лоадер
+  function hideLoader() {
+    loader.style.display = 'none';
+  }
+
+  // Показать лоадер перед обновлением страницы
+  window.addEventListener('beforeunload', showLoader);
+
+  // Показать лоадер при переходе по ссылкам
+  document.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      const target = link.getAttribute('target');
+
+      // Исключаем якорные ссылки и ссылки, открывающиеся в новой вкладке
+      if (href && !href.startsWith('#') && target !== '_blank') {
+        e.preventDefault();
+        showLoader();
+
+        // Синхронизация с длительностью анимации
+        setTimeout(() => {
+          window.location.href = href;
+        }, 2000); // Время задержки соответствует CSS-анимации (2s)
+      }
+    });
+  });
+
+  // Скрыть лоадер после загрузки страницы
+  window.addEventListener('load', hideLoader);
+});
+
+
 
 document.getElementById("theme-selector").addEventListener("change", (event) => {
   applyTheme(event.target.value);

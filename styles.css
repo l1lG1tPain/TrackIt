@@ -50,6 +50,233 @@
   --card-color: #191bdf; /* Цвет карточек */
 }
 
+:root.midnight-meon {
+  --primary-color: #7231ff; /* Основной цвет */
+  --secondary-color: #ffc01d; /* Акцентный цвет */
+  --text-color: #FFFFFF; /* Цвет текста */
+  --button-text-color: #FFFFFF; 
+  --background-color: #07080a; /* Общий фон */
+  --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
+  --button-color: var(--secondary-color); /* Цвет кнопок */
+  --card-color: var(--primary-color); /* Цвет карточек */
+}
+
+:root.mystic-pastel {
+  --primary-color: #c68dfe; /* Основной цвет */
+  --secondary-color: #c9e957; /* Акцентный цвет */
+  --text-color: #FFFFFF; /* Цвет текста */
+  --button-text-color: #FFFFFF; 
+  --background-color: #303843; /* Общий фон */
+  --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
+  --button-color: var(--secondary-color); /* Цвет кнопок */
+  --card-color: var(--primary-color); /* Цвет карточек */
+}
+
+:root.urban-contrast {
+  --primary-color: #121318; /* Основной цвет */
+  --secondary-color: #ff740f; /* Акцентный цвет */
+  --text-color: #121318; /* Цвет текста */
+  --button-text-color: #121318; 
+  --background-color: #f0f0f0; /* Общий фон */
+  --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
+  --button-color: var(--secondary-color); /* Цвет кнопок */
+  --card-color: var(--primary-color); /* Цвет карточек */
+}
+
+:root.forest-harmony {
+  --primary-color: #133115; /* Основной цвет */
+  --secondary-color: #f3e8d4; /* Акцентный цвет */
+  --text-color: #121318; /* Цвет текста */
+  --button-text-color: #121318; 
+  --background-color: #92b774; /* Общий фон */
+  --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
+  --button-color: var(--secondary-color); /* Цвет кнопок */
+  --card-color: var(--primary-color); /* Цвет карточек */
+}
+
+:root.new-year {
+  --primary-color: #ff4e50; /* Основной праздничный цвет */
+  --secondary-color: #f9d423; /* Акцентный цвет, напоминающий золотой */
+  --text-color: #ffffff; /* Цвет текста */
+  --button-text-color: #ffffff; /* Цвет текста на кнопках */
+  --background-color: #1a1a2e; /* Тёмный фон, создающий контраст */
+  --header-footer-color: #ff4e50; /* Красный для хедера и футера */
+  --button-color: #f9d423; /* Золотой цвет кнопок */
+  --card-color: #e84545; /* Цвет карточек, яркий и праздничный */
+}
+
+:root.golden-hour {
+  --primary-color: #FFB74D; /* Золотистый основной */
+  --secondary-color: #FF8A65; /* Персиковый акцент */
+  --text-color: #4E342E; /* Цвет текста */
+  --button-text-color: #FFFFFF; 
+  --background-color: #FFF3E0; /* Тёплый светлый фон */
+  --header-footer-color: #FFB74D; /* Золотистый для хедера и футера */
+  --button-color: #FF8A65; /* Персиковый цвет кнопок */
+  --card-color: #FFB74D; /* Цвет карточек */
+}
+
+:root.cyberpunk-neon {
+  --primary-color: #FF007F; /* Ярко-розовый */
+  --secondary-color: #00FFFF; /* Неоновый голубой */
+  --text-color: #FFFFFF; /* Белый текст */
+  --button-text-color: #000000; 
+  --background-color: #121212; /* Тёмный фон */
+  --header-footer-color: #FF007F; /* Ярко-розовый для хедера и футера */
+  --button-color: #00FFFF; /* Голубые кнопки */
+  --card-color: #FF007F; /* Цвет карточек */
+}
+
+:root.spring-blossom {
+  --primary-color: #FFB7C5; /* Светло-розовый */
+  --secondary-color: #9FE2BF; /* Мятный акцент */
+  --text-color: #4B0082; /* Тёмно-фиолетовый текст */
+  --button-text-color: #FFFFFF; 
+  --background-color: #FFFAF0; /* Сливочно-белый фон */
+  --header-footer-color: #FFB7C5; /* Розовый для хедера и футера */
+  --button-color: #9FE2BF; /* Мятный для кнопок */
+  --card-color: #FFB7C5; /* Цвет карточек */
+}
+
+:root.autumn-leaves {
+  --primary-color: #8B4513; /* Коричневый */
+  --secondary-color: #FFA500; /* Оранжевый */
+  --text-color: #000000; 
+  --button-text-color: #000000; 
+  --background-color: #FFF5EE; /* Светлый кремовый */
+  --header-footer-color: #8B4513; /* Коричневый для хедера и футера */
+  --button-color: #FFA500; /* Оранжевый цвет кнопок */
+  --card-color: #8B4513; /* Цвет карточек */
+}
+
+:root.galaxy-dreams {
+  --primary-color: #2C3E50; /* Глубокий тёмно-синий */
+  --secondary-color: #8E44AD; /* Фиолетовый акцент */
+  --text-color: #ECF0F1; /* Светлый текст */
+  --button-text-color: #FFFFFF; 
+  --background-color: #1A1A2E; /* Тёмный фон */
+  --header-footer-color: #2C3E50; /* Синий для хедера и футера */
+  --button-color: #8E44AD; /* Фиолетовые кнопки */
+  --card-color: #2C3E50; /* Цвет карточек */
+}
+
+:root.minimal-elegance {
+  --primary-color: #000000; /* Чёрный */
+  --secondary-color: #FFFFFF; /* Белый */
+  --text-color: #000000; 
+  --button-text-color: #FFFFFF; 
+  --background-color: #F5F5F5; /* Светло-серый */
+  --header-footer-color: #000000; /* Чёрный для хедера и футера */
+  --button-color: #FFFFFF; /* Белые кнопки */
+  --card-color: #000000; /* Чёрные карточки */
+}
+
+:root.tropical-sunset {
+  --primary-color: #FF6347; /* Томатный */
+  --secondary-color: #FFD700; /* Золотисто-жёлтый */
+  --text-color: #FFFFFF; 
+  --button-text-color: #000000; 
+  --background-color: #FFA07A; /* Светло-коралловый */
+  --header-footer-color: #FF6347; /* Томатный для хедера и футера */
+  --button-color: #FFD700; /* Золотисто-жёлтые кнопки */
+  --card-color: #FF6347; /* Цвет карточек */
+}
+
+
+/* Индикатор NEW */
+.indicator {
+  background-color: #FF3D00;
+  color: white;
+  font-size: 0.8rem;
+  padding: 2px 5px;
+  border-radius: 5px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+/* Если это select */
+select option.new {
+  font-weight: bold;
+  color: #FF3D00;
+}
+
+/* Для кастомного селектора */
+.custom-option.new {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.custom-option.new .indicator {
+  margin-left: auto;
+}
+
+
+#hint-container {
+  position: fixed;
+  top: 10px; 
+  right: 10px; 
+  z-index: 9999; 
+  background: var(--secondary-color); 
+  color: #000; 
+  padding: 10px; 
+  border-radius: 4px; 
+  display: none;
+  font-family: sans-serif;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  position: relative;
+}
+
+.loader::after,
+.loader::before {
+  content: '';
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--primary-color);
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  animation: rotation 2s ease-in-out infinite;
+}
+
+.loader::after {
+  border-color: var(--secondary-color);
+  animation-delay: 1s;
+}
+
+@keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+
+
+
+
 /* Общие стили для кнопок */
 button {
   background-color: var(--button-color);
@@ -104,14 +331,14 @@ button:hover {
 /* Хедер и футер */
 header, .navbar {
   background-color: var(--header-footer-color);
-  transition: background-color 0.5s ease;
+  transition: background-color 0.7s ease;
 }
 
 /* Остальной интерфейс */
 body {
   background-color: var(--background-color);
   color: var(--text-color);
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition: background-color 0.7s ease, color 0.7s ease;
 }
 
 
@@ -227,8 +454,8 @@ body {
   }
   
   #install-pwa .modal-content {
-    background: #2A2B34;
-    color: #FFFFFF;
+    /* background: #2A2B34;
+    color: #FFFFFF; */
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -248,6 +475,7 @@ body {
     align-items: center;
     color: #FFFFFF;
     padding: 10px 20px;
+    min-height: 44px;
   }
   
   header h1 {
@@ -260,6 +488,11 @@ body {
     gap: 10px;
   }
   
+article img {
+  width: 100%;
+  border-radius: 10px;
+}
+
   button {
     /* background-color: #A0FF00; */
     color: #2A2B34;
@@ -349,8 +582,8 @@ body {
   }
   
   .modal-content {
-    background: #2A2B34;
-    color: #FFFFFF;
+    /* background: #2A2B34;
+    color: #FFFFFF; */
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -589,8 +822,8 @@ form button:hover {
 }
 
 .modal-content {
-  background: #2A2B34;
-  color: #FFFFFF;
+  /* background: #2A2B34;
+  color: #FFFFFF; */
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -653,7 +886,7 @@ form button:hover {
   margin: 20px 0;
   border: 0;
   height: 1px;
-  background: #ccc;
+  background: var(--primary-color);
 }
 
 .settings-section {
@@ -714,7 +947,7 @@ form button:hover {
   justify-content: space-between;
 
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #7228F5;
   border-radius: 4px;
   
   padding: 10px 12px;
@@ -729,13 +962,13 @@ form button:hover {
 /* При наведении: меняем цвет фона, рамки */
 .custom-select-trigger:hover {
   background-color: #f6f6f6;
-  border-color: #999;
+  border-color: #7228F5;
 }
 
 /* При фокусе: outline или подсветка рамки */
 .custom-select-trigger:focus {
   outline: none;         /* убираем стандартную обводку */
-  border-color: #777;    /* меняем цвет рамки */
+  border-color: var(--secondary-color);    /* меняем цвет рамки */
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1); /* небольшой glow */
 }
 
