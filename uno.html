@@ -120,6 +120,14 @@
     function goBack() {
       window.history.back(); // Возврат на предыдущую страницу
     }
+    // function initializeTheme() {
+      const savedTheme = localStorage.getItem("theme") || "default";
+      applyTheme(savedTheme);
+    // }
+    function applyTheme(theme) {
+      document.documentElement.className = theme;
+      localStorage.setItem("theme", theme);
+    }
   </script>
 </body>
 </html>

@@ -341,6 +341,10 @@ body {
   transition: background-color 0.7s ease, color 0.7s ease;
 }
 
+h1 {
+  margin-bottom: 0;
+}
+
 
 /* Стили для карточек игроков */
 .card {
@@ -409,6 +413,10 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
 }
+.modal-content-clear {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
 
 /* Общие стили */
 
@@ -425,7 +433,7 @@ img, a {
 
 
 
-body {
+body, html {
     font-family: 'JetBrains Mono', monospace;
     margin: 0;
     padding: 0;
@@ -530,8 +538,13 @@ article img {
   }
   
   main {
-    padding: 80px 20px 20px;
-    margin-bottom: 40px;
+    padding: 60px 15px 0px;
+  }
+
+  article {
+    margin-bottom: 80px;
+    padding: 20px;
+
   }
   
 
@@ -612,9 +625,6 @@ article img {
     gap: 10px;
   }
   /* Основной контент */
-main {
-  padding-bottom: 60px; /* Отступ для футера */
-}
 
 button, a {
   user-select: none; /* Запрещает выделение текста */
@@ -661,6 +671,12 @@ button, a {
 
 .nav-btn {
   transition: transform 0.2s ease;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+button {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
 }
 
 .nav-btn:active {
@@ -738,7 +754,12 @@ form button:hover {
 #rooms {
   list-style: none;
   padding: 0;
-  margin: 20px 0;
+  margin: 20px 0 40px;
+  padding-bottom: 60px;
+}
+
+#room-players-list {
+  padding-bottom: 100px;
 }
 
 #rooms li button {
@@ -848,6 +869,15 @@ form button:hover {
   scroll-behavior: smooth;
   gap: 10px;
   padding: 10px 7px;
+}
+
+.carousel1 {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 10px;
+  padding: 10px 7px;
+  margin-bottom: 10px;
 }
 
 .carousel-item {
@@ -1034,4 +1064,234 @@ form button:hover {
 .custom-option.active {
   background-color: var(--secondary-color); /* пример */
   font-weight: 600;          /* выделяем текст жирным */
+}
+
+
+/* Стили для тумблера */
+.toggle-switch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 25px;
+  margin: 7px 0 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch label {
+  position: absolute;
+  cursor: pointer;
+  width: 50px;
+  height: 25px;
+  right: 1%;
+  background-color: #ccc;
+  border-radius: 25px;
+  transition: background-color 0.3s;
+}
+
+.toggle-switch label::after {
+  content: "";
+  position: absolute;
+  width: 21px;
+  height: 21px;
+  background-color: white;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s;
+}
+
+.toggle-switch input:checked + label {
+  background-color: var(--primary-color); /* Цвет для активного состояния */
+  right: 1%;
+}
+
+.toggle-switch input:checked + label::after {
+  transform: translateX(25px);
+}
+
+.toggle-switch span {
+  display: block;
+}
+
+.player-history {
+  max-height: 150px;
+  overflow-y: auto;
+  margin-top: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: var(--background-color);
+  list-style: none;
+  color: var(--text-color);
+  font-size: 14px;
+}
+
+.player-history h3 {
+  margin: 0;
+}
+
+.page {
+  display: none; /* Скрываем все страницы */
+  height: 100%; /* Устанавливаем высоту для каждой страницы */
+}
+
+.page.active {
+  display: flex; /* Показываем активную страницу */
+  flex-direction: column;
+}
+
+
+#history-page {
+  margin: 0 0 100px;
+  padding: 0; /* Убираем внутренние отступы */
+}
+
+#history-page h1 {
+  margin: 0; /* Убираем отступы заголовка */
+  padding: 10px; /* Добавляем внутренний отступ для заголовка */
+  text-align: center;
+  
+  color: var(--text-color); /* Цвет текста заголовка */
+}
+
+#history-container {
+  flex: 1; /* Заставляет контейнер с историей занимать оставшееся пространство */
+  overflow-y: auto; /* Вертикальная прокрутка только для истории */
+  height: calc(100vh - 60px); /* Высота с учетом заголовка (пример) */
+  padding: 10px; /* Внутренний отступ */
+}
+
+
+/* Стили для истории */
+#history-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Расстояние между карточками */
+  padding: 10px 10px 50px;
+}
+
+.history-card {
+  background-color: var(--background-color); /* Цвет фона карточки */
+  border: 2px solid var(--secondary-color); /* Цвет рамки */
+  border-radius: 10px; /* Скругление углов */
+  padding: 15px; /* Внутренний отступ */
+  color: var(--text-color); /* Цвет текста */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Тень */
+}
+
+.history-card h2 {
+  margin: 0 0 10px 0; /* Отступы для заголовка */
+  font-size: 18px; /* Размер шрифта заголовка */
+  color: var(--secondary-color); /* Цвет заголовка */
+}
+
+.history-card ul {
+  list-style: none; /* Убираем маркеры списка */
+  padding: 0; /* Убираем отступы списка */
+  margin: 0;
+}
+
+.history-card li {
+  display: flex; /* Используем флекс для горизонтального выравнивания */
+  align-items: center; /* Выравниваем элементы по центру */
+  margin-bottom: 5px; /* Отступ между элементами списка */
+  font-size: 14px; /* Размер шрифта для игроков */
+}
+
+.history-card li strong {
+  margin-left: 5px; /* Отступ между эмодзи и текстом */
+}
+
+.history-card li:last-child {
+  margin-bottom: 0; /* Убираем нижний отступ для последнего элемента */
+}
+
+#history-btn {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  font-family: "JetBrains Mono", monospace;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); */
+  transition: all 0.2s ease-in-out;
+}
+
+#history-page button {
+  width: 80%;
+  margin: 0 auto;
+  bottom: 0;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.btn {
+  font-weight: 700;
+}
+
+/* button {
+  font-weight: 500;
+} */
+
+.btn.danger-grey {
+  background-color: var(--background-color);
+  color: var(--secondary-color);
+}
+.btn.danger-grey:hover {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.btn.danger {
+  background-color: #ff4d4d;
+  color: #fff;
+}
+
+
+.btn.danger:hover {
+  background-color: #e60000;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--text-color);
+}
+
+.modal-content-clear {
+  padding: 20px;
+  margin: 15% auto;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+}
+
+.set-buttons {
+  display: flex;
+  font-size: 16px;
+
+}
+
+.set-buttons button {
+  width: 49%;
+  margin: 0 1%;
+  border-radius: 10px;
+}
+
+input {
+  font-family: 'JetBrains Mono', monospace;
 }
