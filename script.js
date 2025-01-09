@@ -322,6 +322,7 @@ function openAddPointsModal(playerIndex) {
       )
       .join("");
   }
+
 }
 
 function renderPlayerHistory(playerIndex) {
@@ -337,7 +338,6 @@ function renderPlayerHistory(playerIndex) {
     historyList.innerHTML = "<li>История отсутствует</li>";
   }
 }
-
 
 
 // Добавление очков игроку
@@ -919,6 +919,7 @@ confirmClearCache.addEventListener("click", () => {
   clearCacheModal.style.display = "none";
 });
 
+
 window.addEventListener('resize', () => {
   const inputField = document.activeElement;
 
@@ -927,6 +928,7 @@ window.addEventListener('resize', () => {
       inputField.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 });
+
 
 
 document.getElementById("theme-selector").addEventListener("change", (event) => {
