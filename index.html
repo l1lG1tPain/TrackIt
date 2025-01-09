@@ -10,8 +10,10 @@
   <link href="styles.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="icon" href="/icons/favicon.ico" type="image/x-icon">
   <title>TrackIt</title>
 </head>
 
@@ -84,7 +86,10 @@
 
       <!-- Страница настроек -->
       <section class="page" id="settings">
-        <div class="carousel">
+        <div class="carousel1">
+          <div class="carousel-item">
+            <img alt="Баннер 2.7" src="assets/bannerv2.7.jpg" />
+           </div>
           <div class="carousel-item">
             <img alt="Баннер 1" src="assets/bannerv2.1.jpg" />
            </div>
@@ -102,15 +107,30 @@
           </div> 
         </div>
 
+        <div class="set-buttons">
+          <button class="nav-btn" id="history-btn">
+            📜 История
+          </button>
+          <button id="clear-cache-btn" class="btn danger-grey">🧹 Очистить кэш</button>  
+        </div>
+        
+
+        <div class="toggle-switch">
+          <span>Сортировка игроков</span>
+          <input type="checkbox" id="sort-toggle" checked>
+          <label for="sort-toggle"></label>
+        </div>
+        
+
         <hr class="divider" />
         <!-- Ваша обёртка -->
         <div class="custom-select-wrapper">
           <!-- Видимая часть -->
-          <h1>Выберите тему</h1>
+          <!-- <h1>Выберите тему</h1> -->
           <div class="custom-select">
             <!-- Триггер (заголовок), по которому кликают для открытия списка -->
             <div class="custom-select-trigger">
-              <span>Выберите тему</span>
+              <span>🎨 Выберите тему</span>
               <div class="arrow"></div>
             </div>
             <!-- Выпадающий список с вариантами -->
@@ -161,7 +181,7 @@
         <div class="info-section">
           <p>
             Версия приложения:
-            <strong id="app-version">v.2.3</strong>
+            <strong id="app-version">v.2.7</strong>
           </p>
           <p>
             Автор:
@@ -197,13 +217,29 @@
       </button>
     </footer>
 
+    <section id="history-page" class="page">
+      <h1>История игр</h1>
+      <div id="history-container"></div>
+      <button onclick="navigateTo('settings')"><i class="fas fa-arrow-left"></i> Назад</button>
+   </section>
+   
+   <div id="clear-cache-modal" class="modal">
+    <div class="modal-content-clear">
+      <h3>🧹 Очистить кэш?</h3>
+      <p>Все данные приложения будут удалены. Вы уверены?</p>
+      <button id="confirm-clear-cache" class="btn danger">Да, очистить</button>
+      <button id="cancel-clear-cache" class="btn">Отмена</button>
+    </div>
+  </div>
+  
+
     <!-- Модальные окна остаются без изменений -->
     <div class="modal" id="modal-add-player">
       <div class="modal-content">
-        <h2>Добавить игрока</h2>
+        <h2>➕ Добавить игрока</h2>
         <input id="player-name" placeholder="Введите имя" type="text" />
         <div class="modal-buttons">
-          <button id="add-player-confirm">Добавить</button>
+          <button id="add-player-confirm" class="positive">Добавить</button>
           <button id="modal-cancel">Отмена</button>
         </div>
       </div>
@@ -228,15 +264,20 @@
           <button class="positive" id="add-points-confirm">Добавить</button>
           <button class="negative" id="modal-cancel">Отмена</button>
         </div>
+        <hr />
+        <div class="player-history">
+          <h3>История очков</h3>
+          <ul id="player-history-list"></ul>
+        </div>
       </div>
     </div>
 
     <div class="modal" id="modal-reset-scores">
       <div class="modal-content">
-        <h2>Очистить очки у всех игроков?</h2>
+        <h2>🗑️ Очистить очки и историю у всех игроков?</h2>
         <div class="modal-buttons">
-          <button class="positive" id="reset-scores-confirm">Да</button>
-          <button class="negative" id="reset-scores-cancel">Нет</button>
+          <button class="negative" id="reset-scores-confirm">Да</button>
+          <button class="positive" id="reset-scores-cancel">Нет</button>
         </div>
       </div>
     </div>
@@ -245,17 +286,17 @@
       <div class="modal-content">
         <h2>Удалить игрока?</h2>
         <div class="modal-buttons">
-          <button class="positive" id="delete-player-confirm">Да</button>
-          <button class="negative" id="delete-player-cancel">Нет</button>
+          <button class="negative" id="delete-player-confirm">Да</button>
+          <button class="positive" id="delete-player-cancel">Нет</button>
         </div>
       </div>
     </div>
 
     <div class="modal" id="modal-end-game">
       <div class="modal-content">
-        <h2>Игра закончена</h2>
+        <h2>💀 Игра закончена</h2>
         <p id="end-game-message"></p>
-        <button class="positive" id="restart-game-btn">Начать заново</button>
+        <button class="positive" id="restart-game-btn">🕹️ Начать заново</button>
       </div>
     </div>
 
@@ -264,8 +305,8 @@
         <h2>Удалить комнату?</h2>
         <p>Вы уверены, что хотите удалить эту комнату? Все данные будут потеряны.</p>
         <div class="modal-buttons">
-          <button class="positive" id="delete-room-confirm">Да</button>
-          <button class="negative" id="delete-room-cancel">Нет</button>
+          <button class="negative" id="delete-room-confirm">Да</button>
+          <button class="positive" id="delete-room-cancel">Нет</button>
         </div>
       </div>
     </div>

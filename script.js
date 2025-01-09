@@ -30,6 +30,9 @@ const deleteRoomCancel = document.getElementById("delete-room-cancel");
 const navButtons = document.querySelectorAll(".nav-btn");
 const pages = document.querySelectorAll(".page");
 const themeButtons = document.querySelectorAll(".theme-btn"); // Для смены темы
+const clearCacheModal = document.getElementById("clear-cache-modal");
+const confirmClearCache = document.getElementById("confirm-clear-cache");
+const cancelClearCache = document.getElementById("cancel-clear-cache");
 
 // Добавляем контейнер и функцию для вывода подсказок
 const hintContainer = document.getElementById("hint-container");
@@ -123,6 +126,7 @@ resetScoresConfirm.addEventListener("click", () => {
     ...player,
     avatar: getRandomAvatar(),
     score: 0,
+    history: [],
   }));
   saveToLocalStorage();
   renderRoomPlayers();
@@ -208,11 +212,25 @@ function openRoom(index) {
   roomDetailsSection.classList.add("active");
 }
 
-// Отображение игроков в комнате
+let isSortingEnabled = true; // Сортировка включена по умолчанию
+
+// Переключатель сортировки
+const sortToggle = document.getElementById("sort-toggle");
+sortToggle.addEventListener("change", (event) => {
+  isSortingEnabled = event.target.checked; // Обновляем состояние сортировки
+  renderRoomPlayers(); // Перерисовываем игроков
+});
+
+// Функция для отображения игроков в комнате
 function renderRoomPlayers() {
   const room = rooms[currentRoomIndex];
-  roomPlayersList.innerHTML = room.players
-    .sort((a, b) => b.score - a.score)
+  let players = [...room.players];
+
+  if (isSortingEnabled) {
+    players.sort((a, b) => b.score - a.score);
+  }
+
+  roomPlayersList.innerHTML = players
     .map(
       (player, playerIndex) => `
       <div class="card">
@@ -234,61 +252,145 @@ function renderRoomPlayers() {
     .join("");
 }
 
+
+
+// Добавление игрока с уникальным ID
+function addPlayer(name) {
+  return {
+    id: Date.now(), // Уникальный идентификатор
+    name,
+    score: 0,
+  };
+}
+
 // Добавление игрока
 addPlayerToRoomBtn.addEventListener("click", () => {
   openModal(modalAddPlayer, playerNameInput);
 });
 
+// Добавление игрока
 addPlayerConfirm.addEventListener("click", () => {
   const playerName = playerNameInput.value.trim();
+  
+  // Проверяем, существует ли уже игрок с таким именем в текущей комнате
+  const room = rooms[currentRoomIndex];
+  const isDuplicateName = room.players.some(
+    (player) => player.name.toLowerCase() === playerName.toLowerCase()
+  );
+
+  if (isDuplicateName) {
+    showHint("Игрок с таким именем уже существует в этой комнате. Пожалуйста, выберите другое имя.");
+    return; // Прерываем добавление игрока
+  }
+
   if (playerName) {
-    const room = rooms[currentRoomIndex];
-    room.players.push({ name: playerName, score: 0 });
+    room.players.push({ name: playerName, score: 0, history: [] });
     saveToLocalStorage();
     renderRoomPlayers();
     playerNameInput.value = "";
     closeModal(modalAddPlayer);
   } else {
-    // Заменяем alert на showHint
     showHint("Введите имя игрока.");
   }
 });
 
-// Добавление очков игроку
+
+// Открытие модального окна для добавления очков
 function openAddPointsModal(playerIndex) {
   currentPlayerIndex = playerIndex;
+  const room = rooms[currentRoomIndex];
+  const player = room.players[playerIndex];
+
+  if (!player) {
+    showHint("Игрок не найден!");
+    return;
+  }
+
   playerPointsInput.value = "";
+  renderPlayerHistory(playerIndex);
   openModal(modalAddPoints, playerPointsInput);
+
+  // Обновляем отображение истории, если она есть
+  const historyContainer = document.getElementById("player-history");
+  if (historyContainer) {
+    historyContainer.innerHTML = player.history
+      .map(
+        (entry) =>
+          `<p>Добавлено ${entry.points} очков - ${new Date(
+            entry.date
+          ).toLocaleString()}</p>`
+      )
+      .join("");
+  }
 }
 
+function renderPlayerHistory(playerIndex) {
+  const room = rooms[currentRoomIndex];
+  const player = room.players[playerIndex];
+  const historyList = document.getElementById("player-history-list");
+
+  if (player.history && player.history.length > 0) {
+    historyList.innerHTML = player.history
+      .map((entry, index) => `<li>Добавлено: <strong>${entry}</strong> очков</li>`)
+      .join("");
+  } else {
+    historyList.innerHTML = "<li>История отсутствует</li>";
+  }
+}
+
+
+
+// Добавление очков игроку
 addPointsConfirm.addEventListener("click", () => {
   const points = parseInt(playerPointsInput.value.trim(), 10);
   if (!isNaN(points)) {
     const room = rooms[currentRoomIndex];
-    const player = room.players[currentPlayerIndex];
-    player.score += points;
+    const displayedPlayers = isSortingEnabled
+      ? [...room.players].sort((a, b) => b.score - a.score)
+      : room.players;
 
-    if (player.score > room.maxPoints) {
-      endGameMessage.textContent = `Проиграл ${player.name} с ${player.score} очками`;
-      modalEndGame.style.display = "flex";
-    } else if (player.score === room.maxPoints) {
-      player.score = 0;
+    const player = displayedPlayers[currentPlayerIndex];
+    const originalPlayerIndex = room.players.findIndex(p => p.name === player.name);
+
+    if (originalPlayerIndex !== -1) {
+      const originalPlayer = room.players[originalPlayerIndex];
+
+      // Обновляем очки и историю
+      if (!originalPlayer.history) {
+        originalPlayer.history = [];
+      }
+      originalPlayer.score += points;
+      originalPlayer.history.push(points);
+
+      // Проверяем условия конца игры
+      if (originalPlayer.score > room.maxPoints) {
+        endGameMessage.textContent = `Проиграл ${originalPlayer.name} с ${originalPlayer.score} очками`;
+        modalEndGame.style.display = "flex";
+      } else if (originalPlayer.score === room.maxPoints) {
+        originalPlayer.score = 0; // Сброс очков
+      }
+
+      saveToLocalStorage(); // Сохраняем изменения
+      renderRoomPlayers(); // Обновляем интерфейс
+      closeModal(modalAddPoints); // Закрываем модальное окно
+    } else {
+      console.error("Игрок не найден в оригинальном списке.");
     }
-    saveToLocalStorage();
-    renderRoomPlayers();
-    closeModal(modalAddPoints);
   } else {
-    // Заменяем alert на showHint
     showHint("Введите корректное число.");
   }
 });
 
+
+
 // Обработка конца игры
 restartGameBtn.addEventListener("click", () => {
   const room = rooms[currentRoomIndex];
+  saveGameHistory();
   room.players = room.players.map((player) => ({ ...player, score: 0 }));
   saveToLocalStorage();
   renderRoomPlayers();
+  
   modalEndGame.style.display = "none";
 });
 
@@ -309,20 +411,145 @@ resetScoresConfirm.addEventListener("click", () => {
 
 // Удаление игрока
 function openDeletePlayerModal(playerIndex) {
-  currentPlayerIndex = playerIndex;
+  currentPlayerIndex = playerIndex; // Сохраняем оригинальный индекс игрока
   modalDeletePlayer.style.display = "flex";
 }
 
+
 deletePlayerConfirm.addEventListener("click", () => {
-  rooms[currentRoomIndex].players.splice(currentPlayerIndex, 1);
-  saveToLocalStorage();
-  renderRoomPlayers();
-  modalDeletePlayer.style.display = "none";
+  const room = rooms[currentRoomIndex];
+  if (room && currentPlayerIndex !== null) {
+    room.players.splice(currentPlayerIndex, 1); // Удаляем только одного игрока
+    saveToLocalStorage();
+    renderRoomPlayers();
+    modalDeletePlayer.style.display = "none";
+  } else {
+    showHint("Ошибка при удалении игрока!");
+  }
 });
+
 
 deletePlayerCancel.addEventListener("click", () => {
   modalDeletePlayer.style.display = "none";
 });
+
+// Функция миграции данных
+function migrateData() {
+  // Получаем существующие комнаты
+  let rooms = JSON.parse(localStorage.getItem("rooms")) || [];
+
+// Обновление структуры игроков при загрузке данных
+  rooms.forEach(room => {
+    room.players.forEach(player => {
+      if (!player.history) {
+        player.history = [];
+      }
+    });
+  });
+  saveToLocalStorage(); // Сохраняем обновлённые данные
+
+
+  // Сохраняем обновленные данные обратно в localStorage
+  localStorage.setItem("rooms", JSON.stringify(rooms));
+}
+
+// Генерация уникального ID
+function generateUniqueId() {
+  return `player-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+}
+
+// Выполняем миграцию при загрузке приложения
+document.addEventListener("DOMContentLoaded", () => {
+  migrateData();
+});
+
+
+let gameHistory = JSON.parse(localStorage.getItem("gameHistory")) || [];
+// Получаем общий номер игры из localStorage или устанавливаем его на 0
+let globalGameNumber = JSON.parse(localStorage.getItem("globalGameNumber")) || 0;
+
+// Функция для сохранения истории
+function saveGameHistory() {
+  const room = rooms[currentRoomIndex];
+  const sortedPlayers = [...room.players].sort((a, b) => b.score - a.score);
+
+  // Увеличиваем глобальный номер игры
+  globalGameNumber += 1;
+
+  const historyEntry = {
+    globalGameNumber, // Используем глобальный номер игры
+    roomName: room.name,
+    players: sortedPlayers.map((player, index, array) => ({
+      name: player.name,
+      score: player.score,
+      emoji:
+        index === 0
+          ? "💀" // Проигравший (с наименьшим числом очков)
+          : index === array.length - 1
+          ? "🏆" // Победитель (с наибольшим числом очков)
+          : index === array.length - 2
+          ? "🥶" // Второй с конца
+          : "🎯", // Промежуточные игроки
+    })),
+  };
+
+  // Сохраняем запись в истории
+  gameHistory.push(historyEntry);
+
+  // Обновляем localStorage
+  localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
+  localStorage.setItem("globalGameNumber", JSON.stringify(globalGameNumber));
+}
+
+
+function renderGameHistory() {
+  const historyContainer = document.getElementById("history-container");
+
+  if (!gameHistory || gameHistory.length === 0) {
+    historyContainer.innerHTML = "<p>История игр отсутствует.</p>";
+    return;
+  }
+
+  // Сортируем историю по глобальному номеру игры
+  const sortedHistory = gameHistory.sort((a, b) => b.globalGameNumber - a.globalGameNumber);
+
+  historyContainer.innerHTML = sortedHistory
+    .map(
+      (entry) => `
+      <div class="history-card">
+        <h2>#${entry.globalGameNumber} ${entry.roomName}</h2>
+        <ul>
+          ${entry.players
+            .map(
+              (player) => `
+              <li>
+                ${player.emoji} <strong>${player.name}</strong> — ${player.score} очков
+              </li>
+            `
+            )
+            .join("")}
+        </ul>
+      </div>
+    `
+    )
+    .join("");
+}
+
+
+
+
+
+
+document.getElementById("history-btn").addEventListener("click", () => {
+  console.log("Кнопка История нажата");
+  // document.querySelector(".page.active").classList.remove("active");
+  document.getElementById("history-page").classList.add("active");
+  renderGameHistory(); // Рендерим историю
+});
+
+
+
+
 
 // Удаление комнаты
 function openDeleteRoomModal(index) {
@@ -586,12 +813,27 @@ document.querySelectorAll("#modal-cancel").forEach((button) => {
 const carousel = document.querySelector('.carousel');
 let scrollAmount = 0;
 setInterval(() => {
-  scrollAmount += carousel.offsetWidth;
+  
+  scrollAmount += carousel.offsetWidth - 33;
   if (scrollAmount >= carousel.scrollWidth) {
     scrollAmount = 0;
   }
   carousel.scrollTo({
     left: scrollAmount,
+    behavior: 'smooth',
+  });
+}, 7000);
+
+
+const carousel1 = document.querySelector('.carousel1');
+let scrollAmount1 = 0;
+setInterval(() => {
+  scrollAmount1 += carousel1.offsetWidth - 33;
+  if (scrollAmount1 >= carousel1.scrollWidth) {
+    scrollAmount1 = 0;
+  }
+  carousel1.scrollTo({
+    left: scrollAmount1,
     behavior: 'smooth',
   });
 }, 7000);
@@ -637,6 +879,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Скрыть лоадер после загрузки страницы
   window.addEventListener('load', hideLoader);
+});
+
+function navigateTo(pageId) {
+  document.querySelector(".page.active").classList.remove("active");
+  document.getElementById(pageId).classList.add("active");
+}
+
+
+
+// Открыть модальное окно
+document.getElementById("clear-cache-btn").addEventListener("click", () => {
+  clearCacheModal.style.display = "block";
+});
+
+// Закрыть модальное окно
+cancelClearCache.addEventListener("click", () => {
+  clearCacheModal.style.display = "none";
+});
+
+// Подтверждение очистки
+confirmClearCache.addEventListener("click", () => {
+  // Очистка localStorage, sessionStorage и других кэшей
+  localStorage.clear();
+  sessionStorage.clear();
+  caches.keys().then((names) => {
+    for (let name of names) caches.delete(name);
+  });
+
+  // Показ уведомления через showHint
+  showHint("Кэш успешно очищен. Перезагрузка...");
+
+  // Задержка перед перезагрузкой
+  setTimeout(() => {
+    location.reload();
+  }, 2000);
+
+  // Закрыть модальное окно
+  clearCacheModal.style.display = "none";
 });
 
 
