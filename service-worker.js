@@ -15,7 +15,6 @@ const ASSETS = [
   "/108.html",
   "/icons/icon-v2.7-192x192.png",
   "/icons/icon-v2.7-512x512.png"
-];
 
 // === INSTALL ===
 self.addEventListener("install", (event) => {
