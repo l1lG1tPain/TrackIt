@@ -919,6 +919,14 @@ confirmClearCache.addEventListener("click", () => {
   clearCacheModal.style.display = "none";
 });
 
+window.addEventListener('resize', () => {
+  const inputField = document.activeElement;
+
+  // Если клавиатура открылась
+  if (inputField.tagName === 'INPUT' || inputField.tagName === 'TEXTAREA') {
+      inputField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+});
 
 
 document.getElementById("theme-selector").addEventListener("change", (event) => {
