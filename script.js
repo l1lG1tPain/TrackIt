@@ -840,6 +840,7 @@ setInterval(() => {
 
 // Инициализация приложения
 renderRooms();
+hideLoader();
 
 
 document.addEventListener('DOMContentLoaded', function () {
