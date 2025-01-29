@@ -587,7 +587,7 @@ function closeModal(modal) {
 // Функция для проверки введённых данных
 function validateInput(input) {
   const maxLength = 15;
-  const regex = /^[\p{L}\p{N}\s\p{Emoji_Presentation}]*$/u; // Разрешены буквы, цифры, пробелы и эмодзи
+  const regex = /^[\p{L}\p{N}\s\p{Emoji_Presentation}-]*$/u; // Добавлен знак "-"
 
   // Ограничиваем длину
   if (input.value.length > maxLength) {
@@ -599,14 +599,15 @@ function validateInput(input) {
 
   // Проверяем на недопустимые символы
   if (!regex.test(input.value)) {
-    input.value = input.value.replace(/[^\p{L}\p{N}\s\p{Emoji_Presentation}]/gu, "");
-    showHint("Спецсимволы запрещены, кроме эмодзи.");
+    input.value = input.value.replace(/[^\p{L}\p{N}\s\p{Emoji_Presentation}-]/gu, "");
+    showHint("Спецсимволы запрещены, кроме эмодзи и дефиса.");
     input.style.border = "2px solid red";
   } else {
     // Убираем красный бордер, если всё корректно
     input.style.border = "";
   }
 }
+
 
 // Добавляем обработчики событий для всех инпутов
 document.addEventListener("DOMContentLoaded", () => {
