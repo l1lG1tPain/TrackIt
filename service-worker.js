@@ -1,5 +1,5 @@
 // Обновляем версию кэша
-const CACHE_VERSION = "v2.7";
+const CACHE_VERSION = "v3.0";
 const CACHE_NAME = `trackit-${CACHE_VERSION}`;
 
 // Файлы, которые нужно закэшировать
@@ -13,8 +13,9 @@ const ASSETS = [
   "/bura.html",
   "/chests.html",
   "/108.html",
-  "/icons/icon-v2.7-192x192.png",
-  "/icons/icon-v2.7-512x512.png"
+  "/icons/icon-v3.0-192x192.png",
+  "/icons/icon-v3.0-512x512.png"
+]
 
 // === INSTALL ===
 self.addEventListener("install", (event) => {
