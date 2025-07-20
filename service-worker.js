@@ -1,5 +1,5 @@
 // Обновляем версию кэша
-const CACHE_VERSION = "v3.0";
+const CACHE_VERSION = "v3.1";
 const CACHE_NAME = `trackit-${CACHE_VERSION}`;
 
 // Файлы, которые нужно закэшировать
