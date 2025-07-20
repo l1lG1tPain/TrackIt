@@ -187,7 +187,7 @@
         <div class="info-section">
           <p>
             Версия приложения:
-            <strong id="app-version">v.3.0</strong>
+            <strong id="app-version">v.3.1</strong>
           </p>
           <p>
             Автор:
@@ -264,8 +264,9 @@
 
     <div id="modal-add-points" class="modal">
       <div class="modal-content">
-        <h2 class="modal-title">➕ Добавить очки</h2>
         <div id="player-info"></div>
+        <h2 class="modal-title">➕ Добавить очки</h2>
+        
         <input type="number" id="player-points" placeholder="Введите количество очков">
         <button id="add-points-confirm">Добавить</button>
         <button id="modal-cancel">Отмена</button>
@@ -295,12 +296,28 @@
         </div>
       </div>
     </div>
-
+<!-- 
     <div class="modal" id="modal-end-game">
       <div class="modal-content">
-        <h2>💀 Игра закончена</h2>
+        <h2> Игра закончена</h2>
         <p id="end-game-message"></p>
         <button class="positive" id="restart-game-btn">🕹️ Начать заново</button>
+      </div>
+    </div> -->
+
+    <div id="modal-end-game" class="modal">
+      <div class="modal-content">
+        <h2>☠️ Игра закончена</h2>
+        <h3>Проиграл:</h3>
+        <div id="loser-info">
+          <img id="loser-avatar" src="" alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%;">
+          <strong id="loser-name"></strong> с <span id="loser-score"></span> очками
+        </div>
+        <div id="winners-list">
+          <h3>Победители:</h3>
+          <ul id="winners"></ul>
+        </div>
+        <button id="restart-game-btn">🕹️ Начать заново</button>
       </div>
     </div>
 

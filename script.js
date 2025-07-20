@@ -91,7 +91,7 @@ function showNameModal() {
 
 // Логика аватарки
 function getRandomAvatar() {
-  const avatarCount = 58;
+  const avatarCount = 128;
   const avatarNumber = Math.floor(Math.random() * avatarCount) + 1;
   return `assets/ava/ava${avatarNumber.toString().padStart(2, '0')}.png`;
 }
@@ -231,7 +231,7 @@ function openAddPointsModal(playerId) {
     currentPlayerIndex = playerIndex;
     const player = room.players[playerIndex];
     const playerInfo = document.getElementById("player-info");
-    playerInfo.innerHTML = `игроку <img src="${player.avatar}" alt="Avatar" style="width: 30px; height: 30px; border-radius: 50%;"> <strong>${player.name}</strong>`;
+    playerInfo.innerHTML = `<img src="${player.avatar}" alt="Avatar" style="width: 70px; height: 70px; border-radius: 50%;"> <strong>${player.name}</strong>`;
     playerPointsInput.value = "";
     renderPlayerHistory(playerIndex);
     openModal(modalAddPoints, playerPointsInput);
@@ -253,7 +253,6 @@ function renderPlayerHistory(playerIndex) {
   }
 }
 
-// Добавление очков игроку
 addPointsConfirm.addEventListener("click", () => {
   const points = parseInt(playerPointsInput.value.trim(), 10);
   if (!isNaN(points)) {
@@ -263,12 +262,13 @@ addPointsConfirm.addEventListener("click", () => {
       if (!player.history) player.history = [];
       player.score += points;
       player.history.push(points);
-      if (player.score > room.maxPoints) {
-        endGameMessage.textContent = `Проиграл ${player.name} с ${player.score} очками`;
-        modalEndGame.style.display = "flex";
-      } else if (player.score === room.maxPoints) {
-        player.score = 0;
+      
+      if (player.score === room.maxPoints) {
+        player.score = 0; // Обнуляем счёт, если ровно maxPoints
+      } else if (player.score > room.maxPoints) {
+        checkGameEnd(); // Проверяем конец игры, если очки превышают maxPoints
       }
+      
       saveToLocalStorage();
       renderRoomPlayers();
       closeModal(modalAddPoints);
@@ -281,14 +281,14 @@ addPointsConfirm.addEventListener("click", () => {
 });
 
 // Обработка конца игры
-restartGameBtn.addEventListener("click", () => {
-  const room = rooms[currentRoomIndex];
-  saveGameHistory();
-  room.players = room.players.map((player) => ({ ...player, score: 0 }));
-  saveToLocalStorage();
-  renderRoomPlayers();
-  modalEndGame.style.display = "none";
-});
+// restartGameBtn.addEventListener("click", () => {
+//   const room = rooms[currentRoomIndex];
+//   saveGameHistory();
+//   room.players = room.players.map((player) => ({ ...player, score: 0 }));
+//   saveToLocalStorage();
+//   renderRoomPlayers();
+//   modalEndGame.style.display = "none";
+// });
 
 // Сброс очков игроков
 resetScoresBtn.addEventListener("click", () => {
@@ -563,6 +563,51 @@ slides.forEach(slide => {
 
 // Инициализация приложения
 renderRooms();
+
+function showEndGameModal(loser, winners) {
+  const modal = document.getElementById("modal-end-game");
+  const loserAvatar = document.getElementById("loser-avatar");
+  const loserName = document.getElementById("loser-name");
+  const loserScore = document.getElementById("loser-score");
+  const winnersList = document.getElementById("winners");
+
+  loserAvatar.src = loser.avatar;
+  loserName.textContent = loser.name;
+  loserScore.textContent = loser.score;
+
+  winnersList.innerHTML = winners
+    .map(player => `
+      <li>
+        <img src="${player.avatar}" alt="Avatar" style="width: 30px; height: 30px; border-radius: 50%;">
+        ${player.name} — ${player.score} очков
+      </li>
+    `)
+    .join("");
+
+  modal.style.display = "flex";
+}
+
+restartGameBtn.addEventListener("click", () => {
+  const room = rooms[currentRoomIndex];
+  saveGameHistory();
+  room.players = room.players.map((player) => ({ ...player, score: 0 }));
+  saveToLocalStorage();
+  renderRoomPlayers();
+  modalEndGame.style.display = "none";
+});
+
+// Пример вызова при завершении игры
+function checkGameEnd() {
+  const room = rooms[currentRoomIndex];
+  const loser = room.players.find(player => player.score > room.maxPoints);
+  if (loser) {
+    const winners = room.players
+      .filter(player => player.score <= room.maxPoints)
+      .sort((a, b) => a.score - b.score); // Сортировка победителей по очкам
+    showEndGameModal(loser, winners);
+  }
+}
+
 
 // Лоадер
 document.addEventListener('DOMContentLoaded', function () {

@@ -8,7 +8,7 @@
   --button-color: var(--secondary-color); /* Цвет кнопок */
   --card-color: var(--primary-color); /* Цвет карточек */
 
-  --br-xs: 8px;
+  --br-xs: 10px;
 }
 
 :root.default-white {
@@ -428,14 +428,18 @@ h1 {
 .modal-content {
   background-color: var(--background-color);
   color: var(--text-color);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 .modal-content-clear {
   background-color: var(--background-color);
   color: var(--text-color);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #modal-cancel {
   background-color: var(--primary-color);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  color: #fff;
 }
 
 /* Общие стили */
@@ -758,6 +762,7 @@ form input {
 
 input:focus-visible {
   border: 2px solid var(--secondary-color);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.479);
 }
 
 form button {
@@ -1183,7 +1188,7 @@ form button:hover {
 #history-container {
   flex: 1; /* Заставляет контейнер с историей занимать оставшееся пространство */
   overflow-y: auto; /* Вертикальная прокрутка только для истории */
-  height: calc(100vh - 60px); /* Высота с учетом заголовка (пример) */
+  max-height: calc(65vh - 60px); /* Высота с учетом заголовка (пример) */
   padding: 10px; /* Внутренний отступ */
 }
 
@@ -1193,7 +1198,8 @@ form button:hover {
   display: flex;
   flex-direction: column;
   gap: 10px; /* Расстояние между карточками */
-  padding: 10px 10px 50px;
+  /* padding: 10px 10px 50px; */
+  box-shadow: inset -1px -5px 10px 0px rgb(0 0 0 / 13%);
 }
 
 .history-card {
@@ -1245,8 +1251,8 @@ form button:hover {
 }
 
 #history-page button {
-  width: 90%;
-  margin: 0 auto;
+  width: 95%;
+  margin: 10px auto 0;
   bottom: 0;
   background-color: var(--primary-color);
   color: white;
@@ -1330,11 +1336,45 @@ input {
 #player-info {
     /* font-size: 14px; */
     text-align: center;
-    display: inline-flex;
+    display: inline-grid;
     align-items: center;
-    gap: 10px;
 }
+
+#player-info img {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 
 .modal-content button {
   width: 49%;
+}
+
+#restart-game-btn {
+  width: 90% !important;
+}
+
+.modal-title {
+  margin: 0;
+}
+
+#loser-info {
+  align-items: center;
+  display: inline-flex;
+  gap: 5px;
+  text-align: center;
+}
+
+#winners li {
+  list-style-type: circle;
+  text-align: center;
+  align-items: center;
+  margin: 0 auto;
+  display: flex;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+#winners {
+  overflow-y: scroll;
+  max-height: 300px;
 }
