@@ -280,16 +280,6 @@ addPointsConfirm.addEventListener("click", () => {
   }
 });
 
-// Обработка конца игры
-// restartGameBtn.addEventListener("click", () => {
-//   const room = rooms[currentRoomIndex];
-//   saveGameHistory();
-//   room.players = room.players.map((player) => ({ ...player, score: 0 }));
-//   saveToLocalStorage();
-//   renderRoomPlayers();
-//   modalEndGame.style.display = "none";
-// });
-
 // Сброс очков игроков
 resetScoresBtn.addEventListener("click", () => {
   openModal(modalResetScores);

@@ -21,7 +21,6 @@
   --button-color: var(--secondary-color); /* Цвет кнопок */
   --card-color: var(--primary-color); /* Цвет карточек */
 
-  --br-xs: 8px;
 }
 
 :root.default-violet {
