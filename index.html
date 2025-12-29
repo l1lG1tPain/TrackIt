@@ -17,28 +17,44 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link rel="icon" href="/icons/favicon.ico" type="image/x-icon">
+  
+  <!-- Для лучшей поддержки iOS PWA и deep links -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="TrackIt">
+  <link rel="apple-touch-icon" href="/icons/icon-v3.0-192x192.png">
+  
   <title>TrackIt</title>
 </head>
 
 <body>
   <div id="app">
     <header>
+      <div id="snow-overlay" class="snow-overlay"></div>
       <h1>TrackIt</h1>
       <div>
-        <button id="reset-scores-btn" title="Очистить очки">
-          <span class="material-icons">refresh</span>
-        </button>
-        <button id="add-player-to-room-btn">
-          <span class="material-icons">person_add</span>
-        </button>
+        <!-- Убраны кнопки reset и add-player -->
       </div>
     </header>
 
     <div id="hint-container"></div>
-    <div id="loader" style="display: none;">
-      <div class="loader"></div>
+    <div id="loader">
+    <div class="loader-container">
+      <!-- Логотип/картинка — замени src на свой (например, logo.png или SVG) -->
+      <img src="assets/akulka-projects.png" alt="Akulka Projects" class="loader-logo">
+      
+      <h2 class="loader-title">Akulka Projects</h2>
+      
+      <p class="loader-text" id="loading-text">Загрузка...</p>
+      
+      <div class="loader-spinner"></div>
     </div>
+  </div>
     
+    <!-- Новый элемент для уведомления об обновлении -->
+    <div id="update-toast" class="toast" style="display: none;">
+      🚀 Новая версия будет загружена через 5 сек...
+    </div>
 
     <main id="main-content">
       <!-- Страница создания комнаты -->
@@ -47,12 +63,24 @@
         <form id="create-room-form">
           <input id="room-name" placeholder="Название комнаты" required="" type="text" />
           <input id="max-points" placeholder="Максимальное количество очков" required="" type="number" />
+          <!-- Новый свитчер для режима -->
+          <div class="mode-radio-group">
+            <label class="mode-radio active" data-mode="reset">
+              <input type="radio" name="room-mode" value="reset" checked hidden>
+              <span>Обнуление</span>
+            </label>
+            <label class="mode-radio" data-mode="lose">
+              <input type="radio" name="room-mode" value="lose" hidden>
+              <span>Проигрыш</span>
+            </label>
+          </div>
           <button type="submit">➕ Создать</button>
+          <div class="warning">
+            <h3>ℹ️ Внимание!</h3>
+            <p>Режим <b>"Обнуление":</b> Если игрок набирает максимальное количество очков, его счёт обнуляется, и игра продолжается дальше.</p>
+            <p>Режим <b>"Проигрыш":</b> Если игрок набирает максимальное количество очков, он проигрывает, и игра заканчивается.</p>
+          </div>
         </form>
-        <div class="warning">
-          <h3>ℹ️ Внимание!</h3>
-          <p>Если игрок набирает максимальное количество очков, установленное для комнаты, его счёт обнуляется, и игра продолжается дальше.</p>
-        </div>
         <div class="carousel">
           <div class="carousel-item">
             <a href="uno.html">
@@ -78,17 +106,45 @@
       </section>
 
       <section class="page" id="room-details">
-        <h1 id="room-title"></h1>
+        <div class="room-header">
+          <div class="room-title">
+            <h1 id="room-title"></h1>
+            <span id="room-mode-indicator" class="mode-indicator"></span>
+          </div>   
+          <!-- Кнопки перемещены сюда -->
+          <div class="room-controls">
+            <button id="reset-scores-btn" title="Очистить очки">
+              <span class="material-icons">refresh</span>
+            </button>
+            <button id="add-player-to-room-btn">
+              <span class="material-icons">person_add</span>
+            </button>
+          </div>
+        </div>
         <p>
           Максимальное количество очков: <span id="room-max-points"></span>
         </p>
+
         <div id="room-players-list"></div>
+
+        <!-- Новый плейсхолдер для пустой комнаты -->
+        <div id="no-players-placeholder" class="placeholder">
+          <p>В этой комнате пока нет игроков 😔</p>
+          <button id="add-first-player-btn" class="big-add-btn">
+            ➕ Добавить первого игрока
+          </button>
+        </div>
       </section>
 
       <!-- Страница списка комнат -->
       <section class="page" id="room-list">
         <h1>Список комнат</h1>
         <ul id="rooms"></ul>
+        <!-- Плейсхолдер, если нет комнат -->
+        <div id="no-rooms-placeholder" style="display: none; text-align: center; padding: 20px;">
+          <span>👾☄️</span><p>Нет созданных комнат. <br> Перейдите на страницу создания, чтобы добавить первую!</p>
+          <button onclick="navigateTo('create-room')">Создать комнату</button>
+        </div>
       </section>
 
       <!-- Страница настроек -->
@@ -184,19 +240,42 @@
         </select>
      
         <hr class="divider" />
-        <div class="info-section">
-          <p>
-            Версия приложения:
-            <strong id="app-version">v.3.2</strong>
-          </p>
-          <p>
-            Автор:
-            <strong>l1lG1tPain</strong>
-          </p>
-          <p>
-            Telegram:
-            <a href="https://t.me/Cybersnitch" target="_blank"><strong>@Cybersnitch</strong></a>
-          </p>
+        <div class="company-section">
+          <h2 class="company-title">Akulka Projects</h2>
+          <p class="company-subtitle">Маленькая инди-студия, которая делает полезные и весёлые штуки</p>
+
+          <div class="products-grid">
+            <!-- TrackIt (текущий продукт) -->
+            <div class="product-card">
+              <img src="icons/icon-v3.0-512x512.png" alt="TrackIt" class="product-icon">
+              <h3>TrackIt</h3>
+              <p>Счётчик очков для настольных игр</p>
+              <span class="product-version">v3.3🎄</span>
+            </div>
+
+            <!-- Budgetit -->
+            <a href="https://budgetit.app/" target="_blank" class="product-card link">
+              <img src="icons/budgetit-icon.png" alt="BudgetIt" class="product-icon">
+              <h3>BudgetIt</h3>
+              <p>Удобный учёт финансов с аналитикой</p>
+              <span class="product-version">v3.0.1🎄</span>
+            </a>
+
+            <!-- Ludomania Bot -->
+            <a href="https://t.me/LUdomania_app_bot?start=start" target="_blank" class="product-card link">
+              <img src="icons/ludomania-icon.png" alt="Ludomania" class="product-icon">
+              <h3>Ludomania</h3>
+              <p>Безопасные азартные игр</p>
+              <span class="product-version">beta</span>
+            </a>
+          </div>
+
+          <div class="author-info">
+            <p>
+              Автор: <strong>l1lG1tPain</strong><br>
+              Telegram: <a href="https://t.me/Cybersnitch" target="_blank"><strong>@Cybersnitch</strong></a>
+            </p>
+          </div>
         </div>
       </section>
     </main>
@@ -239,11 +318,12 @@
   </div>
   
 
-    <!-- Модальные окна остаются без изменений -->
+    <!-- Обновлённая модалка добавления игрока с чипсами -->
     <div class="modal" id="modal-add-player">
       <div class="modal-content">
         <h2>➕ Добавить игрока</h2>
         <input id="player-name" placeholder="Введите имя" type="text" />
+        <div id="recent-players-chips" class="chips-container"></div>
         <div class="modal-buttons">
           <button id="add-player-confirm" class="positive">Добавить</button>
           <button id="modal-cancel">Отмена</button>

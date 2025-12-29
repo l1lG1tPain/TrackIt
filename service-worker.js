@@ -1,5 +1,6 @@
+// service-worker.js
 // Обновляем версию кэша
-const CACHE_VERSION = "v3.2";
+const CACHE_VERSION = "v3.3"; // Увеличили версию для теста обновлений
 const CACHE_NAME = `trackit-${CACHE_VERSION}`;
 
 // Файлы, которые нужно закэшировать
@@ -43,7 +44,7 @@ self.addEventListener("activate", (event) => {
     )
   );
   // clients.claim(), чтобы взять под контроль открытые страницы (по желанию)
-  // self.clients.claim();
+  self.clients.claim();
 });
 
 // === FETCH ===
@@ -65,4 +66,11 @@ self.addEventListener("fetch", (event) => {
       });
     })
   );
+});
+
+// Добавляем обработку сообщений для skipWaiting от клиента
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.action === 'skipWaiting') {
+    self.skipWaiting();
+  }
 });
