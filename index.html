@@ -31,7 +31,7 @@
   <div id="app">
     <header>
       <div id="snow-overlay" class="snow-overlay"></div>
-      <h1>TrackIt</h1>
+      <h1><span class="material-icons prime">track_changes</span>TrackIt</h1>
       <div>
         <!-- Убраны кнопки reset и add-player -->
       </div>
@@ -67,20 +67,52 @@
           <div class="mode-radio-group">
             <label class="mode-radio active" data-mode="reset">
               <input type="radio" name="room-mode" value="reset" checked hidden>
-              <span>Обнуление</span>
+              <span>🔄 Обнуление</span>
             </label>
             <label class="mode-radio" data-mode="lose">
               <input type="radio" name="room-mode" value="lose" hidden>
-              <span>Проигрыш</span>
+              <span>💀 Проигрыш</span>
+            </label>
+            <label class="mode-radio" data-mode="goal">
+              <input type="radio" name="room-mode" value="goal" hidden>
+              <span>🎯 Цель</span>
             </label>
           </div>
-          <button type="submit">➕ Создать</button>
-          <div class="warning">
-            <h3>ℹ️ Внимание!</h3>
-            <p>Режим <b>"Обнуление":</b> Если игрок набирает максимальное количество очков, его счёт обнуляется, и игра продолжается дальше.</p>
-            <p>Режим <b>"Проигрыш":</b> Если игрок набирает максимальное количество очков, он проигрывает, и игра заканчивается.</p>
-          </div>
+          <button type="submit"><span class="material-icons">add</span> Создать</button>
+
+          <!-- Дропдаун "Что за режимы?" -->
+          <details class="modes-dropdown">
+            <summary>
+              <span class="material-icons modes-dropdown-icon">help_outline</span>
+              Что за режимы?
+              <span class="modes-dropdown-arrow material-icons">expand_more</span>
+            </summary>
+            <div class="modes-dropdown-body">
+              <div class="mode-info-row">
+                <span class="mode-info-badge mode-reset-bg">🔄</span>
+                <div>
+                  <strong>Обнуление</strong>
+                  <p>Достиг максимума — счёт сбрасывается, игра продолжается.</p>
+                </div>
+              </div>
+              <div class="mode-info-row">
+                <span class="mode-info-badge mode-lose-bg">💀</span>
+                <div>
+                  <strong>Проигрыш</strong>
+                  <p>Достиг максимума — игрок выбывает, игра заканчивается.</p>
+                </div>
+              </div>
+              <div class="mode-info-row">
+                <span class="mode-info-badge mode-goal-bg">🎯</span>
+                <div>
+                  <strong>Цель</strong>
+                  <p>Первый, кто наберёт нужное количество очков — побеждает.</p>
+                </div>
+              </div>
+            </div>
+          </details>
         </form>
+
         <div class="carousel">
           <div class="carousel-item">
             <a href="uno.html">
@@ -101,6 +133,17 @@
             <a href="chests.html">
               <img alt="chests" src="assets/banner-chests.jpg" />
             </a>
+          </div>
+        </div>
+
+        <!-- Блок статистики на главной -->
+        <div class="home-stats-section" id="home-stats-section">
+          <h2 class="home-stats-title">📊 Твоя статистика</h2>
+          <div id="home-stats-grid" class="home-stats-grid">
+            <!-- Заполняется через JS -->
+          </div>
+          <div id="home-stats-leaderboard" class="home-stats-leaderboard">
+            <!-- Лидерборд — заполняется через JS -->
           </div>
         </div>
       </section>
@@ -131,7 +174,7 @@
         <div id="no-players-placeholder" class="placeholder">
           <p>В этой комнате пока нет игроков 😔</p>
           <button id="add-first-player-btn" class="big-add-btn">
-            ➕ Добавить первого игрока
+            <span class="material-icons">add</span> Добавить первого игрока
           </button>
         </div>
       </section>
@@ -196,8 +239,10 @@
             <!-- Выпадающий список с вариантами -->
             <div class="custom-options">
               <span class="custom-option" data-value="default">🤑 Default</span>
-              <span class="custom-option" data-value="default-white">✨ Default White (Bright Energy)</span>
-              <span class="custom-option" data-value="default-violet">🌟 Default (Violet Pulse)</span>
+              <span class="custom-option" data-value="default-black">🤑 Default Black</span>
+              <span class="custom-option" data-value="default-white">✨ Old White (Bright Energy)</span>
+              <span class="custom-option" data-value="default-violet">🌟 Old Black (Violet Pulse)</span>
+              <span class="custom-option new" data-value="onyx">🖤 Onyx</span>
               <span class="custom-option" data-value="space-explorer">🌌 Space Explorer</span>
               <span class="custom-option" data-value="ocean-depths">🌊 Ocean Depths</span>
               <span class="custom-option new" data-value="urban-contrast">🏙️ Urban Contrast</span>
@@ -237,6 +282,7 @@
           <option value="galaxy-dreams">Galaxy Dreams</option>
           <option value="minimal-elegance">Minimal Elegance</option>
           <option value="tropical-sunset">Tropical Sunset</option>
+          <option value="onyx">🖤 Onyx</option>
         </select>
      
         <hr class="divider" />
@@ -250,7 +296,7 @@
               <img src="icons/icon-v3.0-512x512.png" alt="TrackIt" class="product-icon">
               <h3>TrackIt</h3>
               <p>Счётчик очков для настольных игр</p>
-              <span class="product-version">v3.3🎄</span>
+              <span class="product-version">v3.4</span>
             </div>
 
             <!-- Budgetit -->
@@ -303,9 +349,29 @@
     </footer>
 
     <section id="history-page" class="page">
-      <h1>История игр 🃏</h1>
+      <div class="history-header">
+        <button class="history-back-btn" onclick="navigateTo('settings')">
+          <span class="material-icons">arrow_back</span>
+        </button>
+        <h1>История игр</h1>
+        <span class="history-header-icon">🃏</span>
+      </div>
+
+      <!-- Сводка -->
+      <div id="history-summary" class="history-summary"></div>
+
+      <!-- Поиск по истории -->
+      <div class="history-filters">
+        <input type="text" id="history-search" placeholder="🔍 Поиск по названию комнаты..." class="history-search-input" />
+      </div>
+
       <div id="history-container"></div>
-      <button onclick="navigateTo('settings')"><i class="fas fa-arrow-left"></i> Назад</button>
+
+      <div id="history-empty" class="history-empty" style="display:none;">
+        <span style="font-size:3em;">🃏</span>
+        <p>Пока нет сыгранных игр</p>
+        <small>Начни игру, чтобы увидеть историю!</small>
+      </div>
    </section>
    
    <div id="clear-cache-modal" class="modal">
@@ -321,12 +387,12 @@
     <!-- Обновлённая модалка добавления игрока с чипсами -->
     <div class="modal" id="modal-add-player">
       <div class="modal-content">
-        <h2>➕ Добавить игрока</h2>
+        <h2><span class="material-icons f16">add</span> Добавить игрока</h2>
         <input id="player-name" placeholder="Введите имя" type="text" />
         <div id="recent-players-chips" class="chips-container"></div>
         <div class="modal-buttons">
           <button id="add-player-confirm" class="positive">Добавить</button>
-          <button id="modal-cancel">Отмена</button>
+          <button id="cancel-add-player">Отмена</button>
         </div>
       </div>
     </div>
@@ -345,11 +411,14 @@
     <div id="modal-add-points" class="modal">
       <div class="modal-content">
         <div id="player-info"></div>
-        <h2 class="modal-title">➕ Добавить очки</h2>
+        <h2 class="modal-title"><span class="material-icons f16">add</span> Добавить очки</h2>
         
-        <input type="tel" inputmode="decimal" pattern="-?[0-9]*" id="player-points" placeholder="Введите количество очков">
+        <div style="display:flex; align-items:center; gap:8px; margin: 8px 0;">
+          <button type="button" id="toggle-sign">+</button>
+          <input type="number" inputmode="numeric" id="player-points" placeholder="Очки">
+        </div>
         <button id="add-points-confirm">Добавить</button>
-        <button id="modal-cancel">Отмена</button>
+        <button id="cancel-add-points">Отмена</button>
         <div id="player-history">
           <h3>История очков</h3>
           <ul id="player-history-list"></ul>
@@ -390,7 +459,7 @@
         <h2>☠️ Игра закончена</h2>
         <h3>Проиграл:</h3>
         <div id="loser-info">
-          <img id="loser-avatar" src="" alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%;">
+          <img id="loser-avatar" src="" alt="Avatar" style="width: 70px; height: 70px; border-radius: 50%;">
           <strong id="loser-name"></strong> с <span id="loser-score"></span> очками
         </div>
         <div id="winners-list">
@@ -409,6 +478,32 @@
           <button class="negative" id="delete-room-confirm">Да</button>
           <button class="positive" id="delete-room-cancel">Нет</button>
         </div>
+      </div>
+    </div>
+
+    <!-- Модалка победителя (режим Цель) -->
+    <div id="modal-winner" class="modal">
+      <div class="modal-content">
+        <h2>🏆 Победа!</h2>
+        <div id="winner-info" style="text-align:center; padding: 10px 0;">
+          <img id="winner-avatar" src="" alt="Avatar" style="width:70px;height:70px;border-radius:50%;margin-bottom:8px;">
+          <div><strong id="winner-name"></strong></div>
+          <div style="font-size:1.3em; margin-top:4px;"><span id="winner-score"></span> очков 🎉</div>
+        </div>
+        <h2>☠️ Проигравшие</h2>
+        <div id="other-players-list" style="margin-top:10px;"></div>
+        <button id="winner-restart-btn" style="margin-top:12px;">🕹️ Начать заново</button>
+      </div>
+    </div>
+
+    <!-- Модалка статистики игрока -->
+    <div id="modal-player-stats" class="modal">
+      <div class="modal-content">
+        <div id="stats-player-info" style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"></div>
+        <h2 class="modal-title">📊 Статистика</h2>
+        <div id="stats-content"></div>
+        <div id="stats-titles" style="margin-top:12px;"></div>
+        <button id="stats-close-btn" style="margin-top:14px;">Закрыть</button>
       </div>
     </div>
   </div>

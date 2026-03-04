@@ -3,9 +3,9 @@
   "short_name": "TrackIt",
   "start_url": "/TrackIt/index.html",
   "scope": "/TrackIt/",
-  "version": "3.3",
+  "version": "3.4",
   "display": "standalone",
-  "background_color": "#eae3ff",
+  "background_color": "#efedff",
   "theme_color": "#47fdad",
   "icons": [
   {

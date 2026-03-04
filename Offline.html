@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrackIt — Офлайн</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #000;
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      text-align: center;
+      padding: 20px;
+    }
+    .icon { font-size: 4em; }
+    h1 { font-size: 1.4em; font-weight: 700; }
+    p { opacity: 0.6; font-size: 0.9em; line-height: 1.6; max-width: 280px; }
+    button {
+      margin-top: 8px;
+      padding: 12px 28px;
+      background: #47fdad;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+    }
+    small { opacity: 0.35; font-size: 0.72em; }
+  </style>
+</head>
+<body>
+  <div class="icon">📡</div>
+  <h1>Нет соединения</h1>
+  <p>
+    Эта страница не загружена в кэш.<br>
+    Сам <strong>TrackIt</strong> работает офлайн —
+    вернись на главную.
+  </p>
+  <button onclick="location.href='/TrackIt/'">На главную</button>
+  <button onclick="location.reload()" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.2);margin-top:0;">
+    Повторить
+  </button>
+  <small>Данные игр сохранены локально и никуда не пропали</small>
+</body>
+</html>

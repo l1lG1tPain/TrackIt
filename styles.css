@@ -1,15 +1,48 @@
 :root {
-  --primary-color: #4438a4; /* Основной цвет */
+  --primary-color: #000000; /* Основной цвет */
   --secondary-color: #47fdad; /* Акцентный цвет */
   --text-color: #000000; /* Цвет текста */
   --button-text-color: #FFFFFF; 
-  --background-color: #FFFFFF; /* Общий фон */
+  --background-color: #fbfbfc; /* Общий фон */
   --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
   --button-color: var(--secondary-color); /* Цвет кнопок */
   --card-color: var(--primary-color); /* Цвет карточек */
+  --nav-btn-color: #000000; /* Цвет иконок навбара */
 
   --br-xs: 10px;
+
+  .custom-select-trigger .arrow {
+    border-top: 6px solid var(--button-text-color); /* Треугольник */
+  }
 }
+
+:root.default-black {
+  --primary-color: #000000; /* Основной цвет */
+  --secondary-color: #47fdad; /* Акцентный цвет */
+  --text-color: #fbfbfc; /* Цвет текста */
+  --button-text-color: #fbfbfc; 
+  --background-color: #000000; /* Общий фон */
+  --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
+  --button-color: var(--secondary-color); /* Цвет кнопок */
+  --card-color: var(--primary-color); /* Цвет карточек */
+  --nav-btn-color: var(--text-color); /* Цвет иконок навбара */
+
+  --br-xs: 10px;
+  
+  .btn.danger-grey, #rooms li, .card, .custom-select-trigger, .divider {
+    background-color: var(--glass-bg, rgba(0, 0, 0, 0.15));
+    color: var(--text-color);
+  }
+
+  .toggle-switch input:checked + label {
+    background-color: var(--secondary-color);
+  }
+
+  .controls button, #rooms li button, .mode-radio.active, #add-first-player-btn {
+    color: var(--primary-color);
+  }
+}
+
 
 :root.default-white {
   --primary-color: #7228F5; /* Основной цвет */
@@ -20,7 +53,7 @@
   --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
   --button-color: var(--secondary-color); /* Цвет кнопок */
   --card-color: var(--primary-color); /* Цвет карточек */
-
+  --nav-btn-color: #7228F5; /* Тёмный цвет иконок для светлой темы */
 }
 
 :root.default-violet {
@@ -28,10 +61,11 @@
   --secondary-color: #A0FF00; /* Акцентный цвет */
   --text-color: #FFFFFF; /* Цвет текста */
   --button-text-color: #FFFFFF; 
-  --background-color: #2A2B34; /* Общий фон */
+  --background-color: #000000; /* Общий фон */
   --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
   --button-color: var(--secondary-color); /* Цвет кнопок */
   --card-color: var(--primary-color); /* Цвет карточек */
+  --nav-btn-color: #7228F5;
 }
 
 :root.space-explorer {
@@ -42,6 +76,7 @@
   --header-footer-color: #001F3F;
   --button-color: #A6A6A6; /* Серебристые кнопки */
   --card-color: #001F3F; /* Цвет карточек */
+  --nav-btn-color: #001F3F;
 }
 
 :root.ocean-depths {
@@ -52,6 +87,7 @@
   --header-footer-color: #1B4D3E;
   --button-color: #56C8D8; 
   --card-color: #1B4D3E; /* Цвет карточек */
+  --nav-btn-color: #ffffff;
 }
 
 :root.neon-experiment {
@@ -62,6 +98,7 @@
   --header-footer-color: #191bdf;
   --button-color: #fe6807; 
   --card-color: #191bdf; /* Цвет карточек */
+  --nav-btn-color: #ffffff;
 }
 
 :root.midnight-meon {
@@ -73,6 +110,7 @@
   --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
   --button-color: var(--secondary-color); /* Цвет кнопок */
   --card-color: var(--primary-color); /* Цвет карточек */
+  --nav-btn-color: #ffffff;
 }
 
 :root.mystic-pastel {
@@ -84,6 +122,7 @@
   --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
   --button-color: var(--secondary-color); /* Цвет кнопок */
   --card-color: var(--primary-color); /* Цвет карточек */
+  --nav-btn-color: #ffffff;
 }
 
 :root.urban-contrast {
@@ -95,6 +134,7 @@
   --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
   --button-color: var(--secondary-color); /* Цвет кнопок */
   --card-color: var(--primary-color); /* Цвет карточек */
+  --nav-btn-color: #121318;
 }
 
 :root.forest-harmony {
@@ -106,6 +146,7 @@
   --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
   --button-color: var(--secondary-color); /* Цвет кнопок */
   --card-color: var(--primary-color); /* Цвет карточек */
+  --nav-btn-color: #133115;
 }
 
 :root.new-year {
@@ -117,6 +158,7 @@
   --header-footer-color: #ff4e50; /* Красный для хедера и футера */
   --button-color: #f9d423; /* Золотой цвет кнопок */
   --card-color: #e84545; /* Цвет карточек, яркий и праздничный */
+  --nav-btn-color: #ffffff;
 }
 
 :root.golden-hour {
@@ -128,6 +170,7 @@
   --header-footer-color: #FFB74D; /* Золотистый для хедера и футера */
   --button-color: #FF8A65; /* Персиковый цвет кнопок */
   --card-color: #FFB74D; /* Цвет карточек */
+  --nav-btn-color: #4E342E;
 }
 
 :root.cyberpunk-neon {
@@ -139,6 +182,7 @@
   --header-footer-color: #FF007F; /* Ярко-розовый для хедера и футера */
   --button-color: #00FFFF; /* Голубые кнопки */
   --card-color: #FF007F; /* Цвет карточек */
+  --nav-btn-color: #ffffff;
 }
 
 :root.spring-blossom {
@@ -150,6 +194,7 @@
   --header-footer-color: #FFB7C5; /* Розовый для хедера и футера */
   --button-color: #9FE2BF; /* Мятный для кнопок */
   --card-color: #FFB7C5; /* Цвет карточек */
+  --nav-btn-color: #4B0082;
 }
 
 :root.autumn-leaves {
@@ -161,6 +206,7 @@
   --header-footer-color: #8B4513; /* Коричневый для хедера и футера */
   --button-color: #FFA500; /* Оранжевый цвет кнопок */
   --card-color: #8B4513; /* Цвет карточек */
+  --nav-btn-color: #8B4513;
 }
 
 :root.galaxy-dreams {
@@ -172,6 +218,7 @@
   --header-footer-color: #2C3E50; /* Синий для хедера и футера */
   --button-color: #8E44AD; /* Фиолетовые кнопки */
   --card-color: #2C3E50; /* Цвет карточек */
+  --nav-btn-color: #ffffff;
 }
 
 :root.minimal-elegance {
@@ -183,6 +230,7 @@
   --header-footer-color: #000000; /* Чёрный для хедера и футера */
   --button-color: #FFFFFF; /* Белые кнопки */
   --card-color: #000000; /* Чёрные карточки */
+  --nav-btn-color: #000000;
 }
 
 :root.tropical-sunset {
@@ -194,8 +242,13 @@
   --header-footer-color: #FF6347; /* Томатный для хедера и футера */
   --button-color: #FFD700; /* Золотисто-жёлтые кнопки */
   --card-color: #FF6347; /* Цвет карточек */
+  --nav-btn-color: #7a1f00;
 }
 
+.prime {
+  color: var(--secondary-color);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--button-color) 70%, transparent));
+}
 
 /* Индикатор NEW */
 .indicator {
@@ -373,11 +426,250 @@ button:hover {
   background: var(--primary-color); /* Основной цвет при наведении */
 }
 
-/* Хедер и футер */
-header, .navbar {
-  background-color: var(--header-footer-color);
-  transition: background-color 0.7s ease;
+/* ===== GLASS VARS: все темы ===== */
+
+/* DEFAULT — зелёный светлый фон */
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --modal-bg: rgba(251, 251, 252, 0.85);
+  --modal-overlay: rgba(0, 0, 0, 0.55);
 }
+
+/* DEFAULT-VIOLET — тёмный зелёный фон */
+:root.default-black {
+  --glass-bg: rgba(42, 43, 52, 0.6);
+  --glass-border: rgba(160, 255, 0, 0.12);
+  --modal-bg: rgba(42, 43, 52, 0.92);
+  --modal-overlay: rgba(0, 0, 0, 0.6);
+}
+
+/* DEFAULT-WHITE — чисто белый, светлая тема */
+:root.default-white {
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(114, 40, 245, 0.18);
+  --modal-bg: rgba(255, 255, 255, 0.95);
+  --modal-overlay: rgba(0, 0, 0, 0.35);
+}
+
+/* DEFAULT-VIOLET — тёмный серый фон */
+:root.default-violet {
+  --glass-bg: rgba(42, 43, 52, 0.6);
+  --glass-border: rgba(160, 255, 0, 0.12);
+  --modal-bg: rgba(42, 43, 52, 0.92);
+  --modal-overlay: rgba(0, 0, 0, 0.6);
+}
+
+/* SPACE-EXPLORER — белый фон, тёмно-синие акценты */
+:root.space-explorer {
+  --glass-bg: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(0, 31, 63, 0.18);
+  --modal-bg: rgba(255, 255, 255, 0.95);
+  --modal-overlay: rgba(0, 0, 0, 0.35);
+}
+
+/* OCEAN-DEPTHS — очень тёмный фон */
+:root.ocean-depths {
+  --glass-bg: rgba(9, 8, 13, 0.5);
+  --glass-border: rgba(86, 200, 216, 0.15);
+  --modal-bg: rgba(20, 30, 40, 0.92);
+  --modal-overlay: rgba(0, 0, 0, 0.65);
+}
+
+/* NEON-EXPERIMENT — очень тёмный фон */
+:root.neon-experiment {
+  --glass-bg: rgba(9, 8, 13, 0.5);
+  --glass-border: rgba(254, 104, 7, 0.2);
+  --modal-bg: rgba(15, 15, 25, 0.93);
+  --modal-overlay: rgba(0, 0, 0, 0.65);
+}
+
+/* MIDNIGHT-NEON — почти чёрный фон */
+:root.midnight-meon {
+  --glass-bg: rgba(7, 8, 10, 0.55);
+  --glass-border: rgba(255, 192, 29, 0.15);
+  --modal-bg: rgba(15, 12, 25, 0.93);
+  --modal-overlay: rgba(0, 0, 0, 0.7);
+}
+
+/* MYSTIC-PASTEL — тёмно-серый фон */
+:root.mystic-pastel {
+  --glass-bg: rgba(48, 56, 67, 0.55);
+  --glass-border: rgba(198, 141, 254, 0.18);
+  --modal-bg: rgba(48, 56, 67, 0.92);
+  --modal-overlay: rgba(0, 0, 0, 0.55);
+}
+
+/* URBAN-CONTRAST — светлый серый фон */
+:root.urban-contrast {
+  --glass-bg: rgba(240, 240, 240, 0.82);
+  --glass-border: rgba(18, 19, 24, 0.15);
+  --modal-bg: rgba(240, 240, 240, 0.95);
+  --modal-overlay: rgba(0, 0, 0, 0.35);
+}
+
+/* FOREST-HARMONY — зелёный средний фон */
+:root.forest-harmony {
+  --glass-bg: rgba(19, 49, 21, 0.45);
+  --glass-border: rgba(243, 232, 212, 0.18);
+  --modal-bg: rgba(146, 183, 116, 0.88);
+  --modal-overlay: rgba(0, 0, 0, 0.45);
+}
+
+/* NEW-YEAR — тёмно-синий фон */
+:root.new-year {
+  --glass-bg: rgba(26, 26, 46, 0.55);
+  --glass-border: rgba(249, 212, 35, 0.18);
+  --modal-bg: rgba(26, 26, 46, 0.92);
+  --modal-overlay: rgba(0, 0, 0, 0.65);
+}
+
+/* GOLDEN-HOUR — тёплый светлый фон */
+:root.golden-hour {
+  --glass-bg: rgba(255, 243, 224, 0.82);
+  --glass-border: rgba(255, 183, 77, 0.30);
+  --modal-bg: rgba(255, 248, 235, 0.96);
+  --modal-overlay: rgba(80, 40, 10, 0.35);
+}
+
+/* CYBERPUNK-NEON — почти чёрный фон */
+:root.cyberpunk-neon {
+  --glass-bg: rgba(18, 18, 18, 0.55);
+  --glass-border: rgba(0, 255, 255, 0.18);
+  --modal-bg: rgba(18, 18, 18, 0.93);
+  --modal-overlay: rgba(255, 0, 127, 0.2);
+}
+
+/* SPRING-BLOSSOM — сливочно-белый фон */
+:root.spring-blossom {
+  --glass-bg: rgba(255, 250, 240, 0.82);
+  --glass-border: rgba(255, 183, 197, 0.35);
+  --modal-bg: rgba(255, 250, 240, 0.96);
+  --modal-overlay: rgba(75, 0, 130, 0.2);
+}
+
+/* AUTUMN-LEAVES — светлый кремовый фон */
+:root.autumn-leaves {
+  --glass-bg: rgba(255, 245, 238, 0.82);
+  --glass-border: rgba(139, 69, 19, 0.20);
+  --modal-bg: rgba(255, 245, 238, 0.96);
+  --modal-overlay: rgba(80, 30, 0, 0.3);
+}
+
+/* GALAXY-DREAMS — тёмный фон */
+:root.galaxy-dreams {
+  --glass-bg: rgba(26, 26, 46, 0.55);
+  --glass-border: rgba(142, 68, 173, 0.2);
+  --modal-bg: rgba(26, 26, 46, 0.92);
+  --modal-overlay: rgba(0, 0, 0, 0.65);
+}
+
+/* MINIMAL-ELEGANCE — светло-серый фон */
+:root.minimal-elegance {
+  --glass-bg: rgba(245, 245, 245, 0.85);
+  --glass-border: rgba(0, 0, 0, 0.12);
+  --modal-bg: rgba(245, 245, 245, 0.98);
+  --modal-overlay: rgba(0, 0, 0, 0.3);
+}
+
+/* TROPICAL-SUNSET — коралловый фон */
+:root.tropical-sunset {
+  --glass-bg: rgba(255, 160, 122, 0.45);
+  --glass-border: rgba(255, 215, 0, 0.25);
+  --modal-bg: rgba(255, 140, 100, 0.88);
+  --modal-overlay: rgba(80, 20, 0, 0.4);
+}
+
+/* ========================================
+   🖤 ONYX — глубокий тёмный камень
+   ======================================== */
+:root.onyx {
+  --primary-color: #5865f2;        /* Холодный discord-фиолетовый */
+  --secondary-color: #5865f2;      /* Ледяной акцент */
+  --text-color: #e8eaf6;           /* Мягкий светлый текст */
+  --button-text-color: #ffffff;
+  --background-color: #050509;     /* Почти чёрный, onyx-камень */
+  --header-footer-color: #181824;
+  --button-color: #5865f2;
+  --card-color: #0c0c11;           /* Глубокий тёмный для карточек */
+  --nav-btn-color: #e8eaf6;
+
+  /* Glass */
+  --glass-bg: rgba(8, 8, 20, 0.70);
+  --glass-border: rgba(88, 101, 242, 0.28);
+  --modal-bg: rgba(11, 11, 16, 0.96);
+  --modal-overlay: rgba(0, 0, 0, 0.80);
+
+  /* Тени с холодным свечением */
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.7);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.9), 0 0 10px rgba(88, 101, 242, 0.32);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.95), 0 0 22px rgba(88, 101, 242, 0.38);
+}
+
+/* ===== HEADER + NAVBAR ===== */
+header, .navbar {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  transition: background 0.7s ease;
+}
+
+/* Светлые темы — усиленный стеклянный эффект, чтобы контент под шапкой не просвечивал грязно */
+:root.default-white header,
+:root.default-white .navbar,
+:root.space-explorer header,
+:root.space-explorer .navbar,
+:root.urban-contrast header,
+:root.urban-contrast .navbar,
+:root.golden-hour header,
+:root.golden-hour .navbar,
+:root.spring-blossom header,
+:root.spring-blossom .navbar,
+:root.autumn-leaves header,
+:root.autumn-leaves .navbar,
+:root.minimal-elegance header,
+:root.minimal-elegance .navbar,
+:root.forest-harmony header,
+:root.forest-harmony .navbar,
+:root.tropical-sunset header,
+:root.tropical-sunset .navbar {
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Onyx — усиленное свечение */
+:root.onyx header,
+:root.onyx .navbar {
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7), 0 0 16px rgba(88, 101, 242, 0.2);
+}
+
+/* ===== MODAL OVERLAY + BLUR ===== */
+.modal {
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  background: var(--modal-overlay, rgba(0, 0, 0, 0.55)) !important;
+}
+
+.modal-content {
+  background: var(--modal-bg, var(--background-color)) !important;
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+}
+
+.modal-content-clear {
+  background: var(--modal-bg, var(--background-color)) !important;
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+}
+
+
 
 /* Остальной интерфейс */
 body {
@@ -426,7 +718,7 @@ body {
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  /* color: var(--text-color); */
+  color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -452,20 +744,46 @@ body {
 
 
 .modal-content {
-  background-color: var(--background-color);
   color: var(--text-color);
-  box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.25);
 }
 .modal-content-clear {
-  background-color: var(--background-color);
   color: var(--text-color);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-#modal-cancel {
+#cancel-add-player, #cancel-add-points {
   background-color: var(--primary-color);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   color: #fff;
+}
+
+.undo-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px 16px;
+  background: transparent;
+  border: 2px dashed var(--primary-color);
+  color: var(--primary-color);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s, background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.undo-btn:hover {
+  opacity: 1;
+  background: rgba(var(--primary-color-rgb, 100,100,200), 0.08);
+}
+
+.undo-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 /* Общие стили */
@@ -532,7 +850,7 @@ body, html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #FFFFFF;
+    color: var(--text-color);
     padding: 10px 20px;
     min-height: 44px;
   }
@@ -665,7 +983,7 @@ article img {
     padding: 10px;
     margin: 15px 0;
     font-size: 1em;
-    border: 2px solid #7228F5;
+    border: 2px solid var(--nav-btn-color);
     border-radius: var(--br-xs);
     outline: none;
   }
@@ -738,7 +1056,7 @@ button {
 .nav-btn {
   background: none;
   border: none;
-  color: #FFFFFF;
+  color: var(--nav-btn-color, #FFFFFF);
   text-align: center;
   cursor: pointer;
   font-size: 1.5em;
@@ -747,18 +1065,18 @@ button {
 }
 
 .nav-btn:hover {
-  color: #A0FF00;
+  color: var(--secondary-color);
   background: none;
 }
 
 .nav-btn svg {
-  fill: #FFFFFF; /* Устанавливаем цвет для SVG */
+  fill: var(--nav-btn-color, #FFFFFF); /* Цвет иконок зависит от темы */
   width: 35px;
   transition: fill 0.3s ease;
 }
 
 .nav-btn:hover svg {
-  fill: #A0FF00; /* Меняем цвет иконки при hover */
+  fill: var(--secondary-color); /* Меняем цвет иконки при hover */
 }
 
 .nav-btn:active svg {
@@ -767,7 +1085,9 @@ button {
 
 .nav-btn.active svg {
   fill: var(--button-color);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--button-color) 70%, transparent));
 }
+
 
 /* Стили для формы создания комнаты */
 form {
@@ -780,7 +1100,7 @@ form {
 form input {
   padding: 10px;
   font-size: 1em;
-  border: 2px solid #7228F5;
+  border: 2px solid var(--nav-btn-color);
   border-radius: var(--br-xs);
   outline: none;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
@@ -789,7 +1109,7 @@ form input {
 .search-input {
   padding: 5px;
   font-size: 1em;
-  border: 2px solid #7228F5;
+  border: 2px solid var(--nav-btn-color);
   border-radius: var(--br-xs);
   outline: none;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
@@ -818,6 +1138,10 @@ form button:hover {
   /* background-color: #88CC00; */
 }
 
+form button span, .modal-content .f16 {
+  font-size: 1.6em !important;
+}
+
 
 /* Список комнат */
 #rooms {
@@ -833,7 +1157,7 @@ form button:hover {
 
 #rooms li button {
   background: #FF0000;
-  color: white;
+  color: var(--text-color);
   border-radius: 50%;
 }
 
@@ -908,7 +1232,6 @@ form button:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
   display: none;
   justify-content: center;
   align-items: center;
@@ -1038,23 +1361,28 @@ form button:hover {
   align-items: center;
   justify-content: space-between;
 
-  background-color: #fff;
-  border: 1px solid #7228F5;
+  background-color: var(--primary-color);
+  /* border: 1px solid var(--nav-btn-color); */
   border-radius: var(--br-xs);
   
   padding: 10px 12px;
   margin: 0;          /* Можно добавить отступы по вкусу */
   font-size: 14px;
-  color: #333;
+  color: #fff;
 
   /* width: 95%; */
   transition: background-color 0.2s, border-color 0.2s;
 }
 
 /* При наведении: меняем цвет фона, рамки */
-.custom-select-trigger:hover {
+/* .custom-select-trigger:hover {
   background-color: #f6f6f6;
   border-color: #7228F5;
+} */
+
+.custom-select-trigger:hover {
+  background-color: var(--primary-color);
+  border-color: var(--secondary-color);
 }
 
 /* При фокусе: outline или подсветка рамки */
@@ -1071,7 +1399,7 @@ form button:hover {
   margin-left: 10px;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-top: 6px solid #333; /* Треугольник */
+  border-top: 6px solid var(--text-color); /* Треугольник */
   transition: transform 0.2s;
 }
 
@@ -1136,7 +1464,7 @@ form button:hover {
   align-items: center;
   width: 100%;
   height: 25px;
-  margin: 7px 0 0;
+  margin: 10px 0 0;
 }
 
 .toggle-switch input {
@@ -1209,8 +1537,9 @@ form button:hover {
 
 
 #history-page {
-  margin: 0 0 100px;
-  padding: 0; /* Убираем внутренние отступы */
+  margin: -60px 0 0; /* Компенсируем отступ шапки */
+  padding: 0 10px 100px;
+  overflow-x: hidden;
 }
 
 #history-page h1 {
@@ -1222,20 +1551,11 @@ form button:hover {
 }
 
 #history-container {
-  flex: 1; /* Заставляет контейнер с историей занимать оставшееся пространство */
-  overflow-y: auto; /* Вертикальная прокрутка только для истории */
-  max-height: calc(70vh - 60px); /* Высота с учетом заголовка (пример) */
-  padding: 10px; /* Внутренний отступ */
-}
-
-
-/* Стили для истории */
-#history-container {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Расстояние между карточками */
-  /* padding: 10px 10px 50px; */
-  box-shadow: inset -1px -5px 10px 0px rgb(0 0 0 / 13%);
+  gap: 10px;
+  padding: 0;
+  overflow: visible;
 }
 
 .history-card {
@@ -1286,13 +1606,7 @@ form button:hover {
   transition: all 0.2s ease-in-out;
 }
 
-#history-page button {
-  width: 95%;
-  margin: 10px auto 0;
-  bottom: 0;
-  background-color: var(--primary-color);
-  color: white;
-}
+/* No global button override in history-page */
 
 .btn {
   font-weight: 600;
@@ -1321,17 +1635,7 @@ form button:hover {
   background-color: #e60000;
 }
 
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  color: var(--text-color);
-}
+/* .modal structural duplicate removed */
 
 .modal-content-clear {
   padding: 20px;
@@ -1366,7 +1670,7 @@ input {
   border: 1px solid var(--primary-color);
   border-radius: var(--br-xs);
   margin: 5px 0 20px;
-  background-color: var(--);
+  /* background-color: var(--background-color); */
 }
 
 #player-info {
@@ -1507,16 +1811,18 @@ input {
 
 /* Индикатор режима */
 .mode-indicator {
-  font-size: 0.5em;
+  font-size: 0.75em;
+  font-weight: 700;
   padding: 4px 8px;
   border-radius: var(--br-xs);
   background-color: var(--secondary-color);
-  color: var(--text-color);
+  color: #2A2B34;
   margin-left: 10px;
 }
 
 .mode-lose {
   background-color: #ff4d4d; /* Красный для проигрыша */
+  font-size: 0.75em;
 }
 
 /* Заголовок комнаты с контролами */
@@ -1562,29 +1868,40 @@ input {
 
 .mode-radio-group {
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  justify-content: flex-start;
+  gap: 10px;
   margin: 5px 0;
+  overflow-x: auto;
+  padding: 0 4px 4px;
+  scrollbar-width: none; /* скрыть полосу прокрутки */
 }
 
+.mode-radio-group::-webkit-scrollbar {
+  display: none;
+}
+
+.mode-radio {
+  /* min-width: 120px; */
+  flex-shrink: 0;
+}
 .mode-radio {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 0;
+  padding: 8px 4px;
   background-color: rgba(128, 128, 128, 0.2);
   border-radius: var(--br-xs);
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 600;
-  min-width: 47%;
+  min-width: 33%;
   outline: none !important;                    /* Убирает контур */
   -webkit-tap-highlight-color: transparent;   /* Убирает тап-хайлайт на мобильных */
   tap-highlight-color: transparent;
 }
 
 .mode-radio span {
-  color: var(--text-color);
+  /* color: #2A2B34; */
   opacity: 0.7;
   transition: opacity 0.3s;
 }
@@ -1608,22 +1925,39 @@ input {
 
 .mode-tag {
   display: inline-block;
-  font-size: 0.5em;
+  font-size: 0.75em;
   padding: 4px 10px;
   border-radius: var(--br-xs);
-  margin-top: 5px;
+  color: #2A2B34;
+  /* margin-top: 5px; */
   font-weight: bold;
 }
 
 .mode-reset {
   background-color: var(--secondary-color);
-  color: var(--text-color);
+  color: #2A2B34;
 }
 
-.mode-lose {
+/* Активный цвет по режиму вместо универсального --secondary-color */
+.mode-radio.active[data-mode="reset"] {
+  background-color: var(--secondary-color); /* зелёный — обнуление */
+  color: #0a3d2b;
+}
+
+.mode-radio.active[data-mode="lose"] {
+  background-color: #ff4d4d; /* красный — проигрыш */
+  color: #fff;
+}
+
+.mode-radio.active[data-mode="goal"] {
+  background: linear-gradient(135deg, #f59e0b, #d97706); /* золотой — цель */
+  color: #3d2a00;
+}
+
+/* .mode-lose {
   background-color: var(--text-color);
   color: white;
-}
+} */
 
 .slider {
   position: absolute;
@@ -1679,7 +2013,7 @@ input:checked ~ .mode-label:last-of-type {
 .company-title {
   font-size: 1.5em;
   margin: 0 0 5px 0;
-  background: black;
+  background: var(--text-color);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: bold;
@@ -1758,3 +2092,837 @@ input:checked ~ .mode-label:last-of-type {
 .author-info a:hover {
   text-decoration: underline;
 }
+/* ===== РЕЖИМ ЦЕЛЬ ===== */
+.mode-goal {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff;
+  border-radius: var(--br-xs);
+  padding: 2px 8px;
+  font-size: 0.8em;
+  font-weight: 700;
+}
+
+/* ===== КНОПКА СТАТИСТИКИ ===== */
+.stats-btn {
+  background: var(--card-bg, rgba(255,255,255,0.1));
+  border: none;
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--secondary-color) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+.stats-btn:hover { opacity: 0.7; }
+
+/* ===== СЕТКА СТАТИСТИКИ ===== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin: 10px 0;
+}
+.stat-item {
+  background: var(--card-bg, rgba(255,255,255,0.08));
+  border-radius: 10px;
+  padding: 10px 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.stat-value {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: var(--accent, #4caf50);
+}
+.stat-label {
+  font-size: 0.7em;
+  opacity: 0.65;
+  line-height: 1.2;
+}
+
+/* ===== ТИТУЛЫ ===== */
+.titles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.title-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card-bg, rgba(255,255,255,0.07));
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+.title-icon {
+  font-size: 1.6em;
+  min-width: 32px;
+  text-align: center;
+}
+/* ===== КНОПКА ЗНАКА +/- ===== */
+#toggle-sign {
+  width: 40px;
+  height: 40px;
+  font-size: 1em;
+  font-weight: 700;
+  border-radius: 50%;
+  /* border: 2px solid var(--secondary-color, #4caf50); */
+  background: var(--secondary-color);
+  color: #000;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#toggle-sign:active {
+  transform: scale(0.92);
+}
+
+#modal-add-points .modal-content {
+  position: relative;
+  padding-top: 90px; /* увеличили под большую аватарку */
+  overflow: visible;
+}
+
+#player-info {
+  position: absolute;
+  top: -60px; /* сдвигаем выше */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+#player-info img {
+  width: 120px;  /* было 70px */
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid var(--secondary-color);
+  background: var(--bg-color);
+}
+
+/* ========================================
+   🔽 DROPDOWN "ЧТО ЗА РЕЖИМЫ?"
+   ======================================== */
+.modes-dropdown {
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.1));
+  border-radius: var(--br-xs);
+  background: var(--glass-bg, rgba(0,0,0,0.15));
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.modes-dropdown summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9em;
+  color: var(--text-color);
+  list-style: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.modes-dropdown summary::-webkit-details-marker { display: none; }
+
+.modes-dropdown-icon {
+  color: var(--text-color);
+  font-size: 1.1em;
+}
+
+.modes-dropdown-arrow {
+  margin-left: auto;
+  font-size: 1.2em;
+  transition: transform 0.25s ease;
+  color: var(--text-color);
+}
+
+.modes-dropdown[open] .modes-dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.modes-dropdown-body {
+  padding: 4px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mode-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.mode-info-row p {
+  margin: 2px 0 0;
+  font-size: 0.82em;
+  opacity: 0.75;
+  line-height: 1.4;
+}
+
+.mode-info-row strong {
+  font-size: 0.92em;
+}
+
+.mode-info-badge {
+  font-size: 1.3em;
+  min-width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mode-reset-bg { background: rgba(71, 253, 173, 0.15); }
+.mode-lose-bg  { background: rgba(255, 77, 77, 0.15); }
+.mode-goal-bg  { background: rgba(255, 193, 29, 0.15); }
+
+
+/* ========================================
+   📊 СТАТИСТИКА НА ГЛАВНОЙ
+   ======================================== */
+.home-stats-section {
+  margin: 16px 0 30px;
+}
+
+.home-stats-title {
+  font-size: 1.05em;
+  font-weight: 700;
+  margin: 0 0 10px;
+  color: var(--text-color);
+  opacity: 0.85;
+}
+
+.home-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.home-stat-item {
+  background: var(--glass-bg, rgba(0,0,0,0.15));
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.07));
+  border-radius: var(--br-xs);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+}
+
+.home-stat-champ {
+  border-color: rgba(255, 193, 29, 0.35);
+  background: rgba(255, 193, 29, 0.08);
+}
+
+.home-stat-icon { font-size: 1.4em; }
+
+.home-stat-value {
+  font-size: 1.5em;
+  font-weight: 800;
+  color: var(--text-color);
+  line-height: 1.1;
+}
+
+.home-stat-label {
+  font-size: 0.72em;
+  opacity: 0.65;
+  line-height: 1.2;
+}
+
+.home-stat-empty {
+  text-align: center;
+  padding: 16px;
+  opacity: 0.55;
+  font-size: 0.9em;
+  border: 1px dashed var(--glass-border, rgba(255,255,255,0.1));
+  border-radius: var(--br-xs);
+}
+
+/* Лидерборд */
+.home-leaderboard-title {
+  font-size: 0.95em;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--text-color);
+}
+
+.home-leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.home-lb-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-lb-medal { font-size: 1.1em; min-width: 24px; text-align: center; }
+
+.home-lb-name {
+  font-size: 0.88em;
+  font-weight: 600;
+  min-width: 60px;
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-color);
+}
+
+.home-lb-bar-wrap {
+  flex: 1;
+  height: 8px;
+  background: rgba(128,128,128,0.15);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.home-lb-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  border-radius: 99px;
+  transition: width 0.5s ease;
+}
+
+.home-lb-count {
+  font-size: 0.8em;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: right;
+  color: var(--primary-color);
+}
+
+.home-lb-antirecord {
+  margin-top: 8px;
+  font-size: 0.78em;
+  opacity: 0.6;
+  text-align: center;
+  padding: 6px 10px;
+  border: 1px solid rgba(255,77,77,0.2);
+  border-radius: var(--br-xs);
+  background: rgba(255,77,77,0.06);
+}
+
+
+/* ========================================
+   🃏 ИСТОРИЯ ИГР — НОВЫЙ ДИЗАЙН
+   ======================================== */
+.history-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.history-header h1 {
+  flex: 1;
+  margin: 0;
+  font-size: 1.25em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-header-icon {
+  font-size: 1.3em;
+  flex-shrink: 0;
+}
+
+.history-back-btn {
+  background: none !important;
+  background-color: transparent !important;
+  border: none;
+  width: 36px !important;
+  height: 36px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--text-color) !important;
+  flex-shrink: 0;
+  padding: 0;
+  box-shadow: none !important;
+  min-width: unset !important;
+}
+.history-back-btn:hover {
+  background: var(--glass-bg) !important;
+  background-color: var(--glass-bg) !important;
+}
+
+/* Сводка */
+.history-stat-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.history-stat-card {
+  background: var(--glass-bg, rgba(0,0,0,0.18));
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+  border-radius: var(--br-xs);
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  backdrop-filter: blur(8px);
+}
+
+.history-stat-champ {
+  grid-column: span 2;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, rgba(255,193,29,0.12), rgba(255,193,29,0.04));
+  border-color: rgba(255,193,29,0.3);
+}
+
+.history-stat-value {
+  font-size: 1.5em;
+  font-weight: 800;
+  color: var(--text-color);
+  line-height: 1;
+}
+
+.history-stat-label {
+  font-size: 0.7em;
+  opacity: 0.6;
+}
+
+.history-stat-name {
+  font-size: 1em;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.history-stat-wins {
+  font-size: 0.75em;
+  opacity: 0.65;
+  color: var(--text-color);
+}
+
+/* Фильтры */
+.history-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.history-search-input {
+  width: calc(100% - 20px);
+  padding: 9px 10px;
+  border-radius: var(--br-xs);
+  border: 1px solid var(--glass-border, rgba(114,40,245,0.2));
+  background: var(--glass-bg, rgba(255,255,255,0.5));
+  color: var(--text-color);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9em;
+  outline: none;
+  backdrop-filter: blur(8px);
+}
+
+.history-search-input:focus {
+  border-color: var(--text-color);
+}
+
+.history-filter-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.filter-tab {
+  flex: 1;
+  padding: 7px 4px;
+  border-radius: var(--br-xs);
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+  background: var(--glass-bg, rgba(0,0,0,0.12));
+  color: var(--text-color);
+  font-size: 0.8em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.filter-tab.active {
+  background: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+
+/* История — пустое состояние */
+.history-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 40px 20px;
+  opacity: 0.65;
+  text-align: center;
+}
+
+/* Карточка истории v2 */
+.history-card-v2 {
+  background: var(--glass-bg, rgba(0,0,0,0.18));
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+  border-radius: var(--br-xs);
+  margin-bottom: 10px;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.history-card-v2:active {
+  transform: scale(0.99);
+}
+
+.hc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px 8px;
+  border-bottom: 1px solid var(--glass-border, rgba(255,255,255,0.06));
+}
+
+.hc-room-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hc-game-num {
+  font-size: 0.72em;
+  font-weight: 700;
+  background: var(--primary-color);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.hc-room-name {
+  font-size: 0.95em;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.hc-date {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.hc-date-day {
+  font-size: 0.75em;
+  font-weight: 600;
+  opacity: 0.75;
+  color: var(--text-color);
+}
+
+.hc-date-time {
+  font-size: 0.68em;
+  opacity: 0.5;
+  color: var(--text-color);
+}
+
+.hc-players {
+  padding: 6px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hc-player-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: 8px;
+  font-size: 0.88em;
+}
+
+.hc-winner {
+  background: linear-gradient(90deg, rgba(255,193,29,0.14), transparent);
+  border-left: 3px solid #ffc01d;
+}
+
+.hc-loser {
+  background: linear-gradient(90deg, rgba(255,77,77,0.1), transparent);
+  border-left: 3px solid rgba(255,77,77,0.5);
+}
+
+.hc-medal { font-size: 1em; min-width: 20px; }
+
+.hc-player-name {
+  flex: 1;
+  font-weight: 600;
+  color: var(--text-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hc-player-score {
+  font-size: 0.85em;
+  font-weight: 700;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+
+.hc-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px 10px;
+  border-top: 1px solid var(--glass-border, rgba(255,255,255,0.05));
+}
+
+.hc-players-count {
+  font-size: 0.72em;
+  opacity: 0.5;
+  color: var(--text-color);
+}
+
+.hc-winner-label {
+  font-size: 0.72em;
+  font-weight: 700;
+  color: #ffc01d;
+  background: rgba(255,193,29,0.1);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+/* Light theme adjustments */
+:root.default-white .home-stat-item,
+:root.default-white .history-card-v2,
+:root.default-white .history-stat-card,
+:root.space-explorer .home-stat-item,
+:root.space-explorer .history-card-v2,
+:root.space-explorer .history-stat-card,
+:root.urban-contrast .home-stat-item,
+:root.urban-contrast .history-card-v2,
+:root.urban-contrast .history-stat-card,
+:root.golden-hour .home-stat-item,
+:root.golden-hour .history-card-v2,
+:root.golden-hour .history-stat-card,
+:root.spring-blossom .home-stat-item,
+:root.spring-blossom .history-card-v2,
+:root.spring-blossom .history-stat-card,
+:root.autumn-leaves .home-stat-item,
+:root.autumn-leaves .history-card-v2,
+:root.autumn-leaves .history-stat-card,
+:root.minimal-elegance .home-stat-item,
+:root.minimal-elegance .history-card-v2,
+:root.minimal-elegance .history-stat-card {
+  background: rgba(255,255,255,0.65);
+  border-color: rgba(0,0,0,0.08);
+}
+
+:root.default-white .home-lb-bar-wrap,
+:root.space-explorer .home-lb-bar-wrap,
+:root.urban-contrast .home-lb-bar-wrap,
+:root.golden-hour .home-lb-bar-wrap,
+:root.spring-blossom .home-lb-bar-wrap,
+:root.autumn-leaves .home-lb-bar-wrap,
+:root.minimal-elegance .home-lb-bar-wrap {
+  background: rgba(0,0,0,0.1);
+}
+
+/* #history-page padding handled above */
+
+/* ========================================
+   📱 MOBILE FIXES — History page
+   ======================================== */
+
+/* Summary grid — не выходим за экран */
+.history-stat-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+  box-sizing: border-box;
+}
+
+/* Filter tabs — equal width, no overflow */
+.history-filter-tabs {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.filter-tab {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+}
+
+/* history-card-v2 — ensure no horizontal overflow */
+.history-card-v2 {
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* hc-room-name — truncate long room names */
+.hc-room-name {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* hc-player-row — no overflow on small screens */
+.hc-player-row {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+/* search input — full width */
+.history-search-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* home stats grid — mobile safe */
+.home-stats-grid {
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   🆕 ADDITIONS — режимные бейджи, аутсайдер, новые элементы
+   ============================================================ */
+
+/* ── Бейдж режима внутри карточки истории ── */
+.hc-mode-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.65em;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+.hc-mode-goal  { background: rgba(255,193,29,0.15);  color: #c89000; border: 1px solid rgba(255,193,29,0.35); }
+.hc-mode-lose  { background: rgba(255,77,77,0.12);   color: #d94444; border: 1px solid rgba(255,77,77,0.3); }
+.hc-mode-reset { background: rgba(71,253,173,0.12);  color: #1fa368; border: 1px solid rgba(71,253,173,0.3); }
+
+/* Правая колонка хедера карточки: бейдж + дата */
+.hc-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* Блок с лейблами победитель/проигравший в футере */
+.hc-footer-badges {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Лейбл проигравшего в футере */
+.hc-loser-label {
+  font-size: 0.72em;
+  font-weight: 700;
+  color: #e05c5c;
+  background: rgba(255,77,77,0.1);
+  padding: 2px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+/* Место игрока (#1, #2...) в строке */
+.hc-place {
+  font-size: 0.72em;
+  font-weight: 700;
+  opacity: 0.45;
+  min-width: 16px;
+  text-align: center;
+}
+
+/* Карточка аутсайдера в сводке истории */
+.history-stat-loser {
+  background: linear-gradient(135deg, rgba(255,77,77,0.1), rgba(255,77,77,0.03)) !important;
+  border-color: rgba(255,77,77,0.28) !important;
+}
+.history-stat-loser .history-stat-value { color: #e05c5c !important; }
+
+/* ── Поиск — всегда full width ── */
+.history-search-input {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Табы истории скрыты (убраны из HTML), safety-hide */
+.history-filter-tabs { display: none !important; }
+
+/* ── history-stat-champ: не span 2 col в мобиле ── */
+@media (max-width: 400px) {
+  .history-stat-champ {
+    grid-column: span 1;
+    flex-direction: column;
+  }
+}
+
+/* ── Light themes: mode badge colors ── */
+:root.default-white .hc-mode-goal,
+:root.space-explorer .hc-mode-goal,
+:root.golden-hour .hc-mode-goal,
+:root.spring-blossom .hc-mode-goal,
+:root.autumn-leaves .hc-mode-goal,
+:root.minimal-elegance .hc-mode-goal,
+:root.urban-contrast .hc-mode-goal { color: #9a6d00; }
+
+:root.default-white .hc-mode-lose,
+:root.space-explorer .hc-mode-lose,
+:root.golden-hour .hc-mode-lose,
+:root.spring-blossom .hc-mode-lose,
+:root.autumn-leaves .hc-mode-lose,
+:root.minimal-elegance .hc-mode-lose,
+:root.urban-contrast .hc-mode-lose { color: #b02020; }
+
+:root.default-white .hc-mode-reset,
+:root.space-explorer .hc-mode-reset,
+:root.golden-hour .hc-mode-reset,
+:root.spring-blossom .hc-mode-reset,
+:root.autumn-leaves .hc-mode-reset,
+:root.minimal-elegance .hc-mode-reset,
+:root.urban-contrast .hc-mode-reset { color: #177a4d; }
+

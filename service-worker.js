@@ -1,76 +1,116 @@
 // service-worker.js
-// Обновляем версию кэша
-const CACHE_VERSION = "v3.3"; // Увеличили версию для теста обновлений
+const CACHE_VERSION = "v3.4";
 const CACHE_NAME = `trackit-${CACHE_VERSION}`;
 
-// Файлы, которые нужно закэшировать
+// GitHub Pages: https://l1lg1tpain.github.io/TrackIt/
+// Все пути от корня домена
 const ASSETS = [
-  "/",
-  "/index.html",
-  "/styles.css",
-  "/script.js",
-  "/manifest.json",
-  "/uno.html",
-  "/bura.html",
-  "/chests.html",
-  "/108.html",
-  "/icons/icon-v3.0-192x192.png",
-  "/icons/icon-v3.0-512x512.png"
-]
+  "/TrackIt/",
+  "/TrackIt/index.html",
+  "/TrackIt/styles.css",
+  "/TrackIt/script.js",
+  "/TrackIt/manifest.json",
+  "/TrackIt/offline.html",
+  "/TrackIt/uno.html",
+  "/TrackIt/bura.html",
+  "/TrackIt/chests.html",
+  "/TrackIt/108.html",
+  "/TrackIt/icons/icon-v3.0-192x192.png",
+  "/TrackIt/icons/icon-v3.0-512x512.png"
+];
 
 // === INSTALL ===
+// Кэшируем все ассеты. Если хоть один не загрузится — установка продолжается
+// (используем addAll с fallback, чтобы не падать на необязательных файлах)
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
+    caches.open(CACHE_NAME).then(async (cache) => {
+      // Кэшируем обязательные файлы
+      const required = [
+        "/TrackIt/",
+        "/TrackIt/index.html",
+        "/TrackIt/styles.css",
+        "/TrackIt/script.js",
+        "/TrackIt/manifest.json",
+      ];
+      await cache.addAll(required);
+
+      // Остальные — по возможности (не блокируем установку)
+      const optional = ASSETS.filter(a => !required.includes(a));
+      await Promise.allSettled(
+        optional.map(url =>
+          fetch(url).then(r => r.ok ? cache.put(url, r) : null).catch(() => null)
+        )
+      );
+
+      // Сразу активируемся, не ждём закрытия старых вкладок
+      return self.skipWaiting();
     })
   );
-  // skipWaiting(), чтобы сразу активировать новый SW (по желанию)
-  // self.skipWaiting();
 });
 
 // === ACTIVATE ===
+// Удаляем старые кэши trackit-*, захватываем все открытые вкладки
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) =>
-      Promise.all(
-        cacheNames.map((cache) => {
-          // Удаляем все устаревшие кэши
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
-          }
-        })
+    caches.keys()
+      .then((names) =>
+        Promise.all(
+          names
+            .filter(n => n.startsWith("trackit-") && n !== CACHE_NAME)
+            .map(n => caches.delete(n))
+        )
       )
-    )
+      .then(() => self.clients.claim())
   );
-  // clients.claim(), чтобы взять под контроль открытые страницы (по желанию)
-  self.clients.claim();
 });
 
-// === FETCH ===
+// === FETCH — Stale-While-Revalidate ===
+// 1. Отдаём из кэша мгновенно (офлайн работает)
+// 2. Параллельно фоново обновляем кэш из сети
+// 3. При следующем запуске пользователь уже видит свежую версию
 self.addEventListener("fetch", (event) => {
+  // Только GET и только наш origin
+  if (event.request.method !== "GET") return;
+  const url = new URL(event.request.url);
+  if (url.origin !== location.origin) return;
+
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      // 1. Если ресурс есть в кэше, отдаем его
-      if (cachedResponse) {
-        return cachedResponse;
+    caches.open(CACHE_NAME).then(async (cache) => {
+      const cached = await cache.match(event.request);
+
+      // Фоновое обновление кэша
+      const updateCache = fetch(event.request)
+        .then((res) => {
+          if (res && res.status === 200 && res.type !== "opaque") {
+            cache.put(event.request, res.clone());
+          }
+          return res;
+        })
+        .catch(() => null);
+
+      // Есть кэш → отдаём немедленно, сеть работает в фоне
+      if (cached) {
+        event.waitUntil(updateCache); // обновляем не блокируя ответ
+        return cached;
       }
 
-      // 2. Если нет в кэше, пробуем загрузить из сети
-      return fetch(event.request).catch(() => {
-        // 3. Если даже сеть недоступна, показываем offline.html (только для навигации)
-        //    Иначе для статических файлов оставляем поведение по умолчанию (ошибка).
-        if (event.request.mode === "navigate") {
-          return caches.match("/offline.html");
-        }
-      });
+      // Кэша нет → ждём сеть
+      const fresh = await updateCache;
+      if (fresh) return fresh;
+
+      // Офлайн + нет кэша → fallback
+      if (event.request.mode === "navigate") {
+        const offline = await cache.match("/TrackIt/offline.html");
+        return offline || new Response("Нет соединения", { status: 503 });
+      }
     })
   );
 });
 
-// Добавляем обработку сообщений для skipWaiting от клиента
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.action === 'skipWaiting') {
+// === MESSAGE — ручной skipWaiting из UI ===
+self.addEventListener("message", (event) => {
+  if (event.data?.action === "skipWaiting") {
     self.skipWaiting();
   }
 });
