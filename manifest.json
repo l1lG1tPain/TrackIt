@@ -3,7 +3,7 @@
   "short_name": "TrackIt",
   "start_url": "/TrackIt/index.html",
   "scope": "/TrackIt/",
-  "version": "3.4",
+  "version": "3.5",
   "display": "standalone",
   "background_color": "#efedff",
   "theme_color": "#47fdad",

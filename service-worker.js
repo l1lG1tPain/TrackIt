@@ -1,5 +1,5 @@
 // service-worker.js
-const CACHE_VERSION = "v3.4";
+const CACHE_VERSION = "v3.5";
 const CACHE_NAME = `trackit-${CACHE_VERSION}`;
 
 // GitHub Pages: https://l1lg1tpain.github.io/TrackIt/

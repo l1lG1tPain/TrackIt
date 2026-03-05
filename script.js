@@ -879,7 +879,7 @@ slides.forEach(slide => {
   const url = slide.dataset.link;
   if (url) {
     slide.style.cursor = "pointer";
-    slide.addEventListener("click", () => window.open(url, "_blank"));
+    slide.addEventListener("click", () => window.location.href = url);
   }
 });
 
