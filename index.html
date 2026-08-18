@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport" />
+  <!-- ✅ Убран дублирующийся <meta name="viewport">: было два одинаковых по смыслу
+       тега подряд, второй (с maximum-scale=1) побеждал в браузере — оставлен он один. -->
   <meta content="#4caf50" name="theme-color" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
   <link href="manifest.json" rel="manifest" />
@@ -11,10 +12,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  
+
+  <!-- ✅ Убрана вторая, старая версия Font Awesome (5.15.4) — грузились сразу два
+       набора иконочных шрифтов одного семейства, это лишний вес страницы без пользы.
+       Оставлена 6.0.0-beta3, т.к. она подключена первой и, судя по всему, используется. -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link rel="icon" href="/icons/favicon.ico" type="image/x-icon">
   
@@ -29,7 +32,7 @@
 
 <body>
   <div id="app">
-    <header>
+    <header id="main-header">
       <div id="snow-overlay" class="snow-overlay"></div>
       <h1><span class="material-icons prime">track_changes</span>TrackIt</h1>
       <div>
@@ -59,9 +62,9 @@
     <main id="main-content">
       <!-- Страница создания комнаты -->
       <section class="page active" id="create-room">
-        <h1>Создать комнату</h1>
         <form id="create-room-form">
-          <input id="room-name" placeholder="Название комнаты" required="" type="text" />
+          <p class="create-room">Создать комнату</p>
+          <input id="room-name" placeholder="Название комнаты" maxlength="18" required="" type="text" />
           <input id="max-points" placeholder="Максимальное количество очков" required="" type="number" />
           <!-- Новый свитчер для режима -->
           <div class="mode-radio-group">
@@ -84,7 +87,7 @@
           <details class="modes-dropdown">
             <summary>
               <span class="material-icons modes-dropdown-icon">help_outline</span>
-              Что за режимы?
+              Что означают режимы?
               <span class="modes-dropdown-arrow material-icons">expand_more</span>
             </summary>
             <div class="modes-dropdown-body">
@@ -138,7 +141,7 @@
 
         <!-- Блок статистики на главной -->
         <div class="home-stats-section" id="home-stats-section">
-          <h2 class="home-stats-title">📊 Твоя статистика</h2>
+          <h2 class="home-stats-title">Твоя статистика</h2>
           <div id="home-stats-grid" class="home-stats-grid">
             <!-- Заполняется через JS -->
           </div>
@@ -150,38 +153,85 @@
 
       <section class="page" id="room-details">
         <div class="room-header">
-          <div class="room-title">
-            <h1 id="room-title"></h1>
-            <span id="room-mode-indicator" class="mode-indicator"></span>
-          </div>   
-          <!-- Кнопки перемещены сюда -->
+          <!-- 🔙 Кнопка назад -->
+          <button id="back-to-rooms-btn" class="back-btn" title="Вернуться к комнатам">
+            <span class="material-icons">arrow_back</span>
+          </button>
+
+          <!-- Название и подзаголовок -->
+          <div class="room-header-content">
+            <h1 id="room-title" style="margin: 0; font-size: 17px; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></h1>
+            <div id="room-subtitle" style="font-size: 11.5px; opacity: 0.6; margin-top: 1px;">Максимум очков: <span id="room-max-points"></span></div>
+          </div>
+
+          <!-- Кнопки управления (4 шт по 36x36px) + режим -->
           <div class="room-controls">
-            <button id="reset-scores-btn" title="Очистить очки">
+            <button id="favorite-btn" class="room-icon-btn" title="Избранное">
+              <span id="favorite-icon" style="font-size: 20px;">🩶</span>
+            </button>
+            <button id="end-game-btn" class="room-icon-btn" title="Завершить игру">
+              <span class="material-icons">flag</span>
+            </button>
+            <button id="reset-scores-btn" class="room-icon-btn" title="Перезагрузить очки">
               <span class="material-icons">refresh</span>
             </button>
-            <button id="add-player-to-room-btn">
+            <button id="add-player-to-room-btn" class="room-icon-btn" title="Добавить игрока">
               <span class="material-icons">person_add</span>
             </button>
+            <!-- Иконка режима справа -->
+            <span id="room-mode-indicator" class="mode-indicator" style="margin-left: auto; flex-shrink: 0;"></span>
           </div>
         </div>
-        <p>
-          Максимальное количество очков: <span id="room-max-points"></span>
-        </p>
+
+        <!-- ✅ Кнопка "Кто ходит первым?" -->
+        <button id="who-starts-btn" class="who-starts-btn glass-card" style="display: none; width: 100%; margin: 16px 0 12px 0; padding: 12px; gap: 8px; align-items: center; justify-content: center; cursor: pointer; border: none; font-weight: 600; font-size: 0.95em; transition: all 0.3s ease; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;">
+          <span class="material-icons" id="who-starts-icon" style="font-size: 20px; transition: transform 0.12s ease;">casino</span>
+          <span id="who-starts-text">Кто ходит первым?</span>
+        </button>
+
+        <!-- Результат "Кто ходит первым?" -->
+        <div id="roll-result" style="display: none; position: relative; text-align: center; padding: 16px; border-radius: 12px; background: color-mix(in srgb, var(--secondary-color) 15%, transparent); border: 2px solid var(--secondary-color); margin-bottom: 16px;">
+          <button id="roll-result-close" style="position: absolute; top: 8px; right: 8px; width: 24px; height: 24px; border: none; border-radius: 50%; background: color-mix(in srgb, var(--secondary-color) 20%, transparent); color: var(--secondary-color); display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; font-size: 14px;">✕</button>
+          <div style="font-size: 28px; margin-bottom: 12px;">🎲</div>
+          <div id="roll-result-avatar" style="width: 60px; height: 60px; margin: 0 auto 12px; border-radius: 50%; background-size: cover; background-position: center; border: 3px solid var(--secondary-color);"></div>
+          <div id="roll-result-name" style="font-size: 16px; font-weight: 700; margin-bottom: 4px;"></div>
+          <div style="font-size: 12px; opacity: 0.8;">ходит первым! 👑</div>
+        </div>
 
         <div id="room-players-list"></div>
 
         <!-- Новый плейсхолдер для пустой комнаты -->
         <div id="no-players-placeholder" class="placeholder">
-          <p>В этой комнате пока нет игроков 😔</p>
+          <p>В комнате пока нет игроков</p>
+          <p>Добавьте участников, чтобы начать вести счёт</p>
           <button id="add-first-player-btn" class="big-add-btn">
             <span class="material-icons">add</span> Добавить первого игрока
           </button>
+        </div>
+
+        <!-- Информация о комнате -->
+        <div id="room-info-footer" class="room-info-footer">
+          <div class="room-info-item">
+            <span class="room-info-icon">📅</span>
+            <div>
+              <div class="room-info-label">Создана</div>
+              <div id="room-created-date" class="room-info-value">-</div>
+            </div>
+          </div>
+          <div class="room-info-item">
+            <span class="room-info-icon">🎮</span>
+            <div>
+              <div class="room-info-label">Игр сыграно</div>
+              <div id="room-games-played" class="room-info-value">0</div>
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- Страница списка комнат -->
       <section class="page" id="room-list">
         <h1>Список комнат</h1>
+        <input type="text" id="rooms-search" placeholder="🔍 Поиск по названию комнаты..." class="history-search-input" style="margin: 0 0 14px;">
         <ul id="rooms"></ul>
         <!-- Плейсхолдер, если нет комнат -->
         <div id="no-rooms-placeholder" style="display: none; text-align: center; padding: 20px;">
@@ -190,8 +240,31 @@
         </div>
       </section>
 
+      <!-- Страница редактирования игроков -->
+      <section class="page" id="edit-players-page">
+        <div style="padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 12px;">
+          <button id="back-from-edit-players-btn" class="back-btn" title="Вернуться" style="flex-shrink: 0;">
+            <span class="material-icons">arrow_back</span>
+          </button>
+          <div style="flex: 1; min-width: 0;">
+            <h1 style="margin: 0; font-size: 17px; font-weight: 800;">Редактировать игроков</h1>
+          </div>
+        </div>
+
+        <div style="padding: 0; font-size: 13px; opacity: 0.7; margin: 10px 0 15px;">Переименуйте игрока или слейте дубликаты в одного — история и очки объединятся.</div>
+
+        <div id="edit-players-page-list" style="padding: 0; display: flex; flex-direction: column; gap: 10px;">
+          <!-- Заполнится через JS -->
+        </div>
+
+        <div id="edit-players-empty" style="display: none; text-align: center; padding: 40px 20px; opacity: 0.6;">
+          <p>Нет созданных игроков</p>
+        </div>
+      </section>
+
       <!-- Страница настроек -->
       <section class="page" id="settings">
+        <!-- CAROUSEL (РЕКЛАМА) -->
         <div class="carousel1">
           <div class="carousel-item" data-link="https://budgetit.app/">
             <img src="assets/banner8.jpg" alt="Баннер 8"/>
@@ -210,128 +283,116 @@
           </div>
         </div>
 
-        <div class="set-buttons">
-          <button class="nav-btn" id="history-btn">
-            📜 История
+        <!-- ИСТОРИЯ И КЭش -->
+        <div class="settings-section">
+          <button id="history-btn" class="glass-card settings-item-compact full-width" style="border: none; cursor: pointer; text-align: left;">
+            <div class="settings-item-left">
+              <span class="material-icons" style="font-size: 20px; opacity: 0.85;">history</span>
+              <div class="settings-label" style="margin-bottom: 0;">История</div>
+            </div>
           </button>
-          <button id="clear-cache-btn" class="btn danger-grey">🧹 Очистить кэш</button>  
         </div>
-        
 
-        <div class="toggle-switch">
-          <span>Сортировка игроков</span>
-          <input type="checkbox" id="sort-toggle" checked>
-          <label for="sort-toggle"></label>
-        </div>
-        
+        <!-- GAME SETTINGS -->
+        <div class="settings-section">
+          <h2 class="settings-section-title">Настройки</h2>
 
-        <hr class="divider" />
-        <!-- Ваша обёртка -->
-        <div class="custom-select-wrapper">
-          <!-- Видимая часть -->
-          <!-- <h1>Выберите тему</h1> -->
-          <div class="custom-select">
-            <!-- Триггер (заголовок), по которому кликают для открытия списка -->
-            <div class="custom-select-trigger">
-              <span>🎨 Выберите тему</span>
-              <div class="arrow"></div>
+          <div class="settings-item-compact glass-card">
+            <div class="settings-item-left">
+              <span class="settings-icon">🎮</span>
+              <div class="settings-label">Сортировка игроков</div>
             </div>
-            <!-- Выпадающий список с вариантами -->
-            <div class="custom-options">
-              <span class="custom-option" data-value="default">🤑 Default</span>
-              <span class="custom-option" data-value="default-black">🤑 Default Black</span>
-              <span class="custom-option" data-value="default-white">✨ Old White (Bright Energy)</span>
-              <span class="custom-option" data-value="default-violet">🌟 Old Black (Violet Pulse)</span>
-              <span class="custom-option new" data-value="onyx">🖤 Onyx</span>
-              <span class="custom-option" data-value="space-explorer">🌌 Space Explorer</span>
-              <span class="custom-option" data-value="ocean-depths">🌊 Ocean Depths</span>
-              <span class="custom-option new" data-value="urban-contrast">🏙️ Urban Contrast</span>
-              <span class="custom-option new" data-value="midnight-meon">🌙 Midnight Neon</span>
-              <span class="custom-option new" data-value="mystic-pastel">🦄 Mystic Pastel</span>
-              <span class="custom-option" data-value="neon-experiment">⚡ Neon Experiment</span>
-              <span class="custom-option new" data-value="forest-harmony">🌲 Forest Harmony</span>
-              <span class="custom-option new" data-value="new-year">🎄 New year 2025</span>
-              <span class="custom-option new" data-value="golden-hour">🌅 Golden Hour</span>
-              <span class="custom-option new" data-value="cyberpunk-neon">🌃 Cyberpunk Neon</span>
-              <span class="custom-option new" data-value="spring-blossom">🌸 Spring Blossom</span>
-              <span class="custom-option new" data-value="autumn-leaves">🍂 Autumn Leaves</span>
-              <span class="custom-option new" data-value="galaxy-dreams">🌠 Galaxy Dreams</span>
-              <span class="custom-option new" data-value="minimal-elegance">⚪ Minimal Elegance</span>
-              <span class="custom-option new" data-value="tropical-sunset">🌴 Tropical Sunset</span>
+            <div class="toggle-switch">
+              <input type="checkbox" id="sort-toggle" checked>
+              <label for="sort-toggle"></label>
+            </div>
+          </div>
+
+          <button id="edit-players-btn" class="settings-item-compact glass-card full-width" style="justify-content: space-between; cursor: pointer; padding: 12px 16px;">
+            <div class="settings-item-left">
+              <span class="material-icons" style="font-size: 20px; opacity: 0.8; min-width: 28px; text-align: center;">edit</span>
+              <div class="settings-label">Редактировать игроков</div>
+            </div>
+            <span class="material-icons" style="font-size: 20px; opacity: 0.5;">chevron_right</span>
+          </button>
+        </div>
+
+        <!-- APPEARANCE -->
+        <div class="settings-section">
+          <h2 class="settings-section-title">Тема</h2>
+          <div id="themes-carousel" class="themes-carousel">
+            <!-- Будет заполнено через JS -->
+          </div>
+        </div>
+
+        <!-- DATA & BACKUP -->
+        <div class="settings-section">
+          <h2 class="settings-section-title">Данные</h2>
+          <div class="settings-buttons-row">
+            <button class="btn-settings glass-card data-btn" id="export-data-btn" style="background: rgba(114,40,245,0.2) !important; border: 1px solid rgba(114,40,245,0.4) !important;">💾 Экспорт</button>
+            <button class="btn-settings glass-card data-btn" id="import-data-btn" style="background: rgba(114,40,245,0.2) !important; border: 1px solid rgba(114,40,245,0.4) !important;">📥 Импорт</button>
+          </div>
+          <button class="btn-settings glass-card btn-danger full-width data-btn" id="delete-all-btn" style="background: rgba(255,77,77,0.2) !important; border: 1px solid rgba(255,77,77,0.4) !important;">🗑️ Удалить всё данные</button>
+        </div>
+
+        <!-- AKULKA PROJECTS -->
+        <div class="settings-section">
+          <h2 class="settings-section-title">Akulka Projects</h2>
+          <div id="akulka-carousel" class="akulka-carousel">
+            <!-- Заполнится через JS -->
+          </div>
+        </div>
+
+        <!-- ABOUT -->
+        <div class="settings-section">
+          <h2 class="settings-section-title">О приложении</h2>
+          <div class="glass-card settings-about">
+            <div style="text-align: center;">
+              <div style="font-size: 1.1em; font-weight: 600; margin-bottom: 4px;">TrackIt</div>
+              <div style="font-size: 0.85em; opacity: 0.7; margin-bottom: 8px;">Счётчик очков для игр</div>
+              <div style="font-size: 0.8em; opacity: 0.6;">Версия 4.0</div>
             </div>
           </div>
         </div>
 
-        <!-- Настоящий <select>, который будет скрыт -->
-        <select id="theme-selector" style="display:none;">
-          <option value="default">Default New</option>
-          <option value="default-white">Default White</option>
-          <option value="default-violet">Default (Violet Pulse)</option>
-          <option value="space-explorer">Space Explorer</option>
-          <option value="ocean-depths">Ocean Depths</option>
-          <option value="urban-contrast">Urban Contras</option>
-          <option value="midnight-meon">Midnight Neon</option>
-          <option value="mystic-pastel">Mystic Pastel</option>
-          <option value="neon-experiment">Neon Experiment</option>
-          <option value="forest-harmony">Forest Harmony</option>
-          <option value="new-year">New year 2025</option>
-          <option value="golden-hour">Golden Hour</option>
-          <option value="cyberpunk-neon">Cyberpunk Neon</option>
-          <option value="spring-blossom">Spring Blossom</option>
-          <option value="autumn-leaves">Autumn Leaves</option>
-          <option value="galaxy-dreams">Galaxy Dreams</option>
-          <option value="minimal-elegance">Minimal Elegance</option>
-          <option value="tropical-sunset">Tropical Sunset</option>
-          <option value="onyx">🖤 Onyx</option>
-        </select>
-     
-        <hr class="divider" />
-        <div class="company-section">
-          <h2 class="company-title">Akulka Projects</h2>
-          <p class="company-subtitle">Маленькая инди-студия, которая делает полезные и весёлые штуки</p>
-
-          <div class="products-grid">
-            <!-- Budgetit -->
-            <a href="https://calm-check-nine.vercel.app/" class="product-card link">
-              <img src="icons/CalmCheck-icon.png" alt="Calm Check" class="product-icon">
-              <h3>Calm Check</h3>
-              <p>Спокойные сценарные проверки для снятия неопределённости</p>
-              <span class="product-version">v1.3</span>
-            </a>
-
-            <!-- Budgetit -->
-            <a href="https://budgetit.app/" class="product-card link">
-              <img src="icons/budgetit-icon.png" alt="BudgetIt" class="product-icon">
-              <h3>BudgetIt</h3>
-              <p>Удобный учёт финансов с аналитикой</p>
-              <span class="product-version">v4.0.1</span>
-            </a>
-
-            <!-- TrackIt (текущий продукт) -->
-            <div class="product-card">
-              <img src="icons/icon-v3.0-512x512.png" alt="TrackIt" class="product-icon">
-              <h3>TrackIt</h3>
-              <p>Счётчик очков для настольных игр</p>
-              <span class="product-version">v3.5</span>
+        <!-- FOOTER -->
+        <div class="glass-card settings-footer">
+          <div style="text-align: center;">
+            <div style="font-size: 0.9em; margin-bottom: 6px;">
+              👨‍💻 <strong>L1lG1tPain</strong>
             </div>
-
-
-
-            <!-- Ludomania Bot -->
-            <a href="https://t.me/LUdomania_app_bot?start=start" target="_blank" class="product-card link">
-              <img src="icons/ludomania-icon.png" alt="Ludomania" class="product-icon">
-              <h3>Ludomania</h3>
-              <p>Безопасные азартные игр</p>
-              <span class="product-version">beta</span>
-            </a>
+            <div style="font-size: 0.85em; opacity: 0.7;">
+              📱 <a href="https://t.me/Cybersnitch" target="_blank" style="color: var(--secondary-color); text-decoration: none;">@Cybersnitch</a>
+            </div>
           </div>
+        </div>
 
-          <div class="author-info">
-            <p>
-              Автор: <strong>l1lG1tPain</strong><br>
-              Telegram: <a href="https://t.me/Cybersnitch" target="_blank"><strong>@Cybersnitch</strong></a>
-            </p>
-          </div>
+      </section>
+
+      <!-- Страница истории игр -->
+      <section id="history-page" class="page">
+        <div class="history-header">
+          <button class="history-back-btn" onclick="navigateTo('settings')">
+            <span class="material-icons">arrow_back</span>
+          </button>
+          <h1>История игр</h1>
+          <span class="history-header-icon">🃏</span>
+        </div>
+
+        <!-- Сводка -->
+        <div id="history-summary" class="history-summary"></div>
+
+        <!-- Поиск по истории -->
+        <div class="history-filters">
+          <input type="text" id="history-search" placeholder="🔍 Поиск по названию комнаты..." class="history-search-input" />
+        </div>
+
+        <div id="history-container"></div>
+
+        <div id="history-empty" class="history-empty" style="display:none;">
+          <span style="font-size:3em;">🃏</span>
+          <p>Пока нет сыгранных игр</p>
+          <small>Начни игру, чтобы увидеть историю!</small>
         </div>
       </section>
     </main>
@@ -342,11 +403,13 @@
         <svg data-name="Layer 1" id="Layer_1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="m17.51,8.2h.001c-.385-.345-.995-.257-1.258.187-1.481,2.505-1.141,5.879-2.468,5.879-.628,0-.53-1.086-.826-1.756-.21-.475-.848-.548-1.175-.144-1.251,1.549-2.456,4.276-1.348,6.939,1.187,2.851,3.867,4.864,6.949,4.683,3.688-.215,6.614-3.275,6.614-7.018,0-3.696-4.098-6.637-6.49-8.77Zm1.387,12.748c-1.016,1.185-2.839,1.185-3.855,0-.878-1.024-.708-2.591.246-3.545l1.117-1.117c.311-.311.816-.311,1.127,0l1.117,1.117c.954.954,1.125,2.52.246,3.545h.001Zm-7.346,3.056h-6.552c-2.757,0-5-2.243-5-5v-9.276c0-1.665.824-3.214,2.203-4.145L9.203.859c1.699-1.146,3.895-1.146,5.594,0l7.203,4.88c1.252.942,2,2.41,2,3.989v1.973c-1.231-1.617-2.822-2.984-4.161-4.13-.352-.301-.688-.588-.994-.862h0c-.634-.568-1.48-.818-2.32-.688-.837.129-1.563.621-1.993,1.348-.576.975-.917,2-1.163,2.939-.215-.089-.444-.151-.683-.183-.947-.128-1.86.243-2.458.983-1.713,2.121-3.043,5.589-1.639,8.965.665,1.598,1.708,2.925,2.962,3.93Z"></path>
         </svg>
+        <span class="nav-label">Главная</span>
       </button>
       <button class="nav-btn" data-target="room-list">
         <svg data-name="Layer 1" id="Layer_1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M20.466,1.967L14.78,.221c-2.614-.797-5.406,.664-6.225,3.24l-.188,.539h-3.368C2.243,4,0,6.243,0,9v10c0,2.757,2.243,5,5,5h6c1.596,0,3.004-.766,3.92-1.934,.231,.032,.461,.052,.688,.052,2.167,0,4.144-1.414,4.775-3.564l3.413-10.397c.767-2.613-.727-5.39-3.331-6.189ZM11,22H5c-1.654,0-3-1.346-3-3V9c0-1.654,1.346-3,3-3h6c1.654,0,3,1.346,3,3v10c0,1.654-1.346,3-3,3ZM21.887,7.562l-3.412,10.397c-.358,1.214-1.413,2.022-2.603,2.132,.079-.353,.128-.716,.128-1.092V9c0-2.757-2.243-5-5-5h-.507c.534-1.501,2.163-2.341,3.7-1.867l5.686,1.746c1.562,.479,2.459,2.146,2.008,3.684Z"></path>
         </svg>
+        <span class="nav-label">Комнаты</span>
       </button>
       <button class="nav-btn" data-target="settings">
         <svg id="Outline" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -355,35 +418,10 @@
           <path d="M7,13H4a4,4,0,0,0-4,4v3a4,4,0,0,0,4,4H7a4,4,0,0,0,4-4V17A4,4,0,0,0,7,13Zm2,7a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V17a2,2,0,0,1,2-2H7a2,2,0,0,1,2,2Z"></path>
           <path d="M20,13H17a4,4,0,0,0-4,4v3a4,4,0,0,0,4,4h3a4,4,0,0,0,4-4V17A4,4,0,0,0,20,13Zm2,7a2,2,0,0,1-2,2H17a2,2,0,0,1-2-2V17a2,2,0,0,1,2-2h3a2,2,0,0,1,2,2Z"></path>
         </svg>
+        <span class="nav-label">Настройки</span>
       </button>
     </footer>
 
-    <section id="history-page" class="page">
-      <div class="history-header">
-        <button class="history-back-btn" onclick="navigateTo('settings')">
-          <span class="material-icons">arrow_back</span>
-        </button>
-        <h1>История игр</h1>
-        <span class="history-header-icon">🃏</span>
-      </div>
-
-      <!-- Сводка -->
-      <div id="history-summary" class="history-summary"></div>
-
-      <!-- Поиск по истории -->
-      <div class="history-filters">
-        <input type="text" id="history-search" placeholder="🔍 Поиск по названию комнаты..." class="history-search-input" />
-      </div>
-
-      <div id="history-container"></div>
-
-      <div id="history-empty" class="history-empty" style="display:none;">
-        <span style="font-size:3em;">🃏</span>
-        <p>Пока нет сыгранных игр</p>
-        <small>Начни игру, чтобы увидеть историю!</small>
-      </div>
-   </section>
-   
    <div id="clear-cache-modal" class="modal">
     <div class="modal-content-clear">
       <h3>🧹 Очистить кэш?</h3>
@@ -394,15 +432,60 @@
   </div>
   
 
-    <!-- Обновлённая модалка добавления игрока с чипсами -->
+    <!-- Модалка добавления игрока (новая версия с поиском и выбором) -->
     <div class="modal" id="modal-add-player">
-      <div class="modal-content">
-        <h2><span class="material-icons f16">add</span> Добавить игрока</h2>
-        <input id="player-name" placeholder="Введите имя" type="text" />
-        <div id="recent-players-chips" class="chips-container"></div>
+      <div class="modal-content" style="max-height: 80vh; display: flex; flex-direction: column;">
+        <!-- Заголовок -->
+        <h2 style="display: flex; align-items: center; gap: 8px; margin: 0 0 16px 0;">
+          <span class="material-icons" style="color: #47fdad;">person_add</span>
+          Добавить игрока
+        </h2>
+
+        <!-- Поле ввода -->
+        <input id="add-player-search" placeholder="Имя игрока или поиск..." type="text" style="margin-bottom: 12px;" />
+
+        <!-- Скроллируемый список -->
+        <div id="add-player-list" style="flex: 1; overflow-y: auto; margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px; max-height: 40vh;"></div>
+
+        <!-- Кнопки -->
         <div class="modal-buttons">
-          <button id="add-player-confirm" class="positive">Добавить</button>
           <button id="cancel-add-player">Отмена</button>
+          <button id="add-player-confirm" disabled>Добавить (0)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RENAME PLAYER MODAL -->
+    <div class="modal" id="modal-rename-player">
+      <div class="modal-content" style="max-width: 400px; width: 90%;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div id="rename-avatar" style="width: 48px; height: 48px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 600; color: white; flex-shrink: 0;"></div>
+          <h2 style="margin: 0;">Переименовать игрока</h2>
+        </div>
+        <input type="text" id="rename-input" placeholder="Введите новое имя"
+          style="width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; background: rgba(255,255,255,0.05); color: var(--text-color); font-family: inherit; font-size: 1em; box-sizing: border-box; margin-bottom: 20px;">
+        <div class="modal-buttons">
+          <button id="rename-cancel-btn" class="negative" style="flex: 1;">Отмена</button>
+          <button id="rename-confirm-btn" class="positive" style="flex: 1;">Сохранить</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MERGE PLAYER MODAL -->
+    <div class="modal" id="modal-merge-player">
+      <div class="modal-content" style="max-width: 500px; width: 90%;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+          <div id="merge-primary-avatar" style="width: 48px; height: 48px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 600; color: white; flex-shrink: 0;"></div>
+          <div>
+            <h2 style="margin: 0 0 4px 0;">Слить в «<span id="merge-primary-name"></span>»</h2>
+            <p style="opacity: 0.6; font-size: 0.85em; margin: 0;">История и очки объединятся. Выберите, кого слить:</p>
+          </div>
+        </div>
+        <div id="merge-players-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; max-height: 350px; overflow-y: auto;">
+          <!-- Заполнится через JS -->
+        </div>
+        <div class="modal-buttons">
+          <button id="merge-cancel-btn" class="negative" style="flex: 1;">Отмена</button>
         </div>
       </div>
     </div>
@@ -421,8 +504,11 @@
     <div id="modal-add-points" class="modal">
       <div class="modal-content">
         <div id="player-info"></div>
-        <h2 class="modal-title"><span class="material-icons f16">add</span> Добавить очки</h2>
-        
+
+        <h2 class="modal-title" id="add-points-player-name"></h2>
+
+        <div id="add-points-current-score" style="font-size: 0.9em; opacity: 0.7; margin-bottom: 12px;"></div>
+
         <div style="display:flex; align-items:center; gap:8px; margin: 8px 0;">
           <button type="button" id="toggle-sign">+</button>
           <input type="number" inputmode="numeric" id="player-points" placeholder="Очки">
@@ -435,6 +521,8 @@
         </div>
       </div>
     </div>
+
+    <!-- ✅ УДАЛЕН старый закомментированный modal-end-game (оставлен только новый красивый) -->
 
     <div class="modal" id="modal-reset-scores">
       <div class="modal-content">
@@ -455,28 +543,78 @@
         </div>
       </div>
     </div>
-<!-- 
-    <div class="modal" id="modal-end-game">
+
+    <!-- Модалка подтверждения завершения игры -->
+    <div class="modal" id="modal-end-game-confirm">
       <div class="modal-content">
-        <h2> Игра закончена</h2>
-        <p id="end-game-message"></p>
-        <button class="positive" id="restart-game-btn">🕹️ Начать заново</button>
+        <h2>⛔ Завершить игру?</h2>
+        <p>Игра будет закончена с текущим счётом.</p>
+        <p style="font-size: 0.9em; opacity: 0.7;">Результаты будут добавлены в историю игр.</p>
+        <div class="modal-buttons">
+          <button class="negative" id="end-game-confirm">Завершить</button>
+          <button class="positive" id="end-game-cancel">Отмена</button>
+        </div>
       </div>
-    </div> -->
+    </div>
 
     <div id="modal-end-game" class="modal">
-      <div class="modal-content">
-        <h2>☠️ Игра закончена</h2>
-        <h3>Проиграл:</h3>
-        <div id="loser-info">
-          <img id="loser-avatar" src="" alt="Avatar" style="width: 70px; height: 70px; border-radius: 50%;">
-          <strong id="loser-name"></strong> с <span id="loser-score"></span> очками
+      <div class="modal-content end-game-content">
+        <!-- Заголовок -->
+        <div style="text-align: center; margin-bottom: 10px; flex-shrink: 0;">
+          <div style="font-size: 18px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 4px;">
+            <span style="font-size: 16px;">🏁</span> Игра закончена
+          </div>
         </div>
-        <div id="winners-list">
-          <h3>Победители:</h3>
-          <ul id="winners"></ul>
+
+        <!-- Режим -->
+        <div id="end-game-mode" style="display: flex; align-items: center; gap: 6px; justify-content: center; margin-bottom: 10px; font-size: 11px; flex-shrink: 0;">
+          <span id="end-game-room-name"></span>
+          <span id="end-game-mode-badge" style="background-color: rgba(255, 255, 255, 0.06); color: #ff4d4d; padding: 2px 6px; border-radius: 999px; font-weight: 700;"></span>
         </div>
-        <button id="restart-game-btn">🕹️ Начать заново</button>
+
+        <!-- ✅ НОВЫЙ ДИЗАЙН: Две карточки - Победитель и Проигрыш (для RESET/LOSE) -->
+        <div id="end-game-two-cards" style="display: none; gap: 10px; margin-bottom: 12px;">
+          <!-- Карточка победителя -->
+          <div style="flex: 1; border: 2px solid #47fdad; border-radius: 10px; padding: 12px; text-align: center; background: rgba(71, 253, 173, 0.08);">
+            <div style="font-size: 16px; margin-bottom: 6px;">🥇</div>
+            <div style="font-size: 18px; font-weight: 700; color: #47fdad; margin-bottom: 6px; line-height: 1;">ПОБЕДА</div>
+            <div id="end-game-winner-avatar-small" style="width: 45px; height: 45px; margin: 0 auto 6px; border-radius: 50%; background-size: cover; background-position: center; border: 2px solid #47fdad;"></div>
+            <div id="end-game-winner-name-small" style="font-size: 13px; font-weight: 700; word-break: break-word;"></div>
+            <div id="end-game-winner-score-small" style="font-size: 11px; opacity: 0.7; margin-top: 3px;"></div>
+          </div>
+
+          <!-- Карточка проигрыша -->
+          <div style="flex: 1; border: 2px solid #ff4d4d; border-radius: 10px; padding: 12px; text-align: center; background: rgba(255, 77, 77, 0.08);">
+            <div style="font-size: 16px; margin-bottom: 6px;">💀</div>
+            <div style="font-size: 18px; font-weight: 700; color: #ff4d4d; margin-bottom: 6px; line-height: 1;">ПРОИГРЫШ</div>
+            <div id="end-game-loser-avatar-small" style="width: 45px; height: 45px; margin: 0 auto 6px; border-radius: 50%; background-size: cover; background-position: center; border: 2px solid #ff4d4d;"></div>
+            <div id="end-game-loser-name-small" style="font-size: 13px; font-weight: 700; color: #ff4d4d; word-break: break-word;"></div>
+            <div id="end-game-loser-score-small" style="font-size: 11px; opacity: 0.7; margin-top: 3px;"></div>
+          </div>
+        </div>
+
+        <!-- Старый стиль: Одна карточка победителя (для GOAL) -->
+        <div id="winner-card" style="border: 2px solid #f59e0b; border-radius: 12px; padding: 14px; text-align: center; margin-bottom: 12px; background: rgba(245, 158, 11, 0.05); display: none; flex-shrink: 0;">
+          <div style="font-size: 18px; margin-bottom: 8px;">🏆</div>
+          <div id="winner-avatar-large" style="width: 56px; height: 56px; margin: 0 auto 8px; font-size: 22px; font-weight: 800;"></div>
+          <div id="end-game-winner-name" style="font-size: 15px; font-weight: 700; margin-bottom: 6px;"></div>
+          <div id="end-game-winner-bar" class="end-game-player-bar" style="margin-bottom: 6px;">
+            <div class="end-game-player-bar-fill" style="width: 100%"></div>
+          </div>
+          <div id="end-game-winner-score" style="font-size: 11px; opacity: 0.7;"></div>
+        </div>
+
+        <!-- Список всех игроков -->
+        <div id="other-players" style="margin-bottom: 10px;"></div>
+
+        <!-- Кнопки -->
+        <div style="display: flex; gap: 8px; margin-top: 10px; flex-shrink: 0;">
+          <button id="end-game-close-btn" style="flex: 0.4; padding: 10px; border-radius: 8px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); color: var(--text-color); cursor: pointer; font-weight: 600; font-size: 13px;">Закрыть</button>
+          <button id="end-game-restart-btn" style="flex: 0.6; padding: 10px; border-radius: 8px; background: linear-gradient(135deg, var(--secondary-color), color-mix(in srgb, var(--secondary-color) 55%, white 20%)); color: #0a3d2b; border: none; cursor: pointer; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 13px;">
+            <span class="material-icons" style="font-size: 16px;">refresh</span>
+            Заново
+          </button>
+        </div>
       </div>
     </div>
 
@@ -491,18 +629,41 @@
       </div>
     </div>
 
-    <!-- Модалка победителя (режим Цель) -->
+    <!-- Модалка победителя (режим Цель) - НОВЫЙ ДИЗАЙН -->
     <div id="modal-winner" class="modal">
-      <div class="modal-content">
-        <h2>🏆 Победа!</h2>
-        <div id="winner-info" style="text-align:center; padding: 10px 0;">
-          <img id="winner-avatar" src="" alt="Avatar" style="width:70px;height:70px;border-radius:50%;margin-bottom:8px;">
-          <div><strong id="winner-name"></strong></div>
-          <div style="font-size:1.3em; margin-top:4px;"><span id="winner-score"></span> очков 🎉</div>
+      <div class="modal-content end-game-content">
+        <!-- Заголовок -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <div style="font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 4px;">
+            <span style="font-size: 20px;">🏆</span> Победа!
+          </div>
         </div>
-        <h2>☠️ Проигравшие</h2>
-        <div id="other-players-list" style="margin-top:10px;"></div>
-        <button id="winner-restart-btn" style="margin-top:12px;">🕹️ Начать заново</button>
+
+        <!-- Режим -->
+        <div id="goal-mode" style="display: flex; align-items: center; gap: 6px; justify-content: center; margin-bottom: 16px; font-size: 13px;">
+          <span id="goal-room-name"></span>
+          <span id="goal-mode-badge" style="background-color: rgba(255, 255, 255, 0.06); color: #f59e0b; padding: 3px 8px; border-radius: 999px; font-weight: 700;">🎯 Цель</span>
+        </div>
+
+        <!-- Победитель в выделенной карточке -->
+        <div style="border: 2px solid #f59e0b; border-radius: 14px; padding: 18px; text-align: center; margin-bottom: 16px; background: rgba(245, 158, 11, 0.05);">
+          <div style="font-size: 20px; margin-bottom: 12px;">🏆</div>
+          <div id="goal-winner-avatar" style="width: 64px; height: 64px; margin: 0 auto 10px; border-radius: 50%; background-size: cover; background-position: center;"></div>
+          <div id="goal-winner-name" style="font-size: 16px; font-weight: 700; margin-bottom: 3px;"></div>
+          <div id="goal-winner-score" style="font-size: 12px; opacity: 0.7;"></div>
+        </div>
+
+        <!-- Остальные игроки -->
+        <div id="goal-other-players" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; max-height: 200px; overflow-y: auto;"></div>
+
+        <!-- Кнопки -->
+        <div style="display: flex; gap: 8px; margin-top: 16px;">
+          <button id="goal-close-btn" style="flex: 0.4; padding: 12px; border-radius: 10px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); color: var(--text-color); cursor: pointer; font-weight: 600; font-size: 14px;">Закрыть</button>
+          <button id="goal-restart-btn" style="flex: 0.6; padding: 12px; border-radius: 10px; background: #47fdad; color: #0a3d2b; border: none; cursor: pointer; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 14px;">
+            <span class="material-icons" style="font-size: 18px;">refresh</span>
+            Начать заново
+          </button>
+        </div>
       </div>
     </div>
 
@@ -514,6 +675,19 @@
         <div id="stats-content"></div>
         <div id="stats-titles" style="margin-top:12px;"></div>
         <button id="stats-close-btn" style="margin-top:14px;">Закрыть</button>
+      </div>
+    </div>
+
+    <!-- Модалка удаления всех данных -->
+    <div class="modal" id="modal-delete-all-data">
+      <div class="modal-content">
+        <h2>🗑️ Удалить ВСЕ данные?</h2>
+        <p style="color: #ff4444; font-weight: 600; margin: 16px 0;">⚠️ Это действие необратимо!</p>
+        <p>Будут удалены все комнаты, игроки и история. Продолжить?</p>
+        <div class="modal-buttons">
+          <button class="negative" id="delete-all-confirm">Да, удалить всё</button>
+          <button class="positive" id="delete-all-cancel">Отмена</button>
+        </div>
       </div>
     </div>
   </div>

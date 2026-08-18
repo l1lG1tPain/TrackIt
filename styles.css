@@ -2,11 +2,11 @@
   --primary-color: #000000; /* Основной цвет */
   --secondary-color: #47fdad; /* Акцентный цвет */
   --text-color: #000000; /* Цвет текста */
-  --button-text-color: #FFFFFF; 
+  --button-text-color: #FFFFFF;
   --background-color: #fbfbfc; /* Общий фон */
   --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
   --button-color: var(--secondary-color); /* Цвет кнопок */
-  --card-color: var(--primary-color); /* Цвет карточек */
+  --card-color: #d8d8d8; /* Светло серый фон карточек */
   --nav-btn-color: #000000; /* Цвет иконок навбара */
 
   --br-xs: 10px;
@@ -16,16 +16,367 @@
   }
 }
 
+/* Отключить синий хайлайт при нажатии на мобильных */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== GLASSMORPHISM SETTINGS ===== */
+.settings-section {
+  margin-bottom: 24px;
+}
+
+.settings-section-title {
+font-size: 12.5px;
+    font-weight: 800;
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 9px;
+}
+
+/* Больше воздуха между строками настроек (сами темы/цвета не трогаем) */
+.settings-section .glass-card {
+  margin-bottom: 12px;
+}
+
+/* БАЗОВЫЕ СТИЛИ ДЛЯ СВЕТЛОЙ ТЕМЫ */
+.glass-card {
+  background: rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.glass-card:hover {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* ПЕРЕОПРЕДЕЛЕНИЕ ДЛЯ ТЕМНЫХ ТЕМ */
+:root[data-theme-type="dark"] .glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+:root[data-theme-type="dark"] .glass-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.settings-item-compact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px !important;
+}
+
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.settings-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.settings-icon {
+  font-size: 1.8em;
+  min-width: 35px;
+  text-align: center;
+}
+
+.settings-label {
+  font-weight: 600;
+  font-size: 0.95em;
+  margin-bottom: 2px;
+}
+
+.settings-desc {
+  font-size: 0.8em;
+  opacity: 0.6;
+}
+
+.btn-settings {
+  background: rgba(71, 253, 173, 0.15);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-color); /* Светлый текст на тёмных темах */
+}
+
+.btn-settings:hover {
+  background: rgba(71, 253, 173, 0.25);
+}
+
+.btn-danger {
+  background: rgba(255, 68, 68, 0.15);
+  color: var(--text-color);
+}
+
+.btn-danger:hover {
+  background: rgba(255, 68, 68, 0.25);
+}
+
+/* Карусель тем */
+.themes-carousel {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 12px 0;
+  scroll-behavior: smooth;
+}
+
+.themes-carousel::-webkit-scrollbar {
+  height: 4px;
+}
+
+.themes-carousel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.themes-carousel::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+.theme-item {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.theme-item:hover {
+  transform: scale(1.05);
+}
+
+.theme-preview {
+  width: 80px;
+  height: 60px;
+  border-radius: 6px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+}
+
+.theme-preview::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(144deg, #ffffff 0%, #00000000 40%);
+  opacity: 0.5;
+}
+
+.theme-item.active .theme-preview {
+  box-shadow: 0 0 14px color-mix(in srgb, var(--secondary-color) 70%, transparent);
+  transform: scale(1.05);
+  border-color: var(--secondary-color);
+}
+
+.theme-item-name {
+  font-size: 0.65em;
+  font-weight: 600;
+  text-align: center;
+  width: 80px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  line-height: 1.2;
+}
+
+/* Кнопки данных */
+.settings-buttons-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-settings {
+  padding: 12px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+/* Кнопка "Кто первый начнёт" */
+.who-starts-btn {
+  display: flex !important;
+  color: #0a3d2b;
+  background: color-mix(in srgb, var(--secondary-color) 20%, transparent);
+  border: 2px solid var(--secondary-color);
+  transition: all 0.3s ease;
+}
+
+:root[data-theme-type="dark"] .who-starts-btn {
+  color: var(--button-text-color);
+}
+
+.who-starts-btn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--secondary-color) 30%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--secondary-color) 30%, transparent);
+}
+
+.who-starts-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@keyframes spin {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+.who-starts-btn.rolling .material-icons {
+  animation: spin 0.1s linear infinite;
+}
+
+.who-starts-result {
+  animation: scaleIn 0.5s ease-out;
+}
+
+@keyframes scaleIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Кнопка избранного */
+.favorite-btn {
+  transition: all 0.3s ease !important;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.2);
+}
+
+.favorite-btn.active #favorite-icon {
+  color: var(--secondary-color) !important;
+  font-weight: bold;
+}
+
+#rooms li.favorite::before {
+  content: "🩶";
+  color: var(--secondary-color);
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.products-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 10px;
+}
+
+.product-showcase-item {
+  text-align: center;
+  padding: 12px !important;
+}
+
+.akulka-carousel {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 8px 0;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.akulka-carousel::-webkit-scrollbar {
+  height: 4px;
+}
+
+.akulka-carousel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.akulka-carousel::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+.akulka-item {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 14px !important;
+  min-width: 100px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  max-width: 33vw;
+}
+
+.akulka-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.akulka-icon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.settings-about {
+  text-align: center;
+  padding: 20px;
+}
+
+.settings-footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 24px;
+  margin-bottom: 10px;
+}
+
 :root.default-black {
-  --primary-color: #000000; /* Основной цвет */
-  --secondary-color: #47fdad; /* Акцентный цвет */
-  --text-color: #fbfbfc; /* Цвет текста */
+  --primary-color: #000000;
+  --secondary-color: #47fdad;
+  --text-color: #fbfbfc;
   --button-text-color: #fbfbfc; 
-  --background-color: #000000; /* Общий фон */
-  --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
-  --button-color: var(--secondary-color); /* Цвет кнопок */
-  --card-color: var(--primary-color); /* Цвет карточек */
-  --nav-btn-color: var(--text-color); /* Цвет иконок навбара */
+  --background-color: #000000;
+  --header-footer-color: var(--primary-color);
+  --button-color: var(--secondary-color);
+  --card-color: var(--primary-color);
+  --nav-btn-color: var(--text-color);
 
   --br-xs: 10px;
   
@@ -43,40 +394,28 @@
   }
 }
 
-
-:root.default-white {
-  --primary-color: #7228F5; /* Основной цвет */
-  --secondary-color: #A0FF00; /* Акцентный цвет */
-  --text-color: #000000; /* Цвет текста */
-  --button-text-color: #FFFFFF; 
-  --background-color: #FFFFFF; /* Общий фон */
-  --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
-  --button-color: var(--secondary-color); /* Цвет кнопок */
-  --card-color: var(--primary-color); /* Цвет карточек */
-  --nav-btn-color: #7228F5; /* Тёмный цвет иконок для светлой темы */
-}
-
 :root.default-violet {
-  --primary-color: #7228F5; /* Основной цвет */
-  --secondary-color: #A0FF00; /* Акцентный цвет */
-  --text-color: #FFFFFF; /* Цвет текста */
-  --button-text-color: #FFFFFF; 
-  --background-color: #000000; /* Общий фон */
-  --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
-  --button-color: var(--secondary-color); /* Цвет кнопок */
-  --card-color: var(--primary-color); /* Цвет карточек */
+  --primary-color: #7228F5;
+  --secondary-color: #A0FF00;
+  --text-color: #FFFFFF;
+  --button-text-color: #FFFFFF;
+  --background-color: #000000;
+  --header-footer-color: var(--primary-color);
+  --button-color: var(--secondary-color);
+  --card-color: var(--primary-color);
   --nav-btn-color: #7228F5;
 }
 
-:root.space-explorer {
-  --primary-color: #001F3F;
-  --secondary-color: #A6A6A6;
+:root.default-white {
+  --primary-color: #7228F5;
+  --secondary-color: #A0FF00;
   --text-color: #000000;
+  --button-text-color: #000000;
   --background-color: #FFFFFF;
-  --header-footer-color: #001F3F;
-  --button-color: #A6A6A6; /* Серебристые кнопки */
-  --card-color: #001F3F; /* Цвет карточек */
-  --nav-btn-color: #001F3F;
+  --header-footer-color: var(--primary-color);
+  --button-color: var(--secondary-color);
+  --card-color: #F5F5F5;
+  --nav-btn-color: #7228F5;
 }
 
 :root.ocean-depths {
@@ -86,7 +425,7 @@
   --background-color: #09080d;
   --header-footer-color: #1B4D3E;
   --button-color: #56C8D8; 
-  --card-color: #1B4D3E; /* Цвет карточек */
+  --card-color: #1B4D3E;
   --nav-btn-color: #ffffff;
 }
 
@@ -97,151 +436,162 @@
   --background-color: #09080d;
   --header-footer-color: #191bdf;
   --button-color: #fe6807; 
-  --card-color: #191bdf; /* Цвет карточек */
+  --card-color: #191bdf;
   --nav-btn-color: #ffffff;
 }
 
 :root.midnight-meon {
-  --primary-color: #7231ff; /* Основной цвет */
-  --secondary-color: #ffc01d; /* Акцентный цвет */
-  --text-color: #FFFFFF; /* Цвет текста */
+  --primary-color: #7231ff;
+  --secondary-color: #ffc01d;
+  --text-color: #FFFFFF;
   --button-text-color: #FFFFFF; 
-  --background-color: #07080a; /* Общий фон */
-  --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
-  --button-color: var(--secondary-color); /* Цвет кнопок */
-  --card-color: var(--primary-color); /* Цвет карточек */
+  --background-color: #07080a;
+  --header-footer-color: var(--primary-color);
+  --button-color: var(--secondary-color);
+  --card-color: var(--primary-color);
   --nav-btn-color: #ffffff;
 }
 
 :root.mystic-pastel {
-  --primary-color: #c68dfe; /* Основной цвет */
-  --secondary-color: #c9e957; /* Акцентный цвет */
-  --text-color: #FFFFFF; /* Цвет текста */
+  --primary-color: #c68dfe;
+  --secondary-color: #c9e957;
+  --text-color: #FFFFFF;
   --button-text-color: #FFFFFF; 
-  --background-color: #303843; /* Общий фон */
-  --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
-  --button-color: var(--secondary-color); /* Цвет кнопок */
-  --card-color: var(--primary-color); /* Цвет карточек */
+  --background-color: #303843;
+  --header-footer-color: var(--primary-color);
+  --button-color: var(--secondary-color);
+  --card-color: var(--primary-color);
   --nav-btn-color: #ffffff;
 }
 
+:root.new-year {
+  --primary-color: #ff4e50;
+  --secondary-color: #f9d423;
+  --text-color: #ffffff;
+  --button-text-color: #ffffff;
+  --background-color: #1a1a2e;
+  --header-footer-color: #ff4e50;
+  --button-color: #f9d423;
+  --card-color: #e84545;
+  --nav-btn-color: #ffffff;
+}
+
+:root.cyberpunk-neon {
+  --primary-color: #FF007F;
+  --secondary-color: #00FFFF;
+  --text-color: #FFFFFF;
+  --button-text-color: #000000; 
+  --background-color: #121212;
+  --header-footer-color: #FF007F;
+  --button-color: #00FFFF;
+  --card-color: #FF007F;
+  --nav-btn-color: #ffffff;
+}
+
+:root.galaxy-dreams {
+  --primary-color: #2C3E50;
+  --secondary-color: #8E44AD;
+  --text-color: #ECF0F1;
+  --button-text-color: #FFFFFF; 
+  --background-color: #1A1A2E;
+  --header-footer-color: #2C3E50;
+  --button-color: #8E44AD;
+  --card-color: #2C3E50;
+  --nav-btn-color: #ffffff;
+}
+
+:root.space-explorer {
+  --primary-color: #001F3F;
+  --secondary-color: #A6A6A6;
+  --text-color: #000000;
+  --background-color: #FFFFFF;
+  --header-footer-color: #001F3F;
+  --button-color: #A6A6A6;
+  --card-color: #001F3F;
+  --nav-btn-color: #001F3F;
+}
+
 :root.urban-contrast {
-  --primary-color: #121318; /* Основной цвет */
-  --secondary-color: #ff740f; /* Акцентный цвет */
-  --text-color: #121318; /* Цвет текста */
+  --primary-color: #121318;
+  --secondary-color: #ff740f;
+  --text-color: #121318;
   --button-text-color: #121318; 
-  --background-color: #f0f0f0; /* Общий фон */
-  --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
-  --button-color: var(--secondary-color); /* Цвет кнопок */
-  --card-color: var(--primary-color); /* Цвет карточек */
+  --background-color: #f0f0f0;
+  --header-footer-color: var(--primary-color);
+  --button-color: var(--secondary-color);
+  --card-color: var(--primary-color);
   --nav-btn-color: #121318;
 }
 
 :root.forest-harmony {
-  --primary-color: #133115; /* Основной цвет */
-  --secondary-color: #f3e8d4; /* Акцентный цвет */
-  --text-color: #121318; /* Цвет текста */
+  --primary-color: #133115;
+  --secondary-color: #f3e8d4;
+  --text-color: #121318;
   --button-text-color: #121318; 
-  --background-color: #92b774; /* Общий фон */
-  --header-footer-color: var(--primary-color); /* Цвет хедера и футера */
-  --button-color: var(--secondary-color); /* Цвет кнопок */
-  --card-color: var(--primary-color); /* Цвет карточек */
+  --background-color: #92b774;
+  --header-footer-color: var(--primary-color);
+  --button-color: var(--secondary-color);
+  --card-color: var(--primary-color);
   --nav-btn-color: #133115;
 }
 
-:root.new-year {
-  --primary-color: #ff4e50; /* Основной праздничный цвет */
-  --secondary-color: #f9d423; /* Акцентный цвет, напоминающий золотой */
-  --text-color: #ffffff; /* Цвет текста */
-  --button-text-color: #ffffff; /* Цвет текста на кнопках */
-  --background-color: #1a1a2e; /* Тёмный фон, создающий контраст */
-  --header-footer-color: #ff4e50; /* Красный для хедера и футера */
-  --button-color: #f9d423; /* Золотой цвет кнопок */
-  --card-color: #e84545; /* Цвет карточек, яркий и праздничный */
-  --nav-btn-color: #ffffff;
-}
-
 :root.golden-hour {
-  --primary-color: #FFB74D; /* Золотистый основной */
-  --secondary-color: #FF8A65; /* Персиковый акцент */
-  --text-color: #4E342E; /* Цвет текста */
+  --primary-color: #FFB74D;
+  --secondary-color: #FF8A65;
+  --text-color: #4E342E;
   --button-text-color: #FFFFFF; 
-  --background-color: #FFF3E0; /* Тёплый светлый фон */
-  --header-footer-color: #FFB74D; /* Золотистый для хедера и футера */
-  --button-color: #FF8A65; /* Персиковый цвет кнопок */
-  --card-color: #FFB74D; /* Цвет карточек */
+  --background-color: #FFF3E0;
+  --header-footer-color: #FFB74D;
+  --button-color: #FF8A65;
+  --card-color: #FFB74D;
   --nav-btn-color: #4E342E;
 }
 
-:root.cyberpunk-neon {
-  --primary-color: #FF007F; /* Ярко-розовый */
-  --secondary-color: #00FFFF; /* Неоновый голубой */
-  --text-color: #FFFFFF; /* Белый текст */
-  --button-text-color: #000000; 
-  --background-color: #121212; /* Тёмный фон */
-  --header-footer-color: #FF007F; /* Ярко-розовый для хедера и футера */
-  --button-color: #00FFFF; /* Голубые кнопки */
-  --card-color: #FF007F; /* Цвет карточек */
-  --nav-btn-color: #ffffff;
-}
-
 :root.spring-blossom {
-  --primary-color: #FFB7C5; /* Светло-розовый */
-  --secondary-color: #9FE2BF; /* Мятный акцент */
-  --text-color: #4B0082; /* Тёмно-фиолетовый текст */
+  --primary-color: #FFB7C5;
+  --secondary-color: #9FE2BF;
+  --text-color: #4B0082;
   --button-text-color: #FFFFFF; 
-  --background-color: #FFFAF0; /* Сливочно-белый фон */
-  --header-footer-color: #FFB7C5; /* Розовый для хедера и футера */
-  --button-color: #9FE2BF; /* Мятный для кнопок */
-  --card-color: #FFB7C5; /* Цвет карточек */
+  --background-color: #FFFAF0;
+  --header-footer-color: #FFB7C5;
+  --button-color: #9FE2BF;
+  --card-color: #FFB7C5;
   --nav-btn-color: #4B0082;
 }
 
 :root.autumn-leaves {
-  --primary-color: #8B4513; /* Коричневый */
-  --secondary-color: #FFA500; /* Оранжевый */
+  --primary-color: #8B4513;
+  --secondary-color: #FFA500;
   --text-color: #000000; 
   --button-text-color: #000000; 
-  --background-color: #FFF5EE; /* Светлый кремовый */
-  --header-footer-color: #8B4513; /* Коричневый для хедера и футера */
-  --button-color: #FFA500; /* Оранжевый цвет кнопок */
-  --card-color: #8B4513; /* Цвет карточек */
+  --background-color: #FFF5EE;
+  --header-footer-color: #8B4513;
+  --button-color: #FFA500;
+  --card-color: #8B4513;
   --nav-btn-color: #8B4513;
 }
 
-:root.galaxy-dreams {
-  --primary-color: #2C3E50; /* Глубокий тёмно-синий */
-  --secondary-color: #8E44AD; /* Фиолетовый акцент */
-  --text-color: #ECF0F1; /* Светлый текст */
-  --button-text-color: #FFFFFF; 
-  --background-color: #1A1A2E; /* Тёмный фон */
-  --header-footer-color: #2C3E50; /* Синий для хедера и футера */
-  --button-color: #8E44AD; /* Фиолетовые кнопки */
-  --card-color: #2C3E50; /* Цвет карточек */
-  --nav-btn-color: #ffffff;
-}
-
 :root.minimal-elegance {
-  --primary-color: #000000; /* Чёрный */
-  --secondary-color: #FFFFFF; /* Белый */
+  --primary-color: #000000;
+  --secondary-color: #FFFFFF;
   --text-color: #000000; 
   --button-text-color: #FFFFFF; 
-  --background-color: #F5F5F5; /* Светло-серый */
-  --header-footer-color: #000000; /* Чёрный для хедера и футера */
-  --button-color: #FFFFFF; /* Белые кнопки */
-  --card-color: #000000; /* Чёрные карточки */
+  --background-color: #F5F5F5;
+  --header-footer-color: #000000;
+  --button-color: #FFFFFF;
+  --card-color: #000000;
   --nav-btn-color: #000000;
 }
 
 :root.tropical-sunset {
-  --primary-color: #FF6347; /* Томатный */
-  --secondary-color: #FFD700; /* Золотисто-жёлтый */
+  --primary-color: #FF6347;
+  --secondary-color: #FFD700;
   --text-color: #FFFFFF; 
   --button-text-color: #000000; 
-  --background-color: #FFA07A; /* Светло-коралловый */
-  --header-footer-color: #FF6347; /* Томатный для хедера и футера */
-  --button-color: #FFD700; /* Золотисто-жёлтые кнопки */
-  --card-color: #FF6347; /* Цвет карточек */
+  --background-color: #FFA07A;
+  --header-footer-color: #FF6347;
+  --button-color: #FFD700;
+  --card-color: #FF6347;
   --nav-btn-color: #7a1f00;
 }
 
@@ -250,7 +600,6 @@
   filter: drop-shadow(0 0 6px color-mix(in srgb, var(--button-color) 70%, transparent));
 }
 
-/* Индикатор NEW */
 .indicator {
   background-color: #FF3D00;
   color: white;
@@ -261,13 +610,11 @@
   font-weight: 600;
 }
 
-/* Если это select */
 select option.new {
   font-weight: 600;
   color: #FF3D00;
 }
 
-/* Для кастомного селектора */
 .custom-option.new {
   display: flex;
   align-items: center;
@@ -278,14 +625,14 @@ select option.new {
   margin-left: auto;
 }
 
-
 #hint-container {
   position: fixed;
   top: 10px; 
   right: 10px; 
   z-index: 9999; 
-  background: var(--secondary-color); 
-  color: #000; 
+  background: var(--glass-bg, rgba(0, 0, 0, 0.1)); 
+  backdrop-filter: blur(24px) saturate(200%);
+  color: var(--text-color, #000); 
   padding: 10px; 
   border-radius: var(--br-xs); 
   display: none;
@@ -293,25 +640,26 @@ select option.new {
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
-/* Новый лоадер */
 #loader {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
-  background-color: #000000; /* Чёрный фон */
+  background-color: var(--glass-bg, rgba(0, 0, 0, 0.788));
+  backdrop-filter: blur(26px) saturate(200%);
+
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 99999;
-  transition: opacity 0.6s ease-out;
+  transition: opacity 0.7s ease-out;
   opacity: 1;
 }
 
 .loader-container {
   text-align: center;
-  color: white;
+  color: var(--text-color, #000);
 }
 
 .loader-logo {
@@ -319,17 +667,14 @@ select option.new {
   height: 220px;
   margin-bottom: 20px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #47fdad, #7228F5);
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
   animation: pulse 2s infinite;
-
 }
 
 .loader-title {
   font-size: 1.8em;
   margin: 0 0 30px 0;
   font-weight: bold;
-  /* letter-spacing: 2px; */
-  /* background: linear-gradient(90deg, #47fdad, #7228F5); */
   background: white;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -346,10 +691,10 @@ select option.new {
 .loader-spinner {
   width: 50px;
   height: 50px;
-  border: 4px solid rgba(71, 253, 173, 0.3);
-  border-top: 4px solid #47fdad;
+  border: 4px solid color-mix(in srgb, var(--secondary-color) 30%, transparent);
+  border-top: 4px solid var(--secondary-color);
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 0.7s linear infinite;
   margin: 30px auto;
 }
 
@@ -359,22 +704,16 @@ select option.new {
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 20px rgba(71, 253, 173, 0.5); }
-  50% { box-shadow: 0 0 50px rgba(71, 253, 173, 0.8); }
-  100% { box-shadow: 0 0 20px rgba(71, 253, 173, 0.5); }
+  0% { box-shadow: 0 0 20px color-mix(in srgb, var(--secondary-color) 50%, transparent); }
+  50% { box-shadow: 0 0 50px color-mix(in srgb, var(--secondary-color) 80%, transparent); }
+  100% { box-shadow: 0 0 20px color-mix(in srgb, var(--secondary-color) 50%, transparent); }
 }
 
-/* Когда лоадер скрывается */
 #loader.hidden {
   opacity: 0;
   pointer-events: none;
 }
 
-
-
-
-
-/* Общие стили для кнопок */
 button {
   background-color: var(--button-color);
   color: var(--text-color);
@@ -390,53 +729,185 @@ button:hover {
   background-color: var(--primary-color);
 }
 
-/* Стили списка комнат */
 #rooms li {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background: var(--card-color); /* Цвет карточек меняется в зависимости от темы */
-  /* color: var(--text-color); */
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   color: #FFFFFF;
   margin: 10px 0;
-  padding: 10px;
-  border-radius: var(--br-xs);
-  /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+#rooms li.room-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+#rooms li:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+#rooms li {
+  color: #000000;
+}
+
+:root.default-black #rooms li {
+  color: #FFFFFF;
+}
+
+:root.default-black .room-progress-circle-text {
+  color: #FFFFFF;
+}
+
+#rooms li .room-info-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
 }
 
 #rooms li h3 {
   margin: 0;
-  flex: 1;
-  font-size: 1.5em;
+  font-size: 1.25em;
+  font-weight: 600;
+  word-break: break-word;
 }
 
-#rooms li p {
-  margin: 0 10px;
+#rooms li .room-meta {
+  margin: 0;
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+
+#rooms li .room-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#rooms li .progress-circle {
+  flex-shrink: 0;
+}
+
+#rooms li .room-delete-btn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: rgba(255, 68, 68, 0.2);
+    color: #ff4444 !important;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+#rooms li .room-delete-btn:hover {
+  background: rgba(255, 77, 77, 0.22);
+}
+
+#rooms li .room-delete-btn .material-icons {
+  font-size: 18px;
+}
+
+.room-emoji-small {
+  font-size: 1.8em;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: rgba(71, 253, 173, 0.1);
+  border-radius: 10px;
+}
+
+.room-mode-reset {
+  background: #2A2B34 !important;
+  color: #47fdad !important;
+  border: 1px solid rgba(71, 253, 173, 0.3) !important;
+}
+
+.room-mode-lose {
+  background: #2A2B34 !important;
+  color: #ff4d4d !important;
+  border: 1px solid rgba(255, 77, 77, 0.3) !important;
+}
+
+.room-mode-goal {
+  background: #2A2B34 !important;
+  color: #f59e0b !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+}
+
+.progress-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.progress-circle svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.progress-circle-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 3;
+}
+
+.progress-circle-fill {
+  fill: none;
+  stroke: #47fdad;
+  stroke-width: 3;
+  transition: stroke-dashoffset 0.6s ease;
+  stroke-linecap: round;
+}
+
+.progress-circle-text {
+  position: absolute;
   font-size: 0.9em;
+  font-weight: 600;
+  color: inherit;
 }
 
-#rooms li button {
-  background: var(--button-color); /* Акцентный цвет кнопок */
-  color: var(--button-text-color);
-  border-radius: 50%;
-}
-
-#rooms li button:hover {
-  background: var(--primary-color); /* Основной цвет при наведении */
-}
+/* ✅ УДАЛЕНО: старое правило #rooms li button (круглая кнопка 44x44 с фоном
+   var(--button-color)) конфликтовало с .room-delete-btn по специфичности —
+   ID-селектор #rooms перебивал класс .room-delete-btn, и кнопка удаления
+   комнаты вместо маленького красного квадрата с иконкой рендерилась большим
+   кругом, где иконка была почти не видна на одноцветном фоне. Единственная
+   кнопка внутри #rooms li в текущей разметке — это .room-delete-btn, стиль
+   для неё уже задан ниже (см. блок #rooms li .room-delete-btn), отдельное
+   правило больше не нужно. */
 
 /* ===== GLASS VARS: все темы ===== */
 
-/* DEFAULT — зелёный светлый фон */
 :root {
-  --glass-bg: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(0, 0, 0, 0.04);
+  --glass-border: rgba(0, 0, 0, 0.08);
   --modal-bg: rgba(251, 251, 252, 0.85);
   --modal-overlay: rgba(0, 0, 0, 0.55);
 }
 
-/* DEFAULT-VIOLET — тёмный зелёный фон */
 :root.default-black {
   --glass-bg: rgba(42, 43, 52, 0.6);
   --glass-border: rgba(160, 255, 0, 0.12);
@@ -444,31 +915,38 @@ button:hover {
   --modal-overlay: rgba(0, 0, 0, 0.6);
 }
 
-/* DEFAULT-WHITE — чисто белый, светлая тема */
-:root.default-white {
-  --glass-bg: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(114, 40, 245, 0.18);
-  --modal-bg: rgba(255, 255, 255, 0.95);
-  --modal-overlay: rgba(0, 0, 0, 0.35);
-}
-
-/* DEFAULT-VIOLET — тёмный серый фон */
 :root.default-violet {
-  --glass-bg: rgba(42, 43, 52, 0.6);
-  --glass-border: rgba(160, 255, 0, 0.12);
-  --modal-bg: rgba(42, 43, 52, 0.92);
-  --modal-overlay: rgba(0, 0, 0, 0.6);
+  --primary-color: #7228F5;
+  --secondary-color: #A0FF00;
+  --text-color: #FFFFFF;
+  --button-text-color: #FFFFFF;
+  --background-color: #1a0033;
+  --header-footer-color: var(--primary-color);
+  --button-color: var(--secondary-color);
+  --card-color: #2a1a4d;
+  --nav-btn-color: #A0FF00;
+  --glass-bg: rgba(114, 40, 245, 0.15);
+  --glass-border: rgba(160, 255, 0, 0.2);
+  --modal-bg: rgba(26, 0, 51, 0.95);
+  --modal-overlay: rgba(0, 0, 0, 0.5);
 }
 
-/* SPACE-EXPLORER — белый фон, тёмно-синие акценты */
-:root.space-explorer {
-  --glass-bg: rgba(255, 255, 255, 0.78);
-  --glass-border: rgba(0, 31, 63, 0.18);
+:root.default-white {
+  --primary-color: #7228F5;
+  --secondary-color: #A0FF00;
+  --text-color: #000000;
+  --button-text-color: #000000;
+  --background-color: #FFFFFF;
+  --header-footer-color: var(--primary-color);
+  --button-color: var(--secondary-color);
+  --card-color: #F5F5F5;
+  --nav-btn-color: #7228F5;
+  --glass-bg: rgba(114, 40, 245, 0.08);
+  --glass-border: rgba(114, 40, 245, 0.15);
   --modal-bg: rgba(255, 255, 255, 0.95);
-  --modal-overlay: rgba(0, 0, 0, 0.35);
+  --modal-overlay: rgba(0, 0, 0, 0.4);
 }
 
-/* OCEAN-DEPTHS — очень тёмный фон */
 :root.ocean-depths {
   --glass-bg: rgba(9, 8, 13, 0.5);
   --glass-border: rgba(86, 200, 216, 0.15);
@@ -476,7 +954,6 @@ button:hover {
   --modal-overlay: rgba(0, 0, 0, 0.65);
 }
 
-/* NEON-EXPERIMENT — очень тёмный фон */
 :root.neon-experiment {
   --glass-bg: rgba(9, 8, 13, 0.5);
   --glass-border: rgba(254, 104, 7, 0.2);
@@ -484,7 +961,6 @@ button:hover {
   --modal-overlay: rgba(0, 0, 0, 0.65);
 }
 
-/* MIDNIGHT-NEON — почти чёрный фон */
 :root.midnight-meon {
   --glass-bg: rgba(7, 8, 10, 0.55);
   --glass-border: rgba(255, 192, 29, 0.15);
@@ -492,7 +968,6 @@ button:hover {
   --modal-overlay: rgba(0, 0, 0, 0.7);
 }
 
-/* MYSTIC-PASTEL — тёмно-серый фон */
 :root.mystic-pastel {
   --glass-bg: rgba(48, 56, 67, 0.55);
   --glass-border: rgba(198, 141, 254, 0.18);
@@ -500,23 +975,6 @@ button:hover {
   --modal-overlay: rgba(0, 0, 0, 0.55);
 }
 
-/* URBAN-CONTRAST — светлый серый фон */
-:root.urban-contrast {
-  --glass-bg: rgba(240, 240, 240, 0.82);
-  --glass-border: rgba(18, 19, 24, 0.15);
-  --modal-bg: rgba(240, 240, 240, 0.95);
-  --modal-overlay: rgba(0, 0, 0, 0.35);
-}
-
-/* FOREST-HARMONY — зелёный средний фон */
-:root.forest-harmony {
-  --glass-bg: rgba(19, 49, 21, 0.45);
-  --glass-border: rgba(243, 232, 212, 0.18);
-  --modal-bg: rgba(146, 183, 116, 0.88);
-  --modal-overlay: rgba(0, 0, 0, 0.45);
-}
-
-/* NEW-YEAR — тёмно-синий фон */
 :root.new-year {
   --glass-bg: rgba(26, 26, 46, 0.55);
   --glass-border: rgba(249, 212, 35, 0.18);
@@ -524,15 +982,6 @@ button:hover {
   --modal-overlay: rgba(0, 0, 0, 0.65);
 }
 
-/* GOLDEN-HOUR — тёплый светлый фон */
-:root.golden-hour {
-  --glass-bg: rgba(255, 243, 224, 0.82);
-  --glass-border: rgba(255, 183, 77, 0.30);
-  --modal-bg: rgba(255, 248, 235, 0.96);
-  --modal-overlay: rgba(80, 40, 10, 0.35);
-}
-
-/* CYBERPUNK-NEON — почти чёрный фон */
 :root.cyberpunk-neon {
   --glass-bg: rgba(18, 18, 18, 0.55);
   --glass-border: rgba(0, 255, 255, 0.18);
@@ -540,23 +989,6 @@ button:hover {
   --modal-overlay: rgba(255, 0, 127, 0.2);
 }
 
-/* SPRING-BLOSSOM — сливочно-белый фон */
-:root.spring-blossom {
-  --glass-bg: rgba(255, 250, 240, 0.82);
-  --glass-border: rgba(255, 183, 197, 0.35);
-  --modal-bg: rgba(255, 250, 240, 0.96);
-  --modal-overlay: rgba(75, 0, 130, 0.2);
-}
-
-/* AUTUMN-LEAVES — светлый кремовый фон */
-:root.autumn-leaves {
-  --glass-bg: rgba(255, 245, 238, 0.82);
-  --glass-border: rgba(139, 69, 19, 0.20);
-  --modal-bg: rgba(255, 245, 238, 0.96);
-  --modal-overlay: rgba(80, 30, 0, 0.3);
-}
-
-/* GALAXY-DREAMS — тёмный фон */
 :root.galaxy-dreams {
   --glass-bg: rgba(26, 26, 46, 0.55);
   --glass-border: rgba(142, 68, 173, 0.2);
@@ -564,43 +996,22 @@ button:hover {
   --modal-overlay: rgba(0, 0, 0, 0.65);
 }
 
-/* MINIMAL-ELEGANCE — светло-серый фон */
-:root.minimal-elegance {
-  --glass-bg: rgba(245, 245, 245, 0.85);
-  --glass-border: rgba(0, 0, 0, 0.12);
-  --modal-bg: rgba(245, 245, 245, 0.98);
-  --modal-overlay: rgba(0, 0, 0, 0.3);
-}
-
-/* TROPICAL-SUNSET — коралловый фон */
-:root.tropical-sunset {
-  --glass-bg: rgba(255, 160, 122, 0.45);
-  --glass-border: rgba(255, 215, 0, 0.25);
-  --modal-bg: rgba(255, 140, 100, 0.88);
-  --modal-overlay: rgba(80, 20, 0, 0.4);
-}
-
-/* ========================================
-   🖤 ONYX — глубокий тёмный камень
-   ======================================== */
 :root.onyx {
-  --primary-color: #5865f2;        /* Холодный discord-фиолетовый */
-  --secondary-color: #5865f2;      /* Ледяной акцент */
-  --text-color: #e8eaf6;           /* Мягкий светлый текст */
+  --primary-color: #5865f2;
+  --secondary-color: #5865f2;
+  --text-color: #e8eaf6;
   --button-text-color: #ffffff;
-  --background-color: #050509;     /* Почти чёрный, onyx-камень */
+  --background-color: #050509;
   --header-footer-color: #181824;
   --button-color: #5865f2;
-  --card-color: #0c0c11;           /* Глубокий тёмный для карточек */
+  --card-color: #0c0c11;
   --nav-btn-color: #e8eaf6;
 
-  /* Glass */
   --glass-bg: rgba(8, 8, 20, 0.70);
   --glass-border: rgba(88, 101, 242, 0.28);
   --modal-bg: rgba(11, 11, 16, 0.96);
   --modal-overlay: rgba(0, 0, 0, 0.80);
 
-  /* Тени с холодным свечением */
   --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.7);
   --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.9), 0 0 10px rgba(88, 101, 242, 0.32);
   --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.95), 0 0 22px rgba(88, 101, 242, 0.38);
@@ -609,43 +1020,25 @@ button:hover {
 /* ===== HEADER + NAVBAR ===== */
 header, .navbar {
   background: var(--glass-bg);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
   border-bottom: 1px solid var(--glass-border);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
   transition: background 0.7s ease;
 }
 
-/* Светлые темы — усиленный стеклянный эффект, чтобы контент под шапкой не просвечивал грязно */
-:root.default-white header,
-:root.default-white .navbar,
-:root.space-explorer header,
-:root.space-explorer .navbar,
-:root.urban-contrast header,
-:root.urban-contrast .navbar,
-:root.golden-hour header,
-:root.golden-hour .navbar,
-:root.spring-blossom header,
-:root.spring-blossom .navbar,
-:root.autumn-leaves header,
-:root.autumn-leaves .navbar,
-:root.minimal-elegance header,
-:root.minimal-elegance .navbar,
-:root.forest-harmony header,
-:root.forest-harmony .navbar,
-:root.tropical-sunset header,
-:root.tropical-sunset .navbar {
-  backdrop-filter: blur(24px) saturate(200%);
-  -webkit-backdrop-filter: blur(24px) saturate(200%);
+:root:not([class]) header,
+:root:not([class]) .navbar{
+  backdrop-filter: blur(28px) saturate(210%);
+  -webkit-backdrop-filter: blur(28px) saturate(210%);
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
 }
 
-/* Onyx — усиленное свечение */
 :root.onyx header,
 :root.onyx .navbar {
-  backdrop-filter: blur(28px) saturate(160%);
-  -webkit-backdrop-filter: blur(28px) saturate(160%);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7), 0 0 16px rgba(88, 101, 242, 0.2);
+  backdrop-filter: blur(30px) saturate(170%);
+  -webkit-backdrop-filter: blur(30px) saturate(170%);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7), 0 0 18px rgba(88, 101, 242, 0.25);
 }
 
 /* ===== MODAL OVERLAY + BLUR ===== */
@@ -657,35 +1050,150 @@ header, .navbar {
 
 .modal-content {
   background: var(--modal-bg, var(--background-color)) !important;
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+  border-radius: 18px;
 }
 
 .modal-content-clear {
   background: var(--modal-bg, var(--background-color)) !important;
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+  border-radius: 18px;
 }
 
+/* 🏆 Экран конца игры */
+/* ✅ ОБНОВЛЕНО: Стили для экрана завершения игры */
+.end-game-content {
+  max-width: 380px;
+  width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
 
+#end-game-two-cards {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
 
-/* Остальной интерфейс */
+#end-game-two-cards > div {
+  flex: 1;
+  padding: 12px !important;
+}
+
+/* Уменьшить размер текста в карточках */
+#end-game-two-cards .end-game-winner-avatar-small,
+#end-game-two-cards .end-game-loser-avatar-small {
+  width: 45px;
+  height: 45px;
+}
+
+#end-game-two-cards > div > div:nth-child(3) {
+  font-size: 24px !important;
+}
+
+#other-players {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+  max-height: 30vh;
+}
+
+/* ✅ ОБНОВЛЕНО: Компактный размер строк игроков */
+.end-game-player-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  background: var(--glass-bg, rgba(0, 0, 0, 0.04));
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ✅ Красный стиль для проигравших (с черепом) */
+.end-game-player-row--loser {
+  background: rgba(255, 77, 77, 0.12) !important;
+  border-color: rgba(255, 77, 77, 0.25) !important;
+}
+
+/* ✅ ОБНОВЛЕНО: Компактные размеры */
+.end-game-player-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.end-game-player-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-width: 0;
+}
+
+.end-game-player-name {
+  font-size: 13px;
+  font-weight: 600;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.end-game-player-score {
+  font-size: 13px;
+  font-weight: 800;
+  min-width: 28px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ✅ ОБНОВЛЕНО: Компактный прогресс-бар */
+.end-game-player-bar {
+  flex: 1;
+  height: 3px;
+  background: rgba(71, 253, 173, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  margin: 0 6px;
+  min-width: 40px;
+}
+
+.end-game-player-bar-fill {
+  height: 100%;
+  background: #47fdad;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
 body {
   background-color: var(--background-color);
   color: var(--text-color);
   transition: background-color 0.7s ease, color 0.7s ease;
 }
 
-
-
-/* Стили для карточек игроков */
 .card {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--card-color); /* Цвет карточки игрока зависит от темы */
+  background-color: var(--card-color);
   color: var(--text-color);
   margin: 10px 0;
   padding: 10px;
@@ -723,11 +1231,11 @@ body {
 }
 
 .controls button:hover {
-  background-color: var(--primary-color); /* Основной цвет при наведении */
+  background-color: var(--primary-color);
 }
 
 .delete-btn {
-  background-color: var(--button-text-color); /* Цвет кнопки удаления */
+  background-color: var(--button-text-color);
 }
 
 .delete-btn:hover {
@@ -735,13 +1243,12 @@ body {
 }
 
 .add-btn {
-  background-color: var(--secondary-color); /* Цвет кнопки добавления */
+  background-color: var(--secondary-color);
 }
 
 .add-btn:hover {
   background-color: var(--primary-color);
 }
-
 
 .modal-content {
   color: var(--text-color);
@@ -781,41 +1288,283 @@ body {
   background: rgba(var(--primary-color-rgb, 100,100,200), 0.08);
 }
 
+.player-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--glass-bg, rgba(0, 0, 0, 0.04));
+      border: 1px solid var(--glass-border, rgba(0, 0, 0, 0.08));
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  padding: 5px 7px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.player-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.player-card-top {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.player-card-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.player-card-score-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: var(--primary-color);
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85em;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.player-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.player-card-name {
+  margin: 0;
+  font-size: clamp(0.8em, 2vw, 1em);
+  font-weight: 600;
+  word-break: break-word;
+  color: var(--text-color);
+}
+
+:root.default-black .player-card-name,
+:root.onyx .player-card-name,
+:root.ocean-depths .player-card-name,
+:root.neon-experiment .player-card-name {
+  color: #FFFFFF;
+}
+
+.player-card-label {
+  margin: 2px 0 0 0;
+  font-size: 0.7em;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-color);
+}
+
+.player-card-controls {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.player-card-score-display {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--secondary-color);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  background: none;
+  border: none;
+  box-shadow: none;
+  min-width: 40px;
+  text-align: right;
+}
+
+.player-card-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.1em;
+}
+
+.player-card-btn.delete {
+  background: rgba(255, 68, 68, 0.2);
+  color: #ff4444;
+}
+
+.player-card-btn.delete:hover {
+  background: #ff4444;
+  color: white;
+}
+
+.player-card-btn.add {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+}
+
+.player-card-btn.add:hover {
+  background: #4caf50;
+  color: white;
+}
+
+.player-card-graph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  flex-shrink: 0;
+  transform: scale(0.85);
+  transform-origin: center;
+}
+
+.sparkline-chart {
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.sparkline-chart:hover {
+  filter: brightness(1.2);
+}
+
+:root.space-explorer .player-card-name {
+  color: #000000;
+}
+
+:root.default-black #rooms li {
+  color: #FFFFFF;
+}
+
+:root.tropical-sunset #rooms li{
+  color: #000000;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+:root.tropical-sunset #rooms li:hover{
+  background: rgba(0, 0, 0, 0.07);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+:root.default-black #rooms li,
+:root.onyx #rooms li,
+:root.ocean-depths #rooms li,
+:root.neon-experiment #rooms li,
+:root.midnight-meon #rooms li,
+:root.mystic-pastel #rooms li,
+:root.new-year #rooms li,
+:root.cyberpunk-neon #rooms li,
+:root.galaxy-dreams #rooms li,
+:root.default-violet #rooms li {
+  color: #FFFFFF;
+}
+
+:root.tropical-sunset .player-card-name{
+  color: #000000 !important;
+}
+
+#player-history-list {
+  padding: 0 12px;
+}
+
+#room-details {
+  padding: 0;
+}
+
+#room-details > p {
+  display: none;
+}
+
+#room-details > p {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 0 0 20px 0;
+  font-size: 0.95em;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.room-info-footer {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.room-info-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.room-info-icon {
+  font-size: 1.8em;
+  min-width: 35px;
+  display: flex;
+  align-items: center;
+}
+
+.room-info-label {
+  font-size: 0.75em;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.room-info-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
 .undo-btn:disabled {
   opacity: 0.3;
   cursor: not-allowed;
 }
 
-/* Общие стили */
-
 img {
-  user-select: none; /* Запрет на выделение */
-  -webkit-user-drag: none; /* Отключение перетаскивания в WebKit-браузерах */
-  pointer-events: none; /* Отключение любых взаимодействий с мышью (опционально) */
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
 }
 
 img, a {
-  -webkit-user-drag: none; /* Отключает перетаскивание */
-  -webkit-touch-callout: none; /* Отключает контекстное меню на iOS */
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
 }
-
-
 
 body, html {
     font-family: 'Montserrat', 'sans-serif';
     font-weight: 500;
     margin: 0;
     padding: 0;
-    -webkit-user-select: none; /* Отключает выделение текста на iOS */
-    user-select: none; /* Отключает выделение текста на других устройствах */
-    
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   input, textarea {
-    -webkit-user-select: text; /* Разрешает выделение текста в формах */
+    -webkit-user-select: text;
     user-select: text;
   }
-  
   
   #install-pwa {
     position: fixed;
@@ -831,8 +1580,6 @@ body, html {
   }
   
   #install-pwa .modal-content {
-    /* background: #2A2B34;
-    color: #FFFFFF; */
     padding: 20px;
     border-radius: var(--br-xs);
     text-align: center;
@@ -840,7 +1587,6 @@ body, html {
     max-width: 300px;
   }
   
-
   header {
     position: fixed;
     top: 0;
@@ -871,7 +1617,6 @@ article img {
 }
 
   button {
-    /* background-color: #A0FF00; */
     color: #2A2B34;
     border: none;
     padding: 10px;
@@ -910,16 +1655,16 @@ article img {
     padding: 60px 10px 90px;
   }
 
+  #main-content.no-header-pad {
+    padding-top: 0;
+  }
+
   article {
     margin-bottom: 80px;
     padding: 15px 0;
-
   }
-  
 
-  /* Карточка игрока */
   .card {
-    /* background: #7228F5; */
     color: #FFFFFF;
     margin: 10px 0;
     padding: 15px;
@@ -949,7 +1694,6 @@ article img {
     border-radius: 50%;
   }
   
-  /* Стили модального окна */
   .modal {
     position: fixed;
     top: 0;
@@ -964,15 +1708,12 @@ article img {
   }
   
   .modal-content {
-    /* background: #2A2B34;
-    color: #FFFFFF; */
     padding: 20px;
     border-radius: var(--br-xs);
     text-align: center;
-    width: 90%; /* Уменьшаем ширину модальных окон */
-    max-width: 300px; /* Максимальная ширина модального окна */
+    width: 90%;
+    max-width: 300px;
   }
-  
   
   .modal-buttons button {
     flex: 1;
@@ -993,28 +1734,28 @@ article img {
     justify-content: space-between;
     gap: 10px;
   }
-  /* Основной контент */
 
 button, a {
-  user-select: none; /* Запрещает выделение текста */
-  outline: none; /* Убирает рамку */
-  -webkit-tap-highlight-color: transparent; /* Отключает эффект нажатия на мобильных устройствах */
-  -webkit-user-drag: none; /* Отключает перетаскивание изображения в WebKit-браузерах */
-  pointer-events: auto; /* Отключает все действия мыши (если ссылка только для внешнего вида) */
-  cursor: pointer; /* Добавляет указатель мыши */
+  user-select: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-drag: none;
+  pointer-events: auto;
+  cursor: pointer;
 }
 
+#edit-players-btn {
+  color: var(--text-color);
+}
 
 .page {
   display: none;
-  /* padding: 20px; */
 }
 
 .page.active {
   display: block;
 }
 
-/* Фиксированный футер */
 .navbar {
   position: fixed;
   bottom: 0;
@@ -1059,9 +1800,17 @@ button {
   color: var(--nav-btn-color, #FFFFFF);
   text-align: center;
   cursor: pointer;
-  font-size: 1.5em;
   flex: 1;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, background 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 6px 4px;
+  margin: 0 4px;
+  border-radius: 14px;
+  opacity: 0.6;
 }
 
 .nav-btn:hover {
@@ -1070,17 +1819,29 @@ button {
 }
 
 .nav-btn svg {
-  fill: var(--nav-btn-color, #FFFFFF); /* Цвет иконок зависит от темы */
-  width: 35px;
+  fill: var(--nav-btn-color, #FFFFFF);
+  width: 22px;
   transition: fill 0.3s ease;
 }
 
 .nav-btn:hover svg {
-  fill: var(--secondary-color); /* Меняем цвет иконки при hover */
+  fill: var(--secondary-color);
 }
 
 .nav-btn:active svg {
-  fill: #FF4500; /* Устанавливаем цвет для SVG в состоянии active */
+  fill: #FF4500;
+}
+
+.nav-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  color: inherit;
+}
+
+.nav-btn.active {
+  opacity: 1;
+  background: rgba(71, 253, 173, 0.14);
 }
 
 .nav-btn.active svg {
@@ -1088,13 +1849,14 @@ button {
   filter: drop-shadow(0 0 6px color-mix(in srgb, var(--button-color) 70%, transparent));
 }
 
+.nav-btn.active .nav-label {
+  color: var(--secondary-color, var(--button-color));
+}
 
-/* Стили для формы создания комнаты */
 form {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  /* margin-top: 20px; */
 }
 
 form input {
@@ -1121,9 +1883,42 @@ input:focus-visible {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.479);
 }
 
+#create-room-form button[type="submit"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px;
+  border-radius: 10px;
+  color: #0a3d2b;
+  font-weight: 800;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--secondary-color), color-mix(in srgb, var(--secondary-color) 55%, white 20%));
+  box-shadow: 0 6px 22px color-mix(in srgb, var(--secondary-color) 45%, transparent);
+  transition: all 0.2s ease;
+}
+
+#create-room-form button[type="submit"]:hover {
+  filter: brightness(1.08);
+  transform: scale(1.02);
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--secondary-color) 55%, transparent);
+}
+
+#create-room-form button[type="submit"] .material-icons {
+  font-size: 18px;
+}
+
+:root.default-violet #create-room-form button[type="submit"],
+:root.cyberpunk-neon #create-room-form button[type="submit"],
+:root.galaxy-dreams #create-room-form button[type="submit"],
+:root.onyx #create-room-form button[type="submit"] {
+  color: var(--button-text-color);
+}
+
 form button {
   padding: 10px;
-  /* background-color: #A0FF00; */
   color: #2A2B34;
   font-size: 1.2em;
   border: none;
@@ -1135,38 +1930,28 @@ form button {
 }
 
 form button:hover {
-  /* background-color: #88CC00; */
 }
 
 form button span, .modal-content .f16 {
   font-size: 1.6em !important;
 }
 
-
-/* Список комнат */
 #rooms {
   list-style: none;
   padding: 0;
   margin: 10px 0 40px;
-  padding-bottom: 60px;
-}
-
-#room-players-list {
   padding-bottom: 100px;
 }
 
-#rooms li button {
-  background: #FF0000;
-  color: var(--text-color);
-  border-radius: 50%;
+#room-players-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-#rooms li button:hover {
-  color: #CC0000;
-}
+/* ✅ УДАЛЕНО: второй дубликат #rooms li button (см. комментарий выше по
+   первому удалённому правилу) — оба вместе перебивали .room-delete-btn. */
 
-
-/* Стили для карточек игроков */
 .card {
   display: flex;
   align-items: center;
@@ -1248,54 +2033,56 @@ form button span, .modal-content .f16 {
   flex: 1;
 }
 
-/* карусель */
 .carousel {
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
   gap: 10px;
-  padding: 10px 7px;
+  padding: 10px 0;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
 }
 
 .carousel1 {
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
-  gap: 10px;
-  margin: 10px 0;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-top: 10px;
 }
 
 .carousel-item {
-  flex: 0 0 95%; /* Баннер занимает 80% ширины контейнера */
-  max-width: 600px; /* Максимальная ширина баннера */
-  border-radius: var(--br-xs);
-  overflow: hidden; /* Скрываем части, которые выходят за границы */
+  flex: 0 0 100vw;
+  border-radius: 10px;
+  overflow: hidden;
   padding: 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
 }
 
 .carousel-item img {
-  width: 100%; /* Изображение растягивается на весь блок */
-  height: auto; /* Пропорциональная высота */
+  width: 100%;
+  height: auto;
   margin: 0px 0 -7px;
-  object-fit: cover; /* Контент обрезается, чтобы полностью заполнить блок */
+  object-fit: cover;
 }
 
 .carousel-item a {
-  display: block; /* Делает ссылку блочным элементом */
-  width: 100%; /* Устанавливает ширину ссылки */
-  height: 100%; /* Устанавливает высоту ссылки */
-  text-decoration: none; /* Убирает стандартное подчеркивание */
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
 }
 
 .carousel-item a img {
-  display: block; /* Убирает отступы картинки внутри ссылки */
-  width: 100%; /* Задает ширину картинки на всю ширину ссылки */
-  height: auto; /* Сохраняет пропорции изображения */
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px; 
 }
-
-
-
 
 .divider {
   margin: 20px 0;
@@ -1341,13 +2128,11 @@ form button span, .modal-content .f16 {
   color: var(--primary-color);
 }
 
-/* ============ ОБЁРТКА ============ */
 .custom-select-wrapper {
   position: relative;
-  width: 100%; /* Растягиваем на всю ширину родителя */
+  width: 100%;
 }
 
-/* ============ ОСНОВА СЕЛЕКТОРА ============ */
 .custom-select {
   position: relative;
   cursor: pointer;
@@ -1355,63 +2140,51 @@ form button span, .modal-content .f16 {
   width: 100%;
 }
 
-/* ============ «ШАПКА» (триггер) ============ */
 .custom-select-trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  background-color: var(--primary-color);
-  /* border: 1px solid var(--nav-btn-color); */
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 2px solid #ddd;
   border-radius: var(--br-xs);
-  
+
   padding: 10px 12px;
-  margin: 0;          /* Можно добавить отступы по вкусу */
+  margin: 0;
   font-size: 14px;
-  color: #fff;
+  color: #333;
+  font-family: 'Montserrat', 'sans-serif';
+  font-weight: 500;
 
-  /* width: 95%; */
-  transition: background-color 0.2s, border-color 0.2s;
+  transition: border-color 0.2s;
 }
-
-/* При наведении: меняем цвет фона, рамки */
-/* .custom-select-trigger:hover {
-  background-color: #f6f6f6;
-  border-color: #7228F5;
-} */
 
 .custom-select-trigger:hover {
-  background-color: var(--primary-color);
-  border-color: var(--secondary-color);
+  border-color: #bbb;
 }
 
-/* При фокусе: outline или подсветка рамки */
 .custom-select-trigger:focus {
-  outline: none;         /* убираем стандартную обводку */
-  border-color: var(--secondary-color);    /* меняем цвет рамки */
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1); /* небольшой glow */
+  outline: none;
+  border-color: #47fdad;
 }
 
-/* ============ СТРЕЛКА ▼ ============ */
 .custom-select-trigger .arrow {
   width: 0;
   height: 0;
   margin-left: 10px;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-top: 6px solid var(--text-color); /* Треугольник */
+  border-top: 6px solid #333;
   transition: transform 0.2s;
 }
 
-/* Если класс .open — поворачиваем стрелку вверх */
 .custom-select.open .arrow {
   transform: rotate(-180deg);
 }
 
-/* ============ СПИСОК ОПЦИЙ ============ */
 .custom-options {
   position: absolute;
-  top: 100%;        /* сразу под «шапкой» */
+  top: 100%;
   left: 0;
   right: 0;
 
@@ -1420,23 +2193,20 @@ form button span, .modal-content .f16 {
   background-color: #fff;
 
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  max-height: 200px;   /* ограничение по высоте */
-  overflow-y: auto;    /* скролл, если вариантов много */
+  max-height: 200px;
+  overflow-y: auto;
   z-index: 999;
 
-  /* По умолчанию скрыт */
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease;
 }
 
-/* Когда .custom-select имеет класс .open — показываем список */
 .custom-select.open .custom-options {
   opacity: 1;
-  pointer-events: all; /* клики включены */
+  pointer-events: all;
 }
 
-/* ============ КАЖДАЯ ОПЦИЯ ============ */
 .custom-option {
   display: block;
   padding: 8px 12px;
@@ -1445,19 +2215,15 @@ form button span, .modal-content .f16 {
   transition: background-color 0.1s;
 }
 
-/* Hover-эффект для опции */
 .custom-option:hover {
   background-color: #f2f2f2;
 }
 
-/* Подсвечиваем выбранную опцию */
 .custom-option.active {
-  background-color: var(--secondary-color); /* пример */
-  font-weight: 600;          /* выделяем текст жирным */
+  background-color: var(--secondary-color);
+  font-weight: 600;
 }
 
-
-/* Стили для тумблера */
 .toggle-switch {
   position: relative;
   display: flex;
@@ -1497,7 +2263,7 @@ form button span, .modal-content .f16 {
 }
 
 .toggle-switch input:checked + label {
-  background-color: var(--primary-color); /* Цвет для активного состояния */
+  background-color: var(--primary-color);
   right: 1%;
 }
 
@@ -1526,28 +2292,17 @@ form button span, .modal-content .f16 {
 }
 
 .page {
-  display: none; /* Скрываем все страницы */
-  height: 100%; /* Устанавливаем высоту для каждой страницы */
+  display: none;
+  height: 100%;
 }
 
 .page.active {
-  display: flex; /* Показываем активную страницу */
+  display: flex;
   flex-direction: column;
 }
 
-
 #history-page {
-  margin: -60px 0 0; /* Компенсируем отступ шапки */
-  padding: 0 10px 100px;
   overflow-x: hidden;
-}
-
-#history-page h1 {
-  margin: 0; /* Убираем отступы заголовка */
-  padding: 10px; /* Добавляем внутренний отступ для заголовка */
-  text-align: center;
-  
-  color: var(--text-color); /* Цвет текста заголовка */
 }
 
 #history-container {
@@ -1559,62 +2314,56 @@ form button span, .modal-content .f16 {
 }
 
 .history-card {
-  background-color: var(--background-color); /* Цвет фона карточки */
-  border: 2px solid var(--primary-color); /* Цвет рамки */
-  border-radius:  var(--br-xs); /* Скругление углов */
-  padding: 15px; /* Внутренний отступ */
-  color: var(--text-color); /* Цвет текста */
+  background-color: var(--background-color);
+  border: 2px solid var(--primary-color);
+  border-radius:  var(--br-xs);
+  padding: 15px;
+  color: var(--text-color);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .history-card h2 {
-  margin: 0 0 10px 0; /* Отступы для заголовка */
-  font-size: 18px; /* Размер шрифта заголовка */
-  color: var(--primary-color); /* Цвет заголовка */
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: var(--primary-color);
 }
 
 .history-card ul {
-  list-style: none; /* Убираем маркеры списка */
-  padding: 0; /* Убираем отступы списка */
+  list-style: none;
+  padding: 0;
   margin: 0;
 }
 
 .history-card li {
-  display: flex; /* Используем флекс для горизонтального выравнивания */
-  align-items: center; /* Выравниваем элементы по центру */
-  margin-bottom: 5px; /* Отступ между элементами списка */
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
 }
 
 .history-card li strong {
-  margin-left: 5px; /* Отступ между эмодзи и текстом */
+  margin-left: 5px;
 }
 
 .history-card li:last-child {
-  margin-bottom: 0; /* Убираем нижний отступ для последнего элемента */
+  margin-bottom: 0;
 }
 
 #history-btn {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: white;
+  background: linear-gradient(135deg, var(--secondary-color), color-mix(in srgb, var(--secondary-color) 55%, white 20%));
+  color: var(--text-color);
   border: none;
   border-radius: var(--br-xs);
   padding: 10px 20px;
+  margin: 10px 0;
   font-size: 18px;
   cursor: pointer;
   font-family: 'Montserrat', 'sans-serif';
-  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); */
   transition: all 0.2s ease-in-out;
 }
-
-/* No global button override in history-page */
 
 .btn {
   font-weight: 600;
 }
-
-/* button {
-  font-weight: 500;
-} */
 
 .btn.danger-grey {
   background-color: var(--background-color);
@@ -1630,12 +2379,9 @@ form button span, .modal-content .f16 {
   color: #fff;
 }
 
-
 .btn.danger:hover {
   background-color: #e60000;
 }
-
-/* .modal structural duplicate removed */
 
 .modal-content-clear {
   padding: 20px;
@@ -1649,7 +2395,6 @@ form button span, .modal-content .f16 {
 .set-buttons {
   display: flex;
   font-size: 16px;
-
 }
 
 .set-buttons button {
@@ -1658,11 +2403,89 @@ form button span, .modal-content .f16 {
   border-radius: var(--br-xs);
 }
 
-input {
+input,
+select,
+textarea {
   font-family: 'Montserrat', 'sans-serif';
-  font-weight: 500;
+  font-weight: 600;
+  border-radius: var(--br-xs);
+  padding: 10px 12px;
+  font-size: 14px;
+  transition: border-color 0.2s;
 }
 
+input,
+select,
+textarea {
+  background-color: rgba(0, 0, 0, 0.06);
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  color: var(--text-color);
+}
+
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+:root[data-theme-type="dark"] input,
+:root[data-theme-type="dark"] select,
+:root[data-theme-type="dark"] textarea {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fbfbfc;
+}
+
+:root[data-theme-type="dark"] input::placeholder,
+:root[data-theme-type="dark"] select::placeholder,
+:root[data-theme-type="dark"] #add-player-search::placeholder,
+:root[data-theme-type="dark"] textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+
+:root.default-black input,
+:root.default-black select,
+:root.default-black textarea,
+:root.default-violet input,
+:root.default-violet select,
+:root.default-violet textarea,
+:root.ocean-depths input,
+:root.ocean-depths select,
+:root.ocean-depths textarea,
+:root.neon-experiment input,
+:root.neon-experiment select,
+:root.neon-experiment textarea,
+:root.midnight-meon input,
+:root.midnight-meon select,
+:root.midnight-meon textarea,
+:root.mystic-pastel input,
+:root.mystic-pastel select,
+:root.mystic-pastel textarea,
+:root.new-year input,
+:root.new-year select,
+:root.new-year textarea,
+:root.cyberpunk-neon input,
+:root.cyberpunk-neon select,
+:root.cyberpunk-neon textarea {
+background: rgba(255, 255, 255, 0.05) !important;
+border: 1px solid rgba(255, 255, 255, 0.1) !important;
+color: #fbfbfc !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #47fdad;
+}
+
+:root[data-theme-type="dark"] input:focus,
+:root[data-theme-type="dark"] select:focus,
+:root[data-theme-type="dark"] textarea:focus {
+  outline: none;
+  border-color: #47fdad;
+}
 
 .warning {
   padding: 0 10px;
@@ -1670,11 +2493,9 @@ input {
   border: 1px solid var(--primary-color);
   border-radius: var(--br-xs);
   margin: 5px 0 20px;
-  /* background-color: var(--background-color); */
 }
 
 #player-info {
-    /* font-size: 14px; */
     text-align: center;
     display: inline-grid;
     align-items: center;
@@ -1683,7 +2504,6 @@ input {
 #player-info img {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
-
 
 .modal-content button {
   width: 49%;
@@ -1695,6 +2515,8 @@ input {
 
 .modal-title {
   margin: 0;
+  overflow-wrap: break-word;
+   min-width: 0; 
 }
 
 #loser-info {
@@ -1719,8 +2541,6 @@ input {
   max-height: 300px;
 }
 
-
-/* Контейнер остается похожим */
 .snow-overlay {
     position: fixed;
     top: 0;
@@ -1731,7 +2551,6 @@ input {
     overflow: hidden;
     z-index: 9999;
 }
-
 
 .toast {
   position: fixed;
@@ -1754,44 +2573,68 @@ input {
   to { opacity: 1; transform: translate(-50%, 0); }
 }
 
-/* Плейсхолдер для пустой комнаты */
 .placeholder {
-  display: none; /* По умолчанию скрыт */
+  display: none;
   text-align: center;
-  padding: 40px 20px;
+  padding: 60px 20px;
   color: var(--text-color);
-  opacity: 0.8;
+  opacity: 1;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    margin: 0 0 30px;
+}
+
+.placeholder::before {
+  content: '🤷';
+  display: block;
+  width: 80px;
+  height: 80px;
+  background: rgba(71, 253, 173, 0.15);
+  border: 2px solid rgba(71, 253, 173, 0.3);
+  border-radius: 50%;
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5em;
 }
 
 .placeholder p {
-  font-size: 1.2em;
-  margin-bottom: 30px;
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.placeholder p + p {
+  font-size: 0.9em;
+  opacity: 0.7;
+  margin-bottom: 32px;
+  font-weight: 400;
 }
 
 .big-add-btn {
   background: var(--secondary-color);
   color: var(--text-color);
   border: none;
-  padding: 16px 32px;
-  border-radius: var(--br-xs);
-  font-size: 1.3em;
-  font-weight: bold;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 1.05em;
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 22px color-mix(in srgb, var(--secondary-color) 45%, transparent);;
   transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .big-add-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  background: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(71, 253, 173, 0.4);
+  background: color-mix(in srgb, var(--secondary-color) 90%, white 10%);
 }
 
-
-/* styles.css */
-/* ... (все предыдущие стили без изменений) ... */
-
-/* Свитчер для режима в создании комнаты */
 .mode-switcher {
   display: flex;
   justify-content: space-around;
@@ -1809,41 +2652,143 @@ input {
   margin-right: 5px;
 }
 
-/* Индикатор режима */
 .mode-indicator {
   font-size: 0.75em;
   font-weight: 700;
   padding: 4px 8px;
   border-radius: var(--br-xs);
-  background-color: var(--secondary-color);
-  color: #2A2B34;
+  background-color: #2A2B34;
+  color: #47fdad;
   margin-left: 10px;
 }
 
+.mode-indicator.mode-reset {
+  background-color: var(--glass-bg) !important;
+  color: #47fdad;
+}
+
+.mode-indicator.mode-lose {
+    background-color: var(--glass-bg) !important;
+    color: #ff4d4d !important;
+
+}
+
+.mode-indicator.mode-goal {
+  background-color: var(--glass-bg) !important;
+  color: #f59e0b;
+}
+
 .mode-lose {
-  background-color: #ff4d4d; /* Красный для проигрыша */
+  background-color: #ff4d4d !important;
+  color: #ffffff !important;
   font-size: 0.75em;
 }
 
-/* Заголовок комнаты с контролами */
 .room-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 0;
+  margin: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
+}
+
+.back-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fbfbfc;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.back-btn .material-icons {
+  font-size: 18px;
+}
+
+.room-header-content {
+  flex: 1;
+  min-width: 0;
 }
 
 .room-controls {
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-basis: 100%;
+  margin-top: 6px;
+}
+
+.room-icon-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fbfbfc;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.room-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.room-icon-btn .material-icons {
+  font-size: 18px;
+}
+
+.room-icon-btn#favorite-btn.active .material-icons {
+  color: #ff6b6b;
+}
+
+:root.tropical-sunset .room-icon-btn#favorite-btn.active .material-icons{
+  color: #ff6b6b;
 }
 
 .room-title {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
 }
 
-/* Чипсы для недавних игроков */
+.room-title h1 {
+  margin: 0;
+  font-size: 1.4em;
+  font-weight: 700;
+  color: var(--text-color);
+  word-break: break-word;
+}
+
+.mode-indicator {
+  display: inline-block;
+  background: #2A2B34;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  width: fit-content;
+  color: #47fdad;
+  font-weight: 700;
+}
+
 .chips-container {
   display: flex;
   flex-wrap: wrap;
@@ -1866,50 +2811,192 @@ input {
   color: var(--text-color);
 }
 
+#create-room-form {
+  background: rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme-type="dark"] #create-room-form,
+:root[data-theme-type="dark"] .placeholder {
+  background: var(--background-color);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.room-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme-type="dark"] .room-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.back-btn {
+  background: rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: var(--text-color);
+}
+
+.back-btn:hover {
+  background: rgba(0, 0, 0, 0.14);
+  border-color: rgba(0, 0, 0, 0.18);
+}
+
+:root[data-theme-type="dark"] .back-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #fbfbfc;
+}
+
+:root[data-theme-type="dark"] .back-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.room-icon-btn {
+  background: rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: var(--text-color);
+}
+
+.room-icon-btn:hover {
+  background: rgba(0, 0, 0, 0.14);
+  border-color: rgba(0, 0, 0, 0.18);
+}
+
+:root[data-theme-type="dark"] .room-icon-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  color: #fbfbfc;
+}
+
+:root[data-theme-type="dark"] .room-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+#create-room-form {
+  border-radius: 16px;
+  padding: 15px;
+  margin: 14px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+#create-room {
+  padding: 0;
+}
+
+.create-room {
+  font-size: 19px;
+  font-weight: 800;
+  margin: 0 0 12px;
+}
+
+#create-room > h1 {
+  font-size: 19px;
+  font-weight: 800;
+  margin: 8px 18px 0 18px;
+  padding-top: 18px;
+  color: #fbfbfc;
+}
+
+#room-list > h1 {
+  font-size: 19px;
+  font-weight: 800;
+  margin: 8px 0 12px;
+  color: var(--text-color);
+}
+
+#create-room-form input[type="text"],
+#create-room-form input[type="number"] {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  border-radius: 10px !important;
+  padding: 12px 13px !important;
+  font-size: 14px !important;
+  color: var(--text-color) !important;
+}
+
+#create-room-form input::placeholder {
+  color: rgba(0, 0, 0, 0.55) !important;
+}
+
+:root[data-theme-type="dark"] #create-room-form input[type="text"],
+:root[data-theme-type="dark"] #create-room-form input[type="number"],
+:root[data-theme-type="dark"] .history-search-input {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #fbfbfc !important;
+}
+
+:root[data-theme-type="dark"] #create-room-form input::placeholder {
+  color: rgba(251, 251, 252, 0.55) !important;
+}
+
 .mode-radio-group {
   display: flex;
-  justify-content: flex-start;
-  gap: 10px;
-  margin: 5px 0;
-  overflow-x: auto;
-  padding: 0 4px 4px;
-  scrollbar-width: none; /* скрыть полосу прокрутки */
-}
-
-.mode-radio-group::-webkit-scrollbar {
-  display: none;
+  gap: 8px;
+  margin: 6px 0;
 }
 
 .mode-radio {
-  /* min-width: 120px; */
-  flex-shrink: 0;
-}
-.mode-radio {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 4px;
-  background-color: rgba(128, 128, 128, 0.2);
-  border-radius: var(--br-xs);
+  gap: 5px;
+  padding: 10px 4px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
-  min-width: 33%;
-  outline: none !important;                    /* Убирает контур */
-  -webkit-tap-highlight-color: transparent;   /* Убирает тап-хайлайт на мобильных */
+  border: none;
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-color);
+  transition: all 0.2s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
   tap-highlight-color: transparent;
+  min-width: unset;
+  flex-shrink: unset;
 }
 
-.mode-radio span {
-  /* color: #2A2B34; */
-  opacity: 0.7;
-  transition: opacity 0.3s;
+.mode-radio:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+:root[data-theme-type="dark"] .mode-radio {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+:root.tropical-sunset .mode-radio{
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-color);
 }
 
 .mode-radio.active {
-  background-color: var(--secondary-color);
-  outline: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: var(--secondary-color);
+  color: #0a3d2b;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--secondary-color) 45%, transparent);
+}
+
+.mode-radio[data-mode="lose"].active {
+  background: #ff4d4d;
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(255, 77, 77, 0.45);
+}
+
+.mode-radio[data-mode="goal"].active {
+  background: #f59e0b;
+  color: #0a3d2b;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.45);
+}
+
+.mode-radio span {
+  opacity: 1;
+  transition: opacity 0.3s;
 }
 
 .mode-radio.active span {
@@ -1917,7 +3004,6 @@ input {
   font-weight: bold;
 }
 
-/* При выборе — подсвечиваем */
 .mode-radio-group input:checked + .mode-radio,
 .mode-radio-group input:checked ~ .mode-radio {
   background-color: var(--secondary-color);
@@ -1929,7 +3015,6 @@ input {
   padding: 4px 10px;
   border-radius: var(--br-xs);
   color: #2A2B34;
-  /* margin-top: 5px; */
   font-weight: bold;
 }
 
@@ -1938,26 +3023,20 @@ input {
   color: #2A2B34;
 }
 
-/* Активный цвет по режиму вместо универсального --secondary-color */
 .mode-radio.active[data-mode="reset"] {
-  background-color: var(--secondary-color); /* зелёный — обнуление */
+  background-color: var(--secondary-color);
   color: #0a3d2b;
 }
 
 .mode-radio.active[data-mode="lose"] {
-  background-color: #ff4d4d; /* красный — проигрыш */
+  background-color: #ff4d4d;
   color: #fff;
 }
 
 .mode-radio.active[data-mode="goal"] {
-  background: linear-gradient(135deg, #f59e0b, #d97706); /* золотой — цель */
+  background: linear-gradient(135deg, #f59e0b, #d97706);
   color: #3d2a00;
 }
-
-/* .mode-lose {
-  background-color: var(--text-color);
-  color: white;
-} */
 
 .slider {
   position: absolute;
@@ -1991,9 +3070,8 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/* Активный текст */
 .mode-toggle-container .mode-label:first-of-type {
-  opacity: 1; /* Обнуление активно по умолчанию */
+  opacity: 1;
 }
 
 input:checked ~ .mode-label:first-of-type {
@@ -2004,10 +3082,7 @@ input:checked ~ .mode-label:last-of-type {
   opacity: 1;
 }
 
-
-/* Блок компании и продуктов */
 .company-section {
-  /* padding: 20px; */
 }
 
 .company-title {
@@ -2017,6 +3092,80 @@ input:checked ~ .mode-label:last-of-type {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: bold;
+}
+
+/* ============================================================================
+   СТИЛИ ДЛЯ МОДАЛКИ ДОБАВЛЕНИЯ ИГРОКА
+   ============================================================================ */
+
+#add-player-search {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-color);
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+#add-player-search:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  background: color-mix(in srgb, var(--secondary-color) 5%, transparent);
+}
+
+#add-player-list {
+  padding: 5px;
+}
+
+/* Кнопка "Добавить как нового" */
+.add-player-new-item {
+  border: 2px dashed var(--secondary-color);
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  transition: all 0.2s ease;
+}
+
+.add-player-new-item:hover {
+  background: color-mix(in srgb, var(--secondary-color) 10%, transparent);
+}
+
+.add-player-existing-item:hover {
+  background: color-mix(in srgb, var(--text-color) 10%, transparent) !important;
+  transform: translateX(2px);
+}
+
+.add-player-new-queued {
+  animation: slideIn 0.2s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+#add-player-confirm:disabled {
+  background: #999 !important;
+  color: #fff !important;
+  cursor: not-allowed !important;
+  opacity: 0.6;
+}
+
+#add-player-confirm:not(:disabled) {
+  background: var(--secondary-color) !important;
+  color: var(--text-color) !important;
+  cursor: pointer !important;
+  font-weight: 600;
+}
+
+#add-player-confirm:not(:disabled):hover {
+  background: #3dd99d !important;
+  transform: translateY(-2px);
 }
 
 .company-subtitle {
@@ -2034,9 +3183,7 @@ input:checked ~ .mode-label:last-of-type {
 }
 
 .product-card {
-  /* background-color: rgba(128, 128, 128, 0.1); */
   border-radius: var(--br-xs);
-  /* padding: 10px; */
   transition: all 0.3s ease;
   align-items: center;
   backdrop-filter: blur(10px);
@@ -2092,17 +3239,15 @@ input:checked ~ .mode-label:last-of-type {
 .author-info a:hover {
   text-decoration: underline;
 }
-/* ===== РЕЖИМ ЦЕЛЬ ===== */
 .mode-goal {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: #fff;
+      background-color: rgba(255, 255, 255, 0.06);
+    color: #f59e0b;
   border-radius: var(--br-xs);
   padding: 2px 8px;
-  font-size: 0.8em;
+  font-size: 0.85em;
   font-weight: 700;
 }
 
-/* ===== КНОПКА СТАТИСТИКИ ===== */
 .stats-btn {
   background: var(--card-bg, rgba(255,255,255,0.1));
   border: none;
@@ -2117,7 +3262,6 @@ input:checked ~ .mode-label:last-of-type {
 }
 .stats-btn:hover { opacity: 0.7; }
 
-/* ===== СЕТКА СТАТИСТИКИ ===== */
 .stats-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -2125,7 +3269,7 @@ input:checked ~ .mode-label:last-of-type {
   margin: 10px 0;
 }
 .stat-item {
-  background: var(--card-bg, rgba(255,255,255,0.08));
+  background: rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 10px 6px;
   text-align: center;
@@ -2137,15 +3281,15 @@ input:checked ~ .mode-label:last-of-type {
 .stat-value {
   font-size: 1.3em;
   font-weight: 700;
-  color: var(--accent, #4caf50);
+  color: var(--text-color);
 }
 .stat-label {
   font-size: 0.7em;
-  opacity: 0.65;
+  opacity: 0.8;
   line-height: 1.2;
+  color: var(--text-color);
 }
 
-/* ===== ТИТУЛЫ ===== */
 .titles-list {
   display: flex;
   flex-direction: column;
@@ -2164,14 +3308,12 @@ input:checked ~ .mode-label:last-of-type {
   min-width: 32px;
   text-align: center;
 }
-/* ===== КНОПКА ЗНАКА +/- ===== */
 #toggle-sign {
   width: 40px;
   height: 40px;
   font-size: 1em;
   font-weight: 700;
   border-radius: 50%;
-  /* border: 2px solid var(--secondary-color, #4caf50); */
   background: var(--secondary-color);
   color: #000;
   cursor: pointer;
@@ -2187,13 +3329,13 @@ input:checked ~ .mode-label:last-of-type {
 
 #modal-add-points .modal-content {
   position: relative;
-  padding-top: 90px; /* увеличили под большую аватарку */
+  padding-top: 90px;
   overflow: visible;
 }
 
 #player-info {
   position: absolute;
-  top: -60px; /* сдвигаем выше */
+  top: -90px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -2203,16 +3345,13 @@ input:checked ~ .mode-label:last-of-type {
 }
 
 #player-info img {
-  width: 120px;  /* было 70px */
+  width: 120px;
   height: 120px;
   border-radius: 50%;
   border: 3px solid var(--secondary-color);
   background: var(--bg-color);
 }
 
-/* ========================================
-   🔽 DROPDOWN "ЧТО ЗА РЕЖИМЫ?"
-   ======================================== */
 .modes-dropdown {
   border: 1px solid var(--glass-border, rgba(255,255,255,0.1));
   border-radius: var(--br-xs);
@@ -2292,16 +3431,12 @@ input:checked ~ .mode-label:last-of-type {
 .mode-lose-bg  { background: rgba(255, 77, 77, 0.15); }
 .mode-goal-bg  { background: rgba(255, 193, 29, 0.15); }
 
-
-/* ========================================
-   📊 СТАТИСТИКА НА ГЛАВНОЙ
-   ======================================== */
 .home-stats-section {
   margin: 16px 0 30px;
 }
 
 .home-stats-title {
-  font-size: 1.05em;
+  font-size: 15px;
   font-weight: 700;
   margin: 0 0 10px;
   color: var(--text-color);
@@ -2325,7 +3460,8 @@ input:checked ~ .mode-label:last-of-type {
   align-items: center;
   gap: 2px;
   text-align: center;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(16px) saturate(170%);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.05);
 }
 
 .home-stat-champ {
@@ -2357,9 +3493,8 @@ input:checked ~ .mode-label:last-of-type {
   border-radius: var(--br-xs);
 }
 
-/* Лидерборд */
 .home-leaderboard-title {
-  font-size: 0.95em;
+  font-size: 15px;
   font-weight: 700;
   margin: 0 0 8px;
   color: var(--text-color);
@@ -2424,15 +3559,121 @@ input:checked ~ .mode-label:last-of-type {
   background: rgba(255,77,77,0.06);
 }
 
+.home-leaderboard-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 
-/* ========================================
-   🃏 ИСТОРИЯ ИГР — НОВЫЙ ДИЗАЙН
-   ======================================== */
+.home-lb-player-row {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px;
+  background: rgba(71, 253, 173, 0.05);
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+  border-radius: var(--br-xs);
+}
+
+.home-lb-rank {
+  font-size: 1.2em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-lb-rank-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.home-lb-rank-default {
+  background: var(--card-color, rgba(255,255,255,0.1));
+  color: #fbfbfc;
+}
+
+:root.urban-contrast .home-lb-rank-default{
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-color);
+}
+
+.home-lb-player-name {
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--text-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-lb-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.home-lb-stats-compact {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85em;
+}
+
+.home-lb-stats-compact span {
+  display: inline;
+}
+
+.home-lb-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 6px;
+}
+
+.home-lb-stat-label {
+  font-size: 0.65em;
+  opacity: 0.7;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.home-lb-stat-value {
+  font-size: 0.9em;
+  font-weight: 700;
+  color: var(--secondary-color);
+}
+
+.home-lb-stat-value.wins {
+  color: #4caf50;
+}
+
+.home-lb-stat-value.losses {
+  color: #ff6b6b;
+}
+
+.home-lb-stat-value.rating {
+  color: var(--secondary-color);
+}
+
 .history-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 0 12px;
+  padding: 16px 0 12px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   width: 100%;
   box-sizing: border-box;
 }
@@ -2472,7 +3713,6 @@ input:checked ~ .mode-label:last-of-type {
   background-color: var(--glass-bg) !important;
 }
 
-/* Сводка */
 .history-stat-row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -2490,7 +3730,8 @@ input:checked ~ .mode-label:last-of-type {
   align-items: center;
   text-align: center;
   gap: 2px;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(16px) saturate(170%);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.05);
 }
 
 .history-stat-champ {
@@ -2526,7 +3767,6 @@ input:checked ~ .mode-label:last-of-type {
   color: var(--text-color);
 }
 
-/* Фильтры */
 .history-filters {
   display: flex;
   flex-direction: column;
@@ -2576,7 +3816,75 @@ input:checked ~ .mode-label:last-of-type {
   border-color: var(--primary-color);
 }
 
-/* История — пустое состояние */
+.history-summary {
+  padding: 10px 10px;
+}
+
+.history-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.history-stat-item {
+  background: var(--glass-bg, rgba(0,0,0,0.15));
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+  border-radius: var(--br-xs);
+  padding: 10px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  backdrop-filter: blur(16px) saturate(170%);
+}
+
+.history-stat-number {
+  font-size: 1.4em;
+  font-weight: 700;
+  color: var(--secondary-color);
+  line-height: 1;
+}
+
+.history-stat-label {
+  font-size: 0.75em;
+  opacity: 0.7;
+  color: var(--text-color);
+  line-height: 1.2;
+}
+
+.history-stat-wide {
+  grid-column: 1 / -1;
+}
+
+.history-champion-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  background: rgba(71, 253, 173, 0.1);
+  border: 1.5px solid var(--secondary-color, #47fdad);
+  border-radius: 14px;
+  padding: 14px;
+  margin: 10px 0 14px;
+  backdrop-filter: blur(16px) saturate(170%);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--secondary-color) 25%, transparent);
+}
+
+.history-champion-name {
+  font-size: 1.15em;
+  font-weight: 800;
+  color: var(--secondary-color);
+  line-height: 1.3;
+}
+
+.history-champion-wins {
+  font-size: 0.8em;
+  opacity: 0.85;
+  color: var(--text-color);
+}
+
 .history-empty {
   display: flex;
   flex-direction: column;
@@ -2587,14 +3895,14 @@ input:checked ~ .mode-label:last-of-type {
   text-align: center;
 }
 
-/* Карточка истории v2 */
 .history-card-v2 {
   background: var(--glass-bg, rgba(0,0,0,0.18));
   border: 1px solid var(--glass-border, rgba(255,255,255,0.08));
   border-radius: var(--br-xs);
   margin-bottom: 10px;
   overflow: hidden;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(16px) saturate(170%);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -2719,49 +4027,16 @@ input:checked ~ .mode-label:last-of-type {
   border-radius: 6px;
 }
 
-/* Light theme adjustments */
-:root.default-white .home-stat-item,
-:root.default-white .history-card-v2,
-:root.default-white .history-stat-card,
-:root.space-explorer .home-stat-item,
-:root.space-explorer .history-card-v2,
-:root.space-explorer .history-stat-card,
-:root.urban-contrast .home-stat-item,
-:root.urban-contrast .history-card-v2,
-:root.urban-contrast .history-stat-card,
-:root.golden-hour .home-stat-item,
-:root.golden-hour .history-card-v2,
-:root.golden-hour .history-stat-card,
-:root.spring-blossom .home-stat-item,
-:root.spring-blossom .history-card-v2,
-:root.spring-blossom .history-stat-card,
-:root.autumn-leaves .home-stat-item,
-:root.autumn-leaves .history-card-v2,
-:root.autumn-leaves .history-stat-card,
-:root.minimal-elegance .home-stat-item,
-:root.minimal-elegance .history-card-v2,
-:root.minimal-elegance .history-stat-card {
-  background: rgba(255,255,255,0.65);
-  border-color: rgba(0,0,0,0.08);
+:root.urban-contrast .history-stat-card{
+  background: rgba(0, 0, 0, 0.045);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
-:root.default-white .home-lb-bar-wrap,
-:root.space-explorer .home-lb-bar-wrap,
-:root.urban-contrast .home-lb-bar-wrap,
-:root.golden-hour .home-lb-bar-wrap,
-:root.spring-blossom .home-lb-bar-wrap,
-:root.autumn-leaves .home-lb-bar-wrap,
-:root.minimal-elegance .home-lb-bar-wrap {
+:root.urban-contrast .home-lb-bar-wrap{
   background: rgba(0,0,0,0.1);
 }
 
-/* #history-page padding handled above */
-
-/* ========================================
-   📱 MOBILE FIXES — History page
-   ======================================== */
-
-/* Summary grid — не выходим за экран */
 .history-stat-row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -2770,7 +4045,6 @@ input:checked ~ .mode-label:last-of-type {
   box-sizing: border-box;
 }
 
-/* Filter tabs — equal width, no overflow */
 .history-filter-tabs {
   display: flex;
   gap: 6px;
@@ -2787,14 +4061,12 @@ input:checked ~ .mode-label:last-of-type {
   box-sizing: border-box;
 }
 
-/* history-card-v2 — ensure no horizontal overflow */
 .history-card-v2 {
   box-sizing: border-box;
   width: 100%;
   overflow: hidden;
 }
 
-/* hc-room-name — truncate long room names */
 .hc-room-name {
   max-width: 160px;
   overflow: hidden;
@@ -2802,28 +4074,20 @@ input:checked ~ .mode-label:last-of-type {
   white-space: nowrap;
 }
 
-/* hc-player-row — no overflow on small screens */
 .hc-player-row {
   box-sizing: border-box;
   min-width: 0;
 }
 
-/* search input — full width */
 .history-search-input {
   width: 100%;
   box-sizing: border-box;
 }
 
-/* home stats grid — mobile safe */
 .home-stats-grid {
   box-sizing: border-box;
 }
 
-/* ============================================================
-   🆕 ADDITIONS — режимные бейджи, аутсайдер, новые элементы
-   ============================================================ */
-
-/* ── Бейдж режима внутри карточки истории ── */
 .hc-mode-badge {
   display: inline-flex;
   align-items: center;
@@ -2839,7 +4103,6 @@ input:checked ~ .mode-label:last-of-type {
 .hc-mode-lose  { background: rgba(255,77,77,0.12);   color: #d94444; border: 1px solid rgba(255,77,77,0.3); }
 .hc-mode-reset { background: rgba(71,253,173,0.12);  color: #1fa368; border: 1px solid rgba(71,253,173,0.3); }
 
-/* Правая колонка хедера карточки: бейдж + дата */
 .hc-header-right {
   display: flex;
   flex-direction: column;
@@ -2848,7 +4111,6 @@ input:checked ~ .mode-label:last-of-type {
   flex-shrink: 0;
 }
 
-/* Блок с лейблами победитель/проигравший в футере */
 .hc-footer-badges {
   display: flex;
   gap: 6px;
@@ -2857,7 +4119,6 @@ input:checked ~ .mode-label:last-of-type {
   justify-content: flex-end;
 }
 
-/* Лейбл проигравшего в футере */
 .hc-loser-label {
   font-size: 0.72em;
   font-weight: 700;
@@ -2868,7 +4129,6 @@ input:checked ~ .mode-label:last-of-type {
   white-space: nowrap;
 }
 
-/* Место игрока (#1, #2...) в строке */
 .hc-place {
   font-size: 0.72em;
   font-weight: 700;
@@ -2877,23 +4137,19 @@ input:checked ~ .mode-label:last-of-type {
   text-align: center;
 }
 
-/* Карточка аутсайдера в сводке истории */
 .history-stat-loser {
   background: linear-gradient(135deg, rgba(255,77,77,0.1), rgba(255,77,77,0.03)) !important;
   border-color: rgba(255,77,77,0.28) !important;
 }
 .history-stat-loser .history-stat-value { color: #e05c5c !important; }
 
-/* ── Поиск — всегда full width ── */
 .history-search-input {
   width: 100% !important;
   box-sizing: border-box !important;
 }
 
-/* Табы истории скрыты (убраны из HTML), safety-hide */
 .history-filter-tabs { display: none !important; }
 
-/* ── history-stat-champ: не span 2 col в мобиле ── */
 @media (max-width: 400px) {
   .history-stat-champ {
     grid-column: span 1;
@@ -2901,28 +4157,80 @@ input:checked ~ .mode-label:last-of-type {
   }
 }
 
-/* ── Light themes: mode badge colors ── */
-:root.default-white .hc-mode-goal,
-:root.space-explorer .hc-mode-goal,
-:root.golden-hour .hc-mode-goal,
-:root.spring-blossom .hc-mode-goal,
-:root.autumn-leaves .hc-mode-goal,
-:root.minimal-elegance .hc-mode-goal,
 :root.urban-contrast .hc-mode-goal { color: #9a6d00; }
 
-:root.default-white .hc-mode-lose,
-:root.space-explorer .hc-mode-lose,
-:root.golden-hour .hc-mode-lose,
-:root.spring-blossom .hc-mode-lose,
-:root.autumn-leaves .hc-mode-lose,
-:root.minimal-elegance .hc-mode-lose,
 :root.urban-contrast .hc-mode-lose { color: #b02020; }
 
-:root.default-white .hc-mode-reset,
-:root.space-explorer .hc-mode-reset,
-:root.golden-hour .hc-mode-reset,
-:root.spring-blossom .hc-mode-reset,
-:root.autumn-leaves .hc-mode-reset,
-:root.minimal-elegance .hc-mode-reset,
 :root.urban-contrast .hc-mode-reset { color: #177a4d; }
 
+/* ===== "Кто ходит первым?" анимация ===== */
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+#roll-result {
+  transition: opacity 0.2s ease, display 0.2s ease;
+}
+
+#room-players-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.who-starts-btn:disabled {
+  opacity: 0.85;
+  cursor: default;
+  border-color: var(--secondary-color) !important;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--secondary-color) 30%, transparent);
+}
+
+.who-starts-btn #who-starts-icon {
+  display: inline-block;
+  transition: transform 0.08s linear;
+}
+
+.room-player-row.roll-highlight {
+  background: color-mix(in srgb, var(--secondary-color) 20%, transparent) !important;
+  border: 1px solid var(--secondary-color) !important;
+  transform: scale(1.02) !important;
+  transition: all 0.08s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.room-player-row.roll-winner {
+  background: color-mix(in srgb, var(--secondary-color) 10%, transparent) !important;
+  border: 1px solid color-mix(in srgb, var(--secondary-color) 50%, transparent) !important;
+  transition: all 0.15s ease !important;
+}
+
+/* ===== FIX: базовая (светлая, unclassed) тема — контраст и границы ===== */
+:root:not([class]) {
+  --accent-ink: color-mix(in srgb, var(--secondary-color) 55%, black 45%);
+}
+
+:root:not([class]) .prime,
+:root:not([class]) .player-card-score-display,
+:root:not([class]) .history-stat-number,
+:root:not([class]) .history-champion-name,
+:root:not([class]) .home-lb-stat-value.rating,
+:root:not([class]) .favorite-btn.active #favorite-icon,
+:root:not([class]) .stats-btn,
+:root:not([class]) #rooms li.favorite::before,
+:root:not([class]) .nav-btn.active .nav-label {
+  color: var(--accent-ink) !important;
+}
+
+:root:not([class]) .nav-btn.active svg {
+  fill: var(--accent-ink) !important;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--accent-ink) 40%, transparent));
+}
+
+:root:not([class]) .progress-circle-bg {
+  stroke: rgba(0, 0, 0, 0.12);
+}
+
+:root:not([class]) .hc-winner-label {
+  color: #a67c00;
+}
